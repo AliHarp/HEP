@@ -2,4 +2,4 @@
 Model of orthopaedic ward
 
 Flowmap of model
-images/slides.jpg
+images/Slide1.JPG
