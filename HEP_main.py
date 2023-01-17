@@ -17,35 +17,18 @@ import math
 import warnings
 
 
-# ## Set start date and define it to be equal to the simulation time
-# This allows monitoring of day-of-week.  
-# 
-# Defined in days: Monday = 0
-
-# ## MIKE notes  
-# list of actual times of surgery to see how many could fit in an actual schedule - (scenario) 
-# 
-# efficient use of time ie minimise downtime
-# 
-# ie v simple rule - question it
-# Find out who the scheduler is and how she schedules
-
-# In[2]:
-
 
 start = arrow.get('2022-06-27')  #start on a monday -- ?more dynamic?
 env = simpy.Environment()
 
 
-# In[3]:
-
 
 #checking - note start a/a not in real time.  Monday=0
 current_date = start.shift(days=env.now)  
-print('Current weekday:', current_date.weekday())
+#print('Current weekday:', current_date.weekday())
 
 tomorrow_date = current_date.shift(days=+1)
-print('Tomorrow weekday:', tomorrow_date.weekday())
+#print('Tomorrow weekday:', tomorrow_date.weekday())
 
 
 start.shift(days=env.now).weekday()
@@ -124,7 +107,7 @@ schedule_list = {'Day':['Monday', 'Tuesday', 'Wednesday', 'Thursday',
                 'Revision_slots':[1,1,1,1,1,0,0]}
 
 #simulation parameters
-number_of_runs = 100
+number_of_runs = 10
 results_collection_period = 70  ## WILL EXCLUDE 0-DAY ARRIVALS AS A SIMULATION DAY
 warm_up_period =  35 ## WILL EXCLUDE 0-DAY ARRIVALS AS A SIMULATION DAY
 default_rng_set = None 
@@ -133,45 +116,6 @@ first_obs = 1
 interval = 1
 
 TRACE = False
-
-
-# ## TOM NOTES
-# 
-# one long run 10 yrs p159 robinson, Banks et al  
-# 
-# sensitivity analysis - los params and distrib (lnorm, gamma, edf) +/- trunc  
-# 
-# outliers, double peak etc  
-# 
-# vary run lengths eg 1mth vs 1 year  
-# 
-# outputs by day and by patient  
-# 
-# 2k design, interaction - robinson, tom paper
-# 
-# MORE plots
-
-# In[5]:
-
-
-# later for translation: ignore this - testing
-
-primary_dict = {1:'p_hip', 2:'p_knee', 3:'uni_knee'}
-revision_dict = {1:'r_hip', 2:'r_knee'}
-primary_prop = np.random.choice(np.arange(1,4), p=[0.4,0.4,0.2])
-revision_prop = np.random.choice(np.arange(1,3), p=[0.6, 0.4])
-
-def vec_tran(prop, dict):
-    return np.vectorize(dict.__getitem__)(prop)
-
-#trial sample and vectorize by dict key
-primary_sample = vec_tran(primary_prop, primary_dict)
-print(primary_sample)
-
-print(int(primary_prop))
-print(revision_prop)
-
-type(primary_prop)
 
 
 # ## Trace utility for debugging
@@ -321,18 +265,15 @@ def theatre_capacity(surgery_types,schedule_list):
             (schedule_avail_temp[['Primary_slots', 'Revision_slots']]) 
     return(schedule_avail)
 
-#print sample plot if interested
-sample_week_schedule(surgery_types, schedule_list)
 
 #create full schedule, save to csv, print head to confirm
 schedule_avail = theatre_capacity(surgery_types,schedule_list)
-schedule_avail.to_csv('data/schedule2.csv')
-schedule_avail.head(10)
+
 
 
 # ## Scenarios class 
 
-# In[9]:
+# In[35]:
 
 
 class Scenario:
@@ -358,8 +299,9 @@ class Scenario:
         self.init_sampling()
         
     def init_resource_counts(self):
-        """only one resource in the model: beds"""
+        """resources: beds and theatres"""
         self.n_beds = number_beds
+        self.n_theatres = number_theatres
         
     def init_sampling(self):
         """
@@ -422,17 +364,6 @@ class Scenario:
         return label for each surgery type
         """
         return np.vectorize(dict.__getitem__)(prop)
-
-
-# In[10]:
-
-
-prob = [0.4,0.6]
-def revision_types_2(prob):
-    revision_surgery2 = np.random.choice(np.arange(1,3), p=prob)
-    return(revision_surgery2)
-
-revision_types_2(prob)
 
 
 # ## Set up process to get started: patient pathways
@@ -1094,9 +1025,9 @@ def multiple_reps(scenario, results_collection=results_collection_period+warm_up
 args = Scenario()
 s_results = single_run(args, random_no_set = 42)
 print(repr(s_results[0].T))
-print(repr(s_results[1].head()))
-print(repr(s_results[2][0].head()))
-print(repr(s_results[2][1].head()))
+#print(repr(s_results[1].head()))
+#print(repr(s_results[2][0].head()))
+#print(repr(s_results[2][1].head()))
 
 
 # ## Multiple runs
@@ -1104,7 +1035,22 @@ print(repr(s_results[2][1].head()))
 # In[16]:
 
 
-get_ipython().run_cell_magic('time', '', "args = Scenario()\nm_results = multiple_reps(args, n_reps=number_of_runs)[0]\nm_day_results = multiple_reps(args, n_reps=number_of_runs)[1]\nm_primary_pt_results = multiple_reps(args, n_reps=number_of_runs)[2]\nm_revision_pt_results = multiple_reps(args, n_reps=number_of_runs)[3]\n  \n# save results to csv \nm_day_results.to_csv('data/day_results.csv')\nm_primary_pt_results.to_csv('data/primary_patient_results.csv')\nm_revision_pt_results.to_csv('data/revision_patient_results.csv')\n\n# check outputs\nprint(repr(m_results.head(3)))\nprint(repr(m_day_results.head(3)))\nprint(repr(m_primary_pt_results.head(3)))\nprint(repr(m_revision_pt_results.head(3)))\n")
+args = Scenario()
+m_results = multiple_reps(args, n_reps=number_of_runs)[0]
+m_day_results = multiple_reps(args, n_reps=number_of_runs)[1]
+m_primary_pt_results = multiple_reps(args, n_reps=number_of_runs)[2]
+m_revision_pt_results = multiple_reps(args, n_reps=number_of_runs)[3]
+  
+# save results to csv 
+m_day_results.to_csv('data/day_results.csv')
+m_primary_pt_results.to_csv('data/primary_patient_results.csv')
+m_revision_pt_results.to_csv('data/revision_patient_results.csv')
+
+# check outputs
+print(repr(m_results.head(3)))
+#print(repr(m_day_results.head(3)))
+#print(repr(m_primary_pt_results.head(3)))
+#print(repr(m_revision_pt_results.head(3)))
 
 
 # ## Summary results overall for multiple runs
@@ -1130,7 +1076,6 @@ def summary_over_runs(m_results):
     ax[3].set_ylabel('Revision throughput')
     return(summ, fig)
 
-summary_over_runs(m_results)
 
 
 # # Summary results per day for multiple runs for bed utilisation
@@ -1154,7 +1099,6 @@ def daily_summ_bed_utilisation(m_day_results):
     ax.set_ylabel('Mean daily proportion of bed utilisation')
     return(fig)
 
-daily_summ_bed_utilisation(m_day_results);
 
 
 # # Summary results per day for multiple runs  
@@ -1490,7 +1434,7 @@ fig, ax = more_plot(results)
 
 # ## hists of outputs
 
-# In[31]:
+# In[32]:
 
 
 more_plot_results = m_day_results.groupby(['run']).mean()
@@ -1510,14 +1454,111 @@ ax[4].hist(hist_results['revision_mean_los']);
 ax[4].set_ylabel('revision_mean_los');
 
 
+# ## Scenario Analysis
 
-# In[ ]:
-
-
-
+# In[42]:
 
 
-# In[ ]:
+def get_scenarios():
+    '''
+    Creates a dictionary object containing
+    objects of type `Scenario` to run.
+    
+    Returns:
+    --------
+    dict
+        Contains the scenarios for the model
+    '''
+    scenarios = {}
+    scenarios['base'] = Scenario()
+    
+    # extra bed capacity
+    scenarios['beds+5'] = Scenario()
+    scenarios['beds+5'].n_beds += 5
+        
+    # extra theatre capacity
+    #scenarios['theatres+1'] = Scenario()
+    #scenarios['theatres+1'].number_theatres += 1
+    
+    return scenarios
+
+
+def run_scenario_analysis(scenarios, rc_period, n_reps):
+    '''
+    Run each of the scenarios for a specified results
+    collection period and replications.
+    
+    Currently only outputing summary df
+    
+    Params:
+    ------
+    scenarios: dict
+        dictionary of Scenario objects
+        
+    rc_period: float
+        model run length
+        
+    n_rep: int
+        Number of replications
+    
+    '''
+    print('Scenario Analysis')
+    print(f'No. Scenario: {len(scenarios)}')
+    print(f'Replications: {n_reps}')
+
+    scenario_results = {}
+    for sc_name, scenario in scenarios.items():
+        
+        print(f'Running {sc_name}', end=' => ')
+        replications = multiple_reps(scenario, results_collection=results_collection_period+warm_up_period, 
+                                     n_reps=number_of_runs)[0]
+        print('done.\n')
+        
+        #save the results
+        scenario_results[sc_name] = replications
+    
+    print('Scenario analysis complete.')
+    return scenario_results
+
+#script to run scenario analysis
+#number of replications
+N_REPS = 20
+
+#get the scenarios
+scenarios = get_scenarios()
+
+#run the scenario analysis
+scenario_results = run_scenario_analysis(scenarios, 
+                                         results_collection_period+warm_up_period,
+                                         n_reps=number_of_runs)
+
+def scenario_summary_frame(scenario_results):
+    '''
+    Mean results for each performance measure by scenario
+    
+    Parameters:
+    ----------
+    scenario_results: dict
+        dictionary of replications.  
+        Key identifies the performance measure
+        
+    Returns:
+    -------
+    pd.DataFrame
+    '''
+    columns = []
+    summary = pd.DataFrame()
+    for sc_name, replications in scenario_results.items():
+        summary = pd.concat([summary, replications.mean()], axis=1)
+        columns.append(sc_name)
+
+    summary.columns = columns
+    return summary
+
+
+
+
+# In[40]:
 
 
 
