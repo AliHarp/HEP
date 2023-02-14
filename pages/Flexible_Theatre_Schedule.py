@@ -192,11 +192,13 @@ for day,session,session_key, allocate, allocate_key, theatre, theatre_key, keyli
 			else:
 				selected_allocations = st.multiselect("Allocations:", ['1R','1P','2P','2P_or_1R','1R','1P','2P','2P_or_1R'], 
 				default=None, max_selections = selected_sessions, key=keylist*100)	
-					
+			
+			# clarify options of 0 sessions selected		
 			if selected_sessions == 0:
 				selected_allocations = []
 				st.write(":orange[You have set the session number to 0, no selection available]")
-				
+			
+			# count down remaining sessions to be allocated	
 			remaining = selected_sessions - len(selected_allocations)
 			if (len(selected_allocations) < selected_sessions):
 				st.write(f":green[**You have {remaining} options remaining - all sessions must be allocated**]")
@@ -209,6 +211,8 @@ for day,session,session_key, allocate, allocate_key, theatre, theatre_key, keyli
 
 		with col1:
 			st.write(f"Please select the number of operating theatres required for {day}")
+			
+			# if no sessions are chosen, number of theatres must also be 0
 			if selected_sessions == 0:
 				selected_theatres = 0
 				selected_theatres = st.slider("Number of theatres:", 0, 6, 0, key=keylist*1000)
@@ -220,27 +224,25 @@ for day,session,session_key, allocate, allocate_key, theatre, theatre_key, keyli
 			theatres_per_weekday[theatre_key] = selected_theatres
 
 
-#Refresh schedule with new values		
+#Refresh schedule with new values if no conflict between number of sessions and allocations.  Error message if conflict.		
 if st.button('Generate schedule'):
 	alln = True
 	while alln == True:
 		if all(session == len(allocate) for session, allocate, allocate_keys in zip(sessions_per_weekday_list, allocation.values(), allocation.keys())):
-			schedule_avail = create_full_schedule()
+			SCENARIO_SCHEDULE_AVAIL = create_full_schedule()
 			alln = False
 			break
 		else:
 			if (session > len(allocate) for session, allocate, allocate_keys in zip(sessions_per_weekday_list, allocation.values(), allocation.keys())):
-				st.write(f":green[**OOPS! You've made a mistake. Please check that you have allocated all sessions**]") 
-				st.write(":green[The highlighted rows below show which days your sessions have been incorrectly allocated]")
+				st.write(f":green[**Please check that you have allocated all sessions**]") 
+				st.write(":green[The highlighted rows in the weekday scheduling table show days with incorrectly allocated sessions]")
 				break
-
 
 	
 tab1, tab2 = st.tabs(["Weekday scheduling values","A sample two-weekly schedule"])
 
 
-
-    			
+# Display table of selected theatre options.  Highlight row/s with conflict between number sessions and sessions allocated.  			
 with tab1:
 	df = pd.DataFrame(list(zip(weekday, sessions_per_weekday_list, allocation.values(), theatres_per_weekday.values())),
 		       columns =['Weekday', 'Sessions', 'Allocations', 'Theatre numbers'])
@@ -251,12 +253,17 @@ with tab1:
 
 	st.dataframe(df.style.apply(highlight, axis=1))
 
-	
+# Display sample 2 week schedule where number sessions == sessions allocated	
 with tab2:
-	st.dataframe(schedule_avail.head(14))
+	try:
+		st.dataframe(SCENARIO_SCHEDULE_AVAIL.head(14))
+	except:
+		st.error("No schedule has been created")
+		st.stop()
      
 	
-	   		
+########### to do 
+#### SCENARIO_SCHEDULE_AVAIL needs to be an enduring object - use as parameter carried over to simulation page	   		
 
 
 
