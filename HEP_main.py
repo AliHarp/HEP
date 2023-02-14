@@ -17,18 +17,27 @@ import math
 import warnings
 
 
+# ## Set start date and define it to be equal to the simulation time
+# This allows monitoring of day-of-week.  
+# 
+# Defined in days: Monday = 0
+
+# In[2]:
+
 
 start = arrow.get('2022-06-27')  #start on a monday -- ?more dynamic?
 env = simpy.Environment()
 
 
+# In[3]:
+
 
 #checking - note start a/a not in real time.  Monday=0
 current_date = start.shift(days=env.now)  
-#print('Current weekday:', current_date.weekday())
+print('Current weekday:', current_date.weekday())
 
 tomorrow_date = current_date.shift(days=+1)
-#print('Tomorrow weekday:', tomorrow_date.weekday())
+print('Tomorrow weekday:', tomorrow_date.weekday())
 
 
 start.shift(days=env.now).weekday()
@@ -63,26 +72,26 @@ start.shift(days=env.now).weekday()
 
 
 # ward parameters
-primary_hip_mean_los = 4.747
-primary_knee_mean_los =  4.386
-revision_hip_mean_los = 6.149
-revision_knee_mean_los = 6.022
-unicompart_knee_mean_los = 2.389
+DEFAULT_PRIMARY_HIP_MEAN_LOS = 4.747
+DEFAULT_PRIMARY_KNEE_MEAN_LOS =  4.386
+DEFAULT_REVISION_HIP_MEAN_LOS = 5.149
+DEFAULT_REVISION_KNEE_MEAN_LOS= 5.022
+DEFAULT_UNICOMPART_KNEE_MEAN_LOS = 2.389
 
-primary_hip_sd_los = 2
-primary_knee_sd_los = 2
-revision_hip_sd_los = 3
-revision_knee_sd_los = 3
-unicompart_knee_sd_los = 1
+DEFAULT_PRIMARY_HIP_SD_LOS = 2
+DEFAULT_PRIMARY_KNEE_SD_LOS = 2
+DEFAULT_REVISION_HIP_SD_LOS = 3
+DEFAULT_REVISION_KNEE_SD_LOS = 3
+DEFAULT_UNICOMPART_KNEE_SD_LOS = 1
 
-delay_post_los_mean = 16.6
-delay_post_los_sd = 10
+DEFAULT_DELAY_POST_LOS_MEAN= 8.6
+DEFAULT_DELAY_POST_LOS_SD = 3
 
 prob_surgery_on_day = 0.95
-prob_ward_delay = 0.05
+DEFAULT_PROB_WARD_DELAY = 0.05
 
 #Ward resources
-number_beds = 46
+DEFAULT_NUMBER_BEDS = 46
 
 #patient parameters
 #same day cancellations patient reasons
@@ -95,16 +104,16 @@ primary_prob = [0.4,0.4,0.2]
 revision_prob = [0.6, 0.4]
 
 #theatre resources
-number_theatres = 4
-primaries_per_day = [1,3,5] #primaries between 1 and 5, revisions dep. upon no. primaries
-revisions_per_day = [2,1,0] #adjust for scenario: add extra theatre slot in
+DEFAULT_NUMBER_THEATRES = 4
+DEFAULT_PRIMARIES_PER_DAY = [1,3,5] #primaries between 1 and 5, revisions dep. upon no. primaries
+DEFAULT_REVISIONS_PER_DAY = [2,1,0] #adjust for scenario: add extra theatre slot in
 
 # skeleton frame for theatre schedule: default is no surgical activity on weekends
 # for weekend activity, change '0' to '1'
-schedule_list = {'Day':['Monday', 'Tuesday', 'Wednesday', 'Thursday', 
+DEFAULT_SCHEDULE_LIST = {'Day':['Monday', 'Tuesday', 'Wednesday', 'Thursday', 
                         'Friday', 'Saturday', 'Sunday'],
-                'Primary_slots':[1,1,1,1,1,0,0],
-                'Revision_slots':[1,1,1,1,1,0,0]}
+                        'Primary_slots':[1,1,1,1,1,0,0],
+                        'Revision_slots':[1,1,1,1,1,0,0]}
 
 #simulation parameters
 number_of_runs = 10
@@ -116,6 +125,45 @@ first_obs = 1
 interval = 1
 
 TRACE = False
+
+
+# ## TOM NOTES
+# 
+# one long run 10 yrs p159 robinson, Banks et al  
+# 
+# sensitivity analysis - los params and distrib (lnorm, gamma, edf) +/- trunc  
+# 
+# outliers, double peak etc  
+# 
+# vary run lengths eg 1mth vs 1 year  
+# 
+# outputs by day and by patient  
+# 
+# 2k design, interaction - robinson, tom paper
+# 
+# MORE plots
+
+# In[5]:
+
+
+# later for translation: ignore this - testing
+
+primary_dict = {1:'p_hip', 2:'p_knee', 3:'uni_knee'}
+revision_dict = {1:'r_hip', 2:'r_knee'}
+primary_prop = np.random.choice(np.arange(1,4), p=[0.4,0.4,0.2])
+revision_prop = np.random.choice(np.arange(1,3), p=[0.6, 0.4])
+
+def vec_tran(prop, dict):
+    return np.vectorize(dict.__getitem__)(prop)
+
+#trial sample and vectorize by dict key
+primary_sample = vec_tran(primary_prop, primary_dict)
+print(primary_sample)
+
+print(int(primary_prop))
+print(revision_prop)
+
+type(primary_prop)
 
 
 # ## Trace utility for debugging
@@ -208,72 +256,77 @@ class Gamma:
 # In[8]:
 
 
-def surgery_types(list): 
-    """
-    Randomly sample surgeries per day given 3* 4-hour sessions/day
-    
-    Number of revision surgeries depends upon number of primary surgeries
-    
-    * Each theatre has three sessions per day and some rules:
-        * Morning: 1 revision OR 2 primary
-        * Afternoon: 1 revision OR 2 primary
-        * Evening: 1 primary
-    """
-    list = primaries_per_day
-    select_primaries = random.choice(list)
-    if select_primaries == primaries_per_day[0]:
-        select_revisions = revisions_per_day[0]
-    elif select_primaries == primaries_per_day[1]:
-        select_revisions = revisions_per_day[1]
-    else: select_revisions = revisions_per_day[2]
-    
-    return pd.Series([select_primaries, select_revisions])
+class Schedule:
+   """
+   Creates theatre schedule according to rules
+   """
+   def __init__(self, args):
+       """
+       parameters used to create schedule defined in 'scenarios class'
+       """
+       self.args = args
+   
+   def surgery_types(self): 
+       """
+       Randomly sample surgeries per day given 3* 4-hour sessions/day
 
-def sample_week_schedule(surgery_types, schedule_list):
-    """
-    optional
-    returns a plot of illustrative sample for one week, one theatre
-    """
-    schedule_list_sample = pd.DataFrame(schedule_list)
-    schedule_list_sample[['Primary_slots', 'Revision_slots']] = \
-        schedule_list_sample['Primary_slots'].apply(lambda x: x*surgery_types(list))
-    schedule_list_plot = pd.DataFrame(schedule_list_sample).plot.bar(x ='Day'); 
-    return schedule_list_plot
+       Number of revision surgeries depends upon number of primary surgeries
 
-def theatre_capacity(surgery_types,schedule_list):
-    """
-    Calculate full theatre capacity schedule for given number of theatres
-    Randomly create each theatre's schedule each day according to rules
-    Result = 4-20 primary; 0-8 revision per day for default settings
-    """
-    schedule_avail = pd.DataFrame(schedule_list) 
-    #skeleton schedule full length
-    length_sched = int(round(2*(warm_up_period+results_collection_period)/7, 0))
-    schedule_avail = schedule_avail.iloc[np.tile(np.arange(len(schedule_avail)), 
-                        length_sched)].reset_index()
-    #for calculating schedule
-    schedule_avail_temp = schedule_avail.copy()
-    schedule_avail_temp2 = schedule_avail.copy()
+       * Each theatre has three sessions per day and some rules:
+           * Morning: 1 revision OR 2 primary
+           * Afternoon: 1 revision OR 2 primary
+           * Evening: 1 primary
+       """
+       
+       select_primaries = random.choice(self.args.primaries_per_day)
+       if select_primaries == self.args.primaries_per_day[0]:
+           select_revisions = self.args.revisions_per_day[0]
+       elif select_primaries == self.args.primaries_per_day[1]:
+           select_revisions = self.args.revisions_per_day[1]
+       else: select_revisions = self.args.revisions_per_day[2]
 
-    schedule_avail['Primary_slots'].values[:] = 0
-    schedule_avail['Revision_slots'].values[:] = 0
-    for i in range(number_theatres):
-        schedule_avail_temp[['Primary_slots', 'Revision_slots']] = \
-            schedule_avail_temp2['Primary_slots'].\
-            apply((lambda x: x*surgery_types(primaries_per_day)))
-        schedule_avail[['Primary_slots', 'Revision_slots']] += \
-            (schedule_avail_temp[['Primary_slots', 'Revision_slots']]) 
-    return(schedule_avail)
+       return pd.Series([select_primaries, select_revisions])
 
+   def sample_week_schedule(self, surgery_types, schedule_list):
+       """
+       optional
+       returns a plot of illustrative sample for one week, one theatre
+       """
+       schedule_list_sample = pd.DataFrame(schedule_list)
+       schedule_list_sample[['Primary_slots', 'Revision_slots']] = \
+           schedule_list_sample['Primary_slots'].apply(lambda x: x*surgery_types())
+       schedule_list_plot = pd.DataFrame(schedule_list_sample).plot.bar(x ='Day'); 
+       return schedule_list_plot
 
-#create full schedule, save to csv, print head to confirm
-schedule_avail = theatre_capacity(surgery_types,schedule_list)
+   def theatre_capacity(self):
+       """
+       Calculate full theatre capacity schedule for given number of theatres
+       Randomly create each theatre's schedule each day according to rules
+       Result = 4-20 primary; 0-8 revision per day for default settings
+       """
+       schedule_avail = pd.DataFrame(self.args.schedule_list)
+       #skeleton schedule full length
+       length_sched = int(round(2*(warm_up_period+results_collection_period)/7, 0))
+       schedule_avail = schedule_avail.iloc[np.tile(np.arange(len(schedule_avail)), 
+                           length_sched)].reset_index()
+       #for calculating schedule
+       schedule_avail_temp = schedule_avail.copy()
+       schedule_avail_temp2 = schedule_avail.copy()
 
+       schedule_avail['Primary_slots'].values[:] = 0
+       schedule_avail['Revision_slots'].values[:] = 0
+       for i in range(self.args.n_theatres):
+           schedule_avail_temp[['Primary_slots', 'Revision_slots']] = \
+               schedule_avail_temp2['Primary_slots'].\
+               apply((lambda x: x*self.surgery_types()))
+           schedule_avail[['Primary_slots', 'Revision_slots']] += \
+               (schedule_avail_temp[['Primary_slots', 'Revision_slots']]) 
+       return(schedule_avail)
 
 
 # ## Scenarios class 
 
-# In[35]:
+# In[9]:
 
 
 class Scenario:
@@ -284,24 +337,54 @@ class Scenario:
     Holds resources: beds
     Passed to hospital model and process classes
     """
-    def __init__(self, random_number_set=default_rng_set):
+    def __init__(self, random_number_set=default_rng_set,
+                 primary_hip_mean_los=DEFAULT_PRIMARY_HIP_MEAN_LOS,
+                 primary_knee_mean_los=DEFAULT_PRIMARY_KNEE_MEAN_LOS,
+                 revision_hip_mean_los=DEFAULT_REVISION_HIP_MEAN_LOS,
+                 revision_knee_mean_los=DEFAULT_REVISION_KNEE_MEAN_LOS,
+                 unicompart_knee_mean_los=DEFAULT_UNICOMPART_KNEE_MEAN_LOS,
+                 delay_post_los_mean=DEFAULT_DELAY_POST_LOS_MEAN,
+                 prob_ward_delay=DEFAULT_PROB_WARD_DELAY,
+                 n_beds=DEFAULT_NUMBER_BEDS,
+                 n_theatres=DEFAULT_NUMBER_THEATRES,
+                 primaries_per_day=DEFAULT_PRIMARIES_PER_DAY,
+                 revisions_per_day=DEFAULT_REVISIONS_PER_DAY,
+                 schedule_list=DEFAULT_SCHEDULE_LIST,
+                 primary_hip_sd_los=DEFAULT_PRIMARY_HIP_SD_LOS,
+                 primary_knee_sd_los=DEFAULT_PRIMARY_KNEE_SD_LOS,
+                 revision_hip_sd_los=DEFAULT_REVISION_HIP_SD_LOS,
+                 revision_knee_sd_los=DEFAULT_REVISION_KNEE_SD_LOS,
+                 unicompart_knee_sd_los=DEFAULT_UNICOMPART_KNEE_SD_LOS,
+                 delay_post_los_sd=DEFAULT_DELAY_POST_LOS_SD):
         """
         controls initial seeds of each RNS used in model
         """
         self.random_number_set = random_number_set
+        self.primary_hip_mean_los = primary_hip_mean_los
+        self.primary_knee_mean_los = primary_knee_mean_los
+        self.revision_hip_mean_los = revision_hip_mean_los
+        self.revision_knee_mean_los = revision_knee_mean_los
+        self.unicompart_knee_mean_los = unicompart_knee_mean_los
+        self.n_beds=n_beds
+        self.n_theatres = n_theatres
+        self.primaries_per_day =  primaries_per_day
+        self.revisions_per_day = revisions_per_day
+        self.prob_ward_delay = prob_ward_delay
+        self.schedule_list = schedule_list
+        self.primary_hip_sd_los = primary_hip_sd_los
+        self.primary_knee_sd_los = primary_knee_sd_los
+        self.revision_hip_sd_los = revision_hip_sd_los
+        self.revision_knee_sd_los = revision_knee_sd_los
+        self.unicompart_knee_sd_los = unicompart_knee_sd_los
+        self.delay_post_los_mean = delay_post_los_mean
+        self.delay_post_los_sd = delay_post_los_sd
         self.init_sampling()
-        self.init_resource_counts()
-        
+
     def set_random_no_set(self, random_number_set):
         """
         controls random sampling for each distribution used in simulations"""
         self.random_number_set = random_number_set
         self.init_sampling()
-        
-    def init_resource_counts(self):
-        """resources: beds and theatres"""
-        self.n_beds = number_beds
-        self.n_theatres = number_theatres
         
     def init_sampling(self):
         """
@@ -310,28 +393,27 @@ class Scenario:
         self.seeds = rng_streams.integers(0,99999999999, size = 20)
         
         #######  Distributions ########
-        
         # LoS distribution for each surgery patient type
-        self.primary_hip_dist = Lognormal(primary_hip_mean_los, primary_hip_sd_los,
+        self.primary_hip_dist = Lognormal(self.primary_hip_mean_los, self.primary_hip_sd_los,
                                           random_seed=self.seeds[0])
-        self.primary_knee_dist = Lognormal(primary_knee_mean_los, primary_knee_sd_los,
+        self.primary_knee_dist = Lognormal(self.primary_knee_mean_los, self.primary_knee_sd_los,
                                           random_seed=self.seeds[1])
-        self.revision_hip_dist = Lognormal(revision_hip_mean_los, revision_hip_sd_los,
+        self.revision_hip_dist = Lognormal(self.revision_hip_mean_los, self.revision_hip_sd_los,
                                           random_seed=self.seeds[2])
-        self.revision_knee_dist = Lognormal(revision_knee_mean_los, revision_knee_sd_los,
+        self.revision_knee_dist = Lognormal(self.revision_knee_mean_los, self.revision_knee_sd_los,
                                           random_seed=self.seeds[3])
-        self.unicompart_knee_dist = Lognormal(unicompart_knee_mean_los, unicompart_knee_sd_los,
+        self.unicompart_knee_dist = Lognormal(self.unicompart_knee_mean_los, self.unicompart_knee_sd_los,
                                           random_seed=self.seeds[4])
         
         # distribution for delayed LoS
-        self.los_delay_dist = Lognormal(delay_post_los_mean, delay_post_los_sd,
+        self.los_delay_dist = Lognormal(self.delay_post_los_mean, self.delay_post_los_sd,
                                        random_seed=self.seeds[5])
         
         # probability of no same day cancellations 
-        self.prob_surgery_occurring = Bernoulli(prob_surgery_on_day, random_seed=self.seeds[6])
+        #self.prob_surgery_occurring = Bernoulli(prob_surgery_on_day, random_seed=self.seeds[6])
         
         #probability of having LoS delayed on ward
-        self.los_delay = Bernoulli(prob_ward_delay, random_seed=self.seeds[7])
+        self.los_delay = Bernoulli(self.prob_ward_delay, random_seed=self.seeds[7])
         
     def number_slots(self, schedule_avail):
         """
@@ -372,7 +454,7 @@ class Scenario:
 # 
 # 
 
-# In[11]:
+# In[10]:
 
 
 class PrimaryPatient:
@@ -439,7 +521,7 @@ class PrimaryPatient:
             #request a bed on ward - if none available within 0-0.25 day, patient has surgery cancelled
             with self.args.beds.request() as req:
                 
-                admission = random.uniform(0.25,0.5)
+                admission = random.uniform(0.5,1)
                 admit = yield req | self.env.timeout(admission)
 
                 if req in admit:
@@ -477,7 +559,7 @@ class PrimaryPatient:
         else:
             #request a bed on ward - if none available within 0 - 0.25 day, patient has surgery cancelled
             with self.args.beds.request() as req:
-                admission = random.uniform(0.25,0.5)
+                admission = random.uniform(0.5,1)
                 admit = yield req | self.env.timeout(admission)
                 self.no_bed_cancellation = self.env.now - self.arrival
 
@@ -572,7 +654,7 @@ class RevisionPatient:
         
         #request bed on ward - if none available within 0-0.25 day, patient has surgery cancelled
             with self.args.beds.request() as req:
-                admission = random.uniform(0,0.25)
+                admission = random.uniform(0.5, 1)
                 admit = yield req | self.env.timeout(admission)
 
                 if req in admit:
@@ -611,7 +693,7 @@ class RevisionPatient:
         else:
             #request bed on ward - if none available within 0-1 day, patient has surgery cancelled
             with self.args.beds.request() as req:
-                admission = random.uniform(0,0.25)
+                admission = random.uniform(0.5, 1)
                 admit = yield req | self.env.timeout(admission)
                 self.no_bed_cancellation = self.env.now - self.arrival
 
@@ -650,16 +732,17 @@ class RevisionPatient:
 # ## Monitor lost slots, beds occupied and throughput by day
 # 
 
-# In[12]:
+# In[11]:
 
 
 class Hospital:
     """
     The orthopaedic hospital model
     """
-    def __init__(self, args):
+    def __init__(self, args, schedule):
         self.env = simpy.Environment()
         self.args = args
+        self.schedule = schedule
         self.init_resources()
         
         #patient generator lists
@@ -677,7 +760,9 @@ class Hospital:
         
         #lists used for daily audit_frame for summary results per day
         self.audit_time = []
-        self.audit_day_of_week = []  
+        self.audit_day_of_week = []
+        self.audit_beds_used_primary = []
+        self.audit_beds_used_revision = []
         self.audit_beds_used = []
         self.audit_primary_arrival = []
         self.audit_revision_arrival = []
@@ -687,6 +772,7 @@ class Hospital:
         self.audit_revision_los = []
 
         self.results = pd.DataFrame()
+        self.schedule_avail = schedule.theatre_capacity()
        
     def audit_frame(self):
         """
@@ -694,13 +780,16 @@ class Hospital:
         """
         self.results = pd.DataFrame({'sim_time':self.audit_time,
                                      'weekday': self.audit_day_of_week,
-                                     'bed_utilisation': self.audit_beds_used,
+                                     'bed_utilisation_primary': self.audit_beds_used_primary,
+                                     'bed_utilisation_revision': self.audit_beds_used_revision,
+                                     'bed_utilisation':self.audit_beds_used,
                                      'primary_arrivals': self.audit_primary_arrival,
                                      'revision_arrivals': self.audit_revision_arrival,
                                      'primary_bed_queue': self.audit_primary_queue_beds,
                                      'revision_bed_queue': self.audit_revision_queue_beds,
                                      'primary_mean_los': self.audit_primary_los,
-                                     'revision_mean_los': self.audit_revision_los})
+                                     'revision_mean_los': self.audit_revision_los
+                                    })
 
     def patient_results(self):
         """
@@ -753,8 +842,14 @@ class Hospital:
             
             #weekday
             self.audit_day_of_week.append(start.shift(days=self.env.now -1).weekday())
-            
-            ##########  bed utilisation
+             
+            ##########  bed utilisation - primary, revision, total
+            primary_beds = self.args.beds.count in self.cum_primary_patients
+            (self.audit_beds_used_primary.append(primary_beds / self.args.n_beds))
+
+            revision_beds = self.args.beds.count in self.cum_revision_patients
+            (self.audit_beds_used_revision.append(revision_beds / self.args.n_beds))
+                                         
             (self.audit_beds_used.append(self.args.beds.count / self.args.n_beds))
             
             ###########  lost slots
@@ -827,7 +922,7 @@ class Hospital:
         Primary patients arrive according to daily theatre schedule
         ------------------
         """
-        sched = args.number_slots(schedule_avail)[0]
+        sched = args.number_slots(self.schedule_avail)[0]
         pt_count = 1
         for day in range(len(sched)):
             
@@ -853,7 +948,7 @@ class Hospital:
         Revision patients arrive according to daily theatre schedule
         ------------------
         """    
-        sched = args.number_slots(schedule_avail)[1]
+        sched = args.number_slots(self.schedule_avail)[1]
         pt_count = 1
         for day in range(len(sched)):
             
@@ -877,7 +972,7 @@ class Hospital:
 
 # ## Summary results across days and runs
 
-# In[13]:
+# In[12]:
 
 
 class Summary:
@@ -894,10 +989,14 @@ class Summary:
     def process_run_results(self):
         self.summary_results = {}
         
-        #all patients arrived
-        patients = self.model.cum_primary_patients + self.model.cum_revision_patients
+        #all patients arrived during results collection period
+        patients = len([p for p in self.model.cum_primary_patients if p.day > warm_up_period])+\
+            len([p for p in self.model.cum_revision_patients if p.day > warm_up_period])
+        
+        primary_arrivals = len([p for p in self.model.cum_primary_patients if p.day > warm_up_period])
+        revision_arrivals = len([p for p in self.model.cum_revision_patients if p.day > warm_up_period])
 
-        #throughput
+        #throughput during results collection period
         primary_throughput = len([p for p in self.model.cum_primary_patients if (p.total_time > -np.inf)
                                   & (p.day > warm_up_period)])
         revision_throughput = len([p for p in self.model.cum_revision_patients if (p.total_time > -np.inf)
@@ -911,11 +1010,11 @@ class Summary:
 
         #check mean los
         mean_primary_los = np.array([getattr(p, 'primary_los') for p in self.model.cum_primary_patients
-                                               if getattr(p, 'primary_los') > -np.inf]).mean()
+                                               if getattr(p, 'primary_los') > 0]).mean()
         mean_revision_los = np.array([getattr(p, 'revision_los') for p in self.model.cum_revision_patients
-                                               if getattr(p, 'revision_los') > -np.inf]).mean()
+                                               if getattr(p, 'revision_los') > 0]).mean()
 
-            ##############check these#############
+        #bed utilisation primary and revision patients during results collection period
         los_primary = np.array([getattr(p,'primary_los') for p in self.model.cum_primary_patients
                                 if (getattr(p, 'primary_los') > -np.inf) & (getattr(p, 'day') > warm_up_period)]).sum()
         mean_primary_bed_utilisation = los_primary / (results_collection_period * self.args.n_beds)
@@ -923,11 +1022,9 @@ class Summary:
                                 if (getattr(p, 'revision_los') > -np.inf) & (getattr(p, 'day') > warm_up_period)]).sum()
         mean_revision_bed_utilisation = los_revision / (results_collection_period * self.args.n_beds)
 
-        #bed_utilisation = (self.args.beds.count / self.args.n_beds)
-
-        self.summary_results = {'arrivals':len(patients),
-                                'primary_arrivals':len(self.model.primary_patients_id),  
-                                'revision_arrivals':len(self.model.revision_patients_id),                     
+        self.summary_results = {'arrivals':patients,
+                                'primary_arrivals':primary_arrivals,  
+                                'revision_arrivals':revision_arrivals,                     
                                 'primary_throughput':primary_throughput,
                                 'revision_throughput':revision_throughput,
                                 'primary_queue':mean_primary_queue_beds,
@@ -949,7 +1046,7 @@ class Summary:
 
 # ## Functions for running the model and collecting the results
 
-# In[14]:
+# In[13]:
 
 
 def single_run(scenario, results_collection=results_collection_period+warm_up_period, random_no_set=default_rng_set):
@@ -961,7 +1058,8 @@ def single_run(scenario, results_collection=results_collection_period+warm_up_pe
     3b. revision patient results for one run and all days
     """
     scenario.set_random_no_set(random_no_set)
-    model = Hospital(scenario)
+    schedule = Schedule(scenario)
+    model = Hospital(scenario, schedule)
     model.run(results_collection = results_collection)
     summary = Summary(model)
     
@@ -1018,13 +1116,19 @@ def multiple_reps(scenario, results_collection=results_collection_period+warm_up
 
 # ## A single run
 
-# In[15]:
+# In[14]:
 
 
 # a single run
+
 args = Scenario()
+#create schedule    
+schedule = Schedule(args)
+
+#schedule_avail.to_csv('data/schedule.csv')
+
 s_results = single_run(args, random_no_set = 42)
-print(repr(s_results[0].T))
+#print(repr(s_results[0].T))
 #print(repr(s_results[1].head()))
 #print(repr(s_results[2][0].head()))
 #print(repr(s_results[2][1].head()))
@@ -1032,7 +1136,7 @@ print(repr(s_results[0].T))
 
 # ## Multiple runs
 
-# In[16]:
+# In[15]:
 
 
 args = Scenario()
@@ -1042,12 +1146,12 @@ m_primary_pt_results = multiple_reps(args, n_reps=number_of_runs)[2]
 m_revision_pt_results = multiple_reps(args, n_reps=number_of_runs)[3]
   
 # save results to csv 
-m_day_results.to_csv('data/day_results.csv')
-m_primary_pt_results.to_csv('data/primary_patient_results.csv')
-m_revision_pt_results.to_csv('data/revision_patient_results.csv')
+#m_day_results.to_csv('data/day_results.csv')
+#m_primary_pt_results.to_csv('data/primary_patient_results.csv')
+#m_revision_pt_results.to_csv('data/revision_patient_results.csv')
 
 # check outputs
-print(repr(m_results.head(3)))
+#print(repr(m_results.head(3)))
 #print(repr(m_day_results.head(3)))
 #print(repr(m_primary_pt_results.head(3)))
 #print(repr(m_revision_pt_results.head(3)))
@@ -1055,7 +1159,7 @@ print(repr(m_results.head(3)))
 
 # ## Summary results overall for multiple runs
 
-# In[17]:
+# In[16]:
 
 
 def summary_over_runs(m_results):
@@ -1076,13 +1180,14 @@ def summary_over_runs(m_results):
     ax[3].set_ylabel('Revision throughput')
     return(summ, fig)
 
+#summary_over_runs(m_results)
 
 
 # # Summary results per day for multiple runs for bed utilisation
 # 
 # ## 1. Group by simulation time (day) across all runs
 
-# In[20]:
+# In[17]:
 
 
 def daily_summ_bed_utilisation(m_day_results): 
@@ -1099,13 +1204,14 @@ def daily_summ_bed_utilisation(m_day_results):
     ax.set_ylabel('Mean daily proportion of bed utilisation')
     return(fig)
 
+#daily_summ_bed_utilisation(m_day_results);
 
 
 # # Summary results per day for multiple runs  
 # 
 # ## 2. Group by weekday
 
-# In[21]:
+# In[18]:
 
 
 def weekly_summ_bed_utilisation(m_day_results): 
@@ -1123,7 +1229,7 @@ def weekly_summ_bed_utilisation(m_day_results):
     ax.set_title('Mean bed Utilisation per day of week')
     return(fig)
 
-weekly_summ_bed_utilisation(m_day_results);
+#weekly_summ_bed_utilisation(m_day_results);
 
 
 # # Patient level results summarised by day and weekday
@@ -1131,7 +1237,7 @@ weekly_summ_bed_utilisation(m_day_results);
 # ## Lost slots calculation and plots per day and weekday
 # 
 
-# In[24]:
+# In[19]:
 
 
 def calc_lost_theatre_slots(primary_pt_results, revision_pt_results):
@@ -1167,10 +1273,10 @@ def calc_lost_theatre_slots(primary_pt_results, revision_pt_results):
     return(pd.DataFrame(lost_slots_df))
 
 
-lost_slots_df = calc_lost_theatre_slots(m_primary_pt_results, m_revision_pt_results)
+#lost_slots_df = calc_lost_theatre_slots(m_primary_pt_results, m_revision_pt_results)
 
 
-# In[25]:
+# In[20]:
 
 
 def plot_lost_slots_per_day(lost_slots_df):
@@ -1185,10 +1291,10 @@ def plot_lost_slots_per_day(lost_slots_df):
     return(fig)
     
 
-plot_lost_slots_per_day(lost_slots_df);
+#plot_lost_slots_per_day(lost_slots_df);
 
 
-# In[26]:
+# In[21]:
 
 
 def plot_lost_slots_per_week(lost_slots_df):
@@ -1206,20 +1312,19 @@ def plot_lost_slots_per_week(lost_slots_df):
     ax.set_title('Mean lost slots per day of week')
     return(fig)
 
-plot_lost_slots_per_week(lost_slots_df);
+#plot_lost_slots_per_week(lost_slots_df);
 
 
 # ## MORE plots 
 # 
 # * Determine appropriate replications
 
-# In[27]:
+# In[22]:
 
 
 #calc means of multiple reps by rep
 more_plot_results = m_day_results.groupby(['run']).mean()
-more_plot_results_ = more_plot_results.loc[:, ['bed_utilisation','primary_bed_queue', 'revision_bed_queue', 
-                                               'primary_mean_los', 'revision_mean_los']] 
+more_plot_results_ = more_plot_results.loc[:, ['bed_utilisation','primary_bed_queue', 'revision_bed_queue', 'primary_mean_los', 'revision_mean_los']] 
 more_plot_results_ = more_plot_results_.reset_index(drop=True)
 
 
@@ -1227,10 +1332,10 @@ more_plot_results_ *= 100
 more_plot_results_.columns = [0,1,2,3,4]
 more_plot_results_.index.name = None
 
-more_plot_results_.head()
+#more_plot_results_.head()
 
 
-# In[28]:
+# In[23]:
 
 
 def ci_for_sample_mean(mean_value, std, n, critical_value=1.96):
@@ -1290,7 +1395,7 @@ def draw_interval(ax, start, end, style="|-|", lw=3, color='b'):
                        arrowprops=dict(arrowstyle=style, color=color, lw=lw))
 
 
-# In[29]:
+# In[24]:
 
 
 def more_plot(results, field=0, bins=None, figsize=(8, 5), percentiles=(0.05, 0.95), surpress_warnings=False):
@@ -1424,39 +1529,39 @@ def more_plot(results, field=0, bins=None, figsize=(8, 5), percentiles=(0.05, 0.
     return ax.figure, ax
 
 
-# In[30]:
+# In[25]:
 
 
-results = more_plot_results_
+#results = more_plot_results_
 
-fig, ax = more_plot(results)
+#fig, ax = more_plot(results)
 
 
 # ## hists of outputs
 
-# In[32]:
+# In[26]:
 
 
-more_plot_results = m_day_results.groupby(['run']).mean()
-hist_results = more_plot_results.loc[:, ['bed_utilisation', 'primary_bed_queue', 'revision_bed_queue',
-                                        'primary_mean_los', 'revision_mean_los']] 
+#more_plot_results = m_day_results.groupby(['run']).mean()
+#hist_results = more_plot_results.loc[:, ['bed_utilisation', 'primary_bed_queue', 'revision_bed_queue',
+#                                        'primary_mean_los', 'revision_mean_los']] 
 
-fig, ax = plt.subplots(5, 1, figsize=(8,12))
-ax[0].hist(hist_results['bed_utilisation']);
-ax[0].set_ylabel('bed utilisation')
-ax[1].hist(hist_results['primary_bed_queue']);
-ax[1].set_ylabel('primary_bed_queue');
-ax[2].hist(hist_results['revision_bed_queue']);
-ax[2].set_ylabel('revision_bed_queue');
-ax[3].hist(hist_results['primary_mean_los']);
-ax[3].set_ylabel('primary_bed_queue');
-ax[4].hist(hist_results['revision_mean_los']);
-ax[4].set_ylabel('revision_mean_los');
+#fig, ax = plt.subplots(5, 1, figsize=(8,12))
+#ax[0].hist(hist_results['bed_utilisation']);
+#ax[0].set_ylabel('bed utilisation')
+#ax[1].hist(hist_results['primary_bed_queue']);
+#ax[1].set_ylabel('primary_bed_queue');
+#ax[2].hist(hist_results['revision_bed_queue']);
+#ax[2].set_ylabel('revision_bed_queue');
+#ax[3].hist(hist_results['primary_mean_los']);
+#ax[3].set_ylabel('primary_bed_queue');
+#ax[4].hist(hist_results['revision_mean_los']);
+#ax[4].set_ylabel('revision_mean_los');
 
 
 # ## Scenario Analysis
 
-# In[42]:
+# In[229]:
 
 
 def get_scenarios():
@@ -1472,13 +1577,31 @@ def get_scenarios():
     scenarios = {}
     scenarios['base'] = Scenario()
     
-    # extra bed capacity
-    scenarios['beds+5'] = Scenario()
-    scenarios['beds+5'].n_beds += 5
-        
-    # extra theatre capacity
-    #scenarios['theatres+1'] = Scenario()
-    #scenarios['theatres+1'].number_theatres += 1
+    # define scenarios
+    scenarios['beds+10'] = Scenario(n_beds=scenarios['base'].n_beds+10)
+    
+    scenarios['theatres+4'] = Scenario(n_theatres=scenarios['base'].n_theatres + 4)
+    
+    reduction = 20 
+    primary_hip_mean_los = scenarios['base'].primary_hip_mean_los + reduction
+    revision_hip_mean_los = scenarios['base'].revision_hip_mean_los + reduction
+    revision_knee_mean_los = scenarios['base'].revision_knee_mean_los + reduction
+    primary_knee_mean_los = scenarios['base'].primary_knee_mean_los + reduction
+    unicompart_knee_mean_los = scenarios['base'].unicompart_knee_mean_los + reduction
+    scenarios[f'los+{reduction}'] = Scenario(primary_hip_mean_los=primary_hip_mean_los,
+                                            revision_hip_mean_los=revision_hip_mean_los,
+                                            revision_knee_mean_los=revision_knee_mean_los,
+                                            primary_knee_mean_los=primary_knee_mean_los,
+                                            unicompart_knee_mean_los=unicompart_knee_mean_los)
+
+    
+    scenarios['primaries+1'] = Scenario(primaries_per_day=[2,4,6])
+
+    new_schedule = {'Day':['Monday', 'Tuesday', 'Wednesday', 'Thursday', 
+                    'Friday', 'Saturday', 'Sunday'],
+                    'Primary_slots':[1,1,1,1,1,1,0],
+                    'Revision_slots':[1,1,1,1,1,1,0]}
+    scenarios['weekend+1'] = Scenario(schedule_list=new_schedule)
     
     return scenarios
 
@@ -1506,31 +1629,47 @@ def run_scenario_analysis(scenarios, rc_period, n_reps):
     print(f'No. Scenario: {len(scenarios)}')
     print(f'Replications: {n_reps}')
 
-    scenario_results = {}
+    scenario_results_summ = {}
+    scenario_results_day = {}
+    scenario_results_ppat = {}
+    scenario_results_rpat = {}
+    scenario_results_pat = {}
+    replications_pat = pd.DataFrame()
+    
     for sc_name, scenario in scenarios.items():
         
         print(f'Running {sc_name}', end=' => ')
-        replications = multiple_reps(scenario, results_collection=results_collection_period+warm_up_period, 
+        replications_summ = multiple_reps(scenario, results_collection=results_collection_period+warm_up_period, 
                                      n_reps=number_of_runs)[0]
+        replications_day = multiple_reps(scenario, results_collection=results_collection_period+warm_up_period, 
+                                     n_reps=number_of_runs)[1]
+        replications_ppat = multiple_reps(scenario, results_collection=results_collection_period+warm_up_period, 
+                                     n_reps=number_of_runs)[2]
+        replications_rpat = multiple_reps(scenario, results_collection=results_collection_period+warm_up_period, 
+                                     n_reps=number_of_runs)[3]
+        replications_pat = pd.concat([replications_pat, pd.DataFrame(replications_ppat), pd.DataFrame(replications_rpat)])
+                    
         print('done.\n')
         
         #save the results
-        scenario_results[sc_name] = replications
-    
+        scenario_results_summ[sc_name] = replications_summ
+        scenario_results_day[sc_name] = replications_day
+        scenario_results_pat[sc_name] = replications_pat
+        
+         
     print('Scenario analysis complete.')
-    return scenario_results
+    return (scenario_results_summ, scenario_results_day,
+            scenario_results_pat)
 
 #script to run scenario analysis
-#number of replications
-N_REPS = 20
-
 #get the scenarios
 scenarios = get_scenarios()
 
-#run the scenario analysis
+#run the scenario analysis for summary results
 scenario_results = run_scenario_analysis(scenarios, 
                                          results_collection_period+warm_up_period,
-                                         n_reps=number_of_runs)
+                                         n_reps=10)
+
 
 def scenario_summary_frame(scenario_results):
     '''
@@ -1557,8 +1696,116 @@ def scenario_summary_frame(scenario_results):
 
 
 
+# In[230]:
 
-# In[40]:
+
+def scenario_daily_audit(scenario_results):
+    """
+    Daily audit results for each performance measure by scenario
+    """
+    columns = []
+    daily_summary = pd.DataFrame()
+    
+    for sc_name, replications in scenario_results.items():
+        daily_summary = pd.concat([daily_summary, replications.groupby(['sim_time']).mean()],
+                                    axis=1)
+        columns.append(sc_name)
+    
+    values = daily_summary['bed_utilisation']
+    columns = list(map('_'.join, zip(columns, values)))
+    values.columns = columns
+    
+    fig, ax = plt.subplots(figsize=(22,3))
+    ax.plot(values)
+    ax.set_title('Bed Utilisation across model runtime (days)')
+    ax.set_ylabel('Mean daily bed utilisation')
+    ax.legend(columns, bbox_to_anchor=(1.02, 1),loc='upper left')
+    
+    return (fig)
+    
+
+
+
+# In[231]:
+
+
+def scenario_weekly_audit(scenario_results):
+    """
+    Weekly audit results for each performance measure by scenario
+    """
+    columns = []
+    weekly_summary = pd.DataFrame()
+    
+    for sc_name, replications in scenario_results.items():
+        weekly_summary = pd.concat([weekly_summary, replications.groupby(['weekday']).mean()],
+                                    axis=1)
+        columns.append(sc_name)
+        
+    values = weekly_summary['bed_utilisation']
+    columns = list(map('_'.join, zip(columns, values)))
+    values.columns = columns
+    names = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    values.plot(kind='bar', stacked=False,
+                title='Mean bed Utilisation per day of week')
+    plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
+    return (fig)    
+
+
+
+
+def patient_scenarios(scenario_results):
+    """
+    Patient level results for each performance measure by scenario
+    """
+    columns = []
+    patient_summary = pd.DataFrame()
+
+    for sc_name, replications in scenario_results.items():
+
+        patient_summary = pd.concat([patient_summary, replications.groupby(['Day', 'weekday'])\
+                                     ['lost slots'].sum().astype(int)],axis=1) 
+        columns.append(sc_name) 
+        
+    patient_summary = patient_summary.apply(lambda x: x / number_of_runs)
+    columns = list(map('_'.join, zip(columns, patient_summary)))
+    patient_summary.columns = columns
+    patient_summary = patient_summary.reset_index()
+    patient_summary.rename(columns = {'level_0':'Day', 'level_1':'weekday'}, inplace = True)
+    
+    return(patient_summary)
+
+patient_summary = patient_scenarios(scenario_results[2])
+
+
+
+# In[306]:
+
+
+def lost_slots(patient_summary):
+
+    """deal with 0-day arrivals
+    """
+    patient_summ = (patient_summary.set_index('Day')
+        .reindex(range(lost_slots_df.Day.iat[0],lost_slots_df.Day.iat[-1]+1), fill_value=0)
+        .reset_index())
+    shortseq = np.arange(len(range(0,7)))
+    length = math.ceil(len(patient_summ) / 7)
+        #create total sequence and flatten array list into list of elements
+    sequence = ([np.tile((shortseq),length)])
+    flat_seq = list(itertools.chain(*sequence))
+        #truncate to correct length and save to column
+    sequence = flat_seq[:len(patient_summ)]
+    patient_summ['weekday'] = sequence 
+    patient_summ = patient_summ.fillna(0)
+    
+    patient_summ = patient_summ[patient_summ["Day"] > warm_up_period]    
+    patient_summ = patient_summ.groupby('weekday').mean().reset_index()
+    patient_summ = patient_summ.loc[:, patient_summ.columns != 'Day']
+    patient_summ.plot(kind='bar', stacked=False, x='weekday',
+                title='Mean lost slots per day of week')
+    plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
+
+    return(fig)
 
 
 
