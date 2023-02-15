@@ -8,7 +8,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 from PIL import Image
-import model as md
+import model2 as md
 
 
 st.set_page_config(
@@ -23,7 +23,6 @@ st.header('Orthopaedic Planning Model')
 
 "The simulation model will use the schedule created on the previous page and compare it with a default schedule in which 4 theatres operate 5 days per week, with 3 sessions per day.  Of those session, 2 will randomly allocate either 2 primary joint replacements or 1 revision joint replacement, while the third session will schedule 1 primary joint replacement."
 
-st.write(md.DEFAULT_NUMBER_BEDS)
 
 with st.sidebar:
 	st.markdown('# Model Parameters')
@@ -47,52 +46,58 @@ with st.sidebar:
 	
 	st.markdown('## Proportion of patients with a discharge delay:')
 	prop_delay = st.slider('Proportion delayed', 0.00, 1.00,md.DEFAULT_PROB_WARD_DELAY, 0.01)
+	
+	st.markdown('## Model execution')
+	replications = st.slider('Multiple runs', 1, 50, 10)
+	runtime = st.slider('Runtime (days)', 30, 100, 60)
+  
+
+
+schedule = md.Schedule()
+args = md.Scenario(schedule)
+
+args.n_beds = n_beds
+args.primary_hip_mean_los = primary_hip_los
+args.primary_knee_mean_los = primary_knee_los
+args.revision_hip_mean_los = revision_hip_los
+args.revision_knee_mean_los = revision_knee_los
+args.uncompart_knee_mean_los = unicompart_knee_los
+args.delay_post_los_mean = los_delay
+args.prob_ward_delay = prop_delay
+scenario_schedule = st.session_state['SCENARIO_SCHEDULE_AVAIL']
+
+
+if st.button('Start simulation'):
+    # Get results
+	with st.spinner('Simulating...'):
+		m_results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)[0]
+		m_day_results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)[1]
+		m_primary_pt_results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)[2]
+		m_revision_pt_results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)[3]
+  
+	# # save results to csv 
+	# m_day_results.to_csv('data/day_results.csv')
+	# m_primary_pt_results.to_csv('data/primary_patient_results.csv')
+	# m_revision_pt_results.to_csv('data/revision_patient_results.csv')
+	st.success('Done!')
+	
+# # check outputs
+	st.table(m_results.head(3))
+	st.table(m_day_results.head(3))
+	st.table(m_primary_pt_results.head(3))
+	st.table(m_revision_pt_results.head(3))
+        
+    
+    
+#    col1, col2 = st.columns(2)
+ #   with col1.expander('Tabular results', expanded=True):
+ #       summary_series = results.mean().round(1)
+ #       summary_series.name = 'Mean'
+ #       st.table(summary_series)
 
 
 
 
 
 
-
-
-
-
-st.markdown('## Scenarios Definitions')
-
-
-data = pd.DataFrame({
-  " ": [1,2,3,4,5,6],
-  "Scenario": ['Current', 'Beds + 10', 'Theatres + 1', 'LoS + 20', 'Primaries + 1', 'Weekend + 1'],
-  "Description": ['Uses default settings - represents how the system currently operates', 
-  'Add an additional ten orthopaedic beds', 'Add an additional operating theatre', 
-  'All surgery types have an extra 20 days LoS', 'Perform one extra primary joint replacement per theatre', 
-  'Add Saturday operating']
-})
-
-st.write(data)
-
-st.markdown('## Scenario summary results')
-
-df = pd.read_csv("data/scenarios_summary_frame.csv")
-st.write(df)
-
-st.markdown('## Scenario results for bed utilisation per day of week')
-
-image = Image.open('images/Mean daily bed utilisation scenarios.png')
-st.image(image)
-
-st.markdown('## Scenario results for lost slots per day of week')
-
-
-#hep.summary_frame = hep.scenario_summary_frame(hep.scenario_results)
-#st.write(hep.summary_frame.round(2))
-
-#hep.daily_audit = hep.scenario_daily_audit(hep.scenario_results[1])
-#st.write(hep.daily_audit)
-
-#hep.weekly_audit = hep.scenario_weekly_audit(hep.scenario_results[1])
-#st.write(hep.weekly_audit)
-
-#hep.lost_slots = hep.lost_slots(hep.patient_summary)
-#st.write(hep.lost_slots)
 

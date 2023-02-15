@@ -257,6 +257,7 @@ with tab1:
 with tab2:
 	try:
 		st.dataframe(SCENARIO_SCHEDULE_AVAIL.head(14))
+		st.session_state['scen_schedule'] = SCENARIO_SCHEDULE_AVAIL
 	except:
 		st.error("No schedule has been created")
 		st.stop()
