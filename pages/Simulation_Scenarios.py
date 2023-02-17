@@ -19,7 +19,7 @@ st.set_page_config(
  
 st.title(':green[Hospital Efficiency Project]')
 
-st.header('Orthopaedic Planning Model')
+st.header('Orthopaedic Planning Model: Simulation')
 
 "The simulation model will use the schedule created on the previous page and compare it with a default schedule in which 4 theatres operate 5 days per week, with 3 sessions per day.  Of those sessions, 2 will randomly allocate either 2 primary joint replacements or 1 revision joint replacement, while the third session will schedule 1 primary joint replacement."
 
@@ -111,7 +111,7 @@ if st.button('Use newly defined theatre schedule in your simulation'):
 	try:
 		schedule_scenario = st.session_state.schedule_scenario
 		"Your schedule looks like this:"
-		st.write(st.session_state['schedule_scenario'].head())
+		st.write(st.session_state['schedule_scenario'].head(7))
 		"All your chosen scenarios will be run with both the baseline and the newly created schedule."
 		
 	except:
@@ -150,7 +150,7 @@ def get_scenario_dict(df):
 	return(scenario_dict)
 	        
     
-def get_scenarios(dict, new_schedule):
+def get_scenarios(dict_s, new_schedule):
 
 	"""
 	Create dictionary of scenario objects using attribute dictionary
@@ -163,10 +163,10 @@ def get_scenarios(dict, new_schedule):
 	Contains the scenarios for the model
   
 	"""
-	dict = get_scenario_dict(st.session_state['scenarios_df'])
+	#dict_s = get_scenario_dict(st.session_state['scenarios_df'])
 	scenarios = {}
 	
-	for key, value in dict.items():
+	for key, value in dict_s.items():
 		attributes = {}
 		for item in value:
 			for sub_key, sub_value in item.items():
@@ -176,7 +176,7 @@ def get_scenarios(dict, new_schedule):
 		if 'schedule_scenario' in st.session_state:
 			st.write("New schedule is in session state and will be added to scenarios")
 			new_schedule=st.session_state['schedule_scenario']
-			st.write(new_schedule.head())
+			st.write(new_schedule.head(7))
 			# Create a scenario object with new schedule
 			scenarios[f'{key}_new_schedule'] = md.Scenario(schedule, schedule_avail = new_schedule, **attributes)
     		   
@@ -189,14 +189,14 @@ def get_scenarios(dict, new_schedule):
 if st.button('Start simulation', type='primary'):
     
 	with st.spinner('Simulating...'):
-
+		dict_s = get_scenario_dict(st.session_state['scenarios_df'])
 		#get the scenarios
 		if 'schedule_scenario' in st.session_state:
 			st.write("New schedule is in session state and will be simulated")
-			scenarios = get_scenarios(dict, st.session_state['schedule_scenario'])
+			scenarios = get_scenarios(dict_s, st.session_state['schedule_scenario'])
 		else:
 			st.write("New sched not found and won't be simulated")
-			scenarios = get_scenarios(dict, None)
+			scenarios = get_scenarios(dict_s, None)
 
 		#run the scenario analysis for all results
 		scenario_results = md.run_scenario_analysis(scenarios, 
@@ -209,12 +209,14 @@ if st.button('Start simulation', type='primary'):
 
 		st.success('Done!')
 		
+	st.write("Summary of overall throughput across the model runtime:")
+	patient_summary = md.patient_scenarios(scenario_results_patients)
+	table = md.total_thruput_table(scenario_results_patients)
+	st.write(table)	
+	
 	col1, col2 = st.columns(2)
-	with col1:
-		st.write("Summary of overall throughput across the model runtime:")
-		patient_summary = md.patient_scenarios(scenario_results_patients)
-		table = md.total_thruput_table(scenario_results_patients)
-		st.write(table)
+	with col2:
+
 		st.write("The plots represent mean outputs for each scenario")
 		
 		"Bed utilisation across the model runtime helps to understand how different scenarios affect the utilisation of beds each day and week."
@@ -226,13 +228,12 @@ if st.button('Start simulation', type='primary'):
 		"Others will result in lost theatre slots, if a bed isn't available for the patient."
 		
 		"Total throughput represents the average number of surgeries that can be performed per week, for each scenario investigated."
-		st.pyplot(md.total_thruput_pt_results(scenario_results_patients))
-	with col2:
-		" "
-		" "
-		" "
+		
+	with col1:
+
 		st.pyplot(md.scenario_daily_audit(scenario_results[1]))
 		st.pyplot(md.scenario_weekly_audit(scenario_results[1]))
 		st.pyplot(md.lost_slots(patient_summary))
+		st.pyplot(md.total_thruput_pt_results(scenario_results_patients))
 
 

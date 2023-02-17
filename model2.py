@@ -140,21 +140,7 @@ TRACE = False
 # 
 # MORE plots
 
-# In[5]:
 
-
-# later for translation: ignore this - testing
-
-primary_dict = {1:'p_hip', 2:'p_knee', 3:'uni_knee'}
-revision_dict = {1:'r_hip', 2:'r_knee'}
-primary_prop = np.random.choice(np.arange(1,4), p=[0.4,0.4,0.2])
-revision_prop = np.random.choice(np.arange(1,3), p=[0.6, 0.4])
-
-def vec_tran(prop, dict):
-    return np.vectorize(dict.__getitem__)(prop)
-
-#trial sample and vectorize by dict key
-primary_sample = vec_tran(primary_prop, primary_dict)
 
 
 # ## Trace utility for debugging

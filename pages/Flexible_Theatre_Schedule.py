@@ -47,7 +47,7 @@ sessions_per_weekday_list = list(sessions_per_weekday.values())
 
 st.title(':green[Hospital Efficiency Project]')
 
-st.header('Orthopaedic Planning Model')
+st.header('Orthopaedic Planning Model: Theatre Schedule')
 
 st.sidebar.title("Weekly Schedule")
 st.sidebar.markdown(":orange[For each weekday, please select:]")
