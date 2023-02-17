@@ -30,7 +30,7 @@ st.set_page_config(
      initial_sidebar_state="expanded"
  )
 
-#DEFAULT VALUES WILL BE BROUGHT IN FROM SIMULATION
+#DEFAULT VALUES FROM SIMULATION
 ###########################################################################
 
 warm_up_period = 14
@@ -229,7 +229,9 @@ if st.button('Generate schedule'):
 	alln = True
 	while alln == True:
 		if all(session == len(allocate) for session, allocate, allocate_keys in zip(sessions_per_weekday_list, allocation.values(), allocation.keys())):
-			SCENARIO_SCHEDULE_AVAIL = create_full_schedule()
+			schedule_scenario = create_full_schedule()
+			if 'schedule_scenario' not in st.session_state:
+				st.session_state.schedule_scenario = schedule_scenario		
 			alln = False
 			break
 		else:
@@ -253,19 +255,22 @@ with tab1:
 
 	st.dataframe(df.style.apply(highlight, axis=1))
 
-# Display sample 2 week schedule where number sessions == sessions allocated	
+# Display sample 2 week schedule where number sessions == sessions allocated.
+# Error message if no schedule created.  Clear session state if change has been made to schedule and not regenerated. 
+# This is so the simulation doesn't use the previous version. 	
 with tab2:
 	try:
-		st.dataframe(SCENARIO_SCHEDULE_AVAIL.head(14))
-		st.session_state['scen_schedule'] = SCENARIO_SCHEDULE_AVAIL
+		st.dataframe(schedule_scenario.head(14))
+
 	except:
 		st.error("No schedule has been created")
+		try:
+			del st.session_state['schedule_scenario']
+		except: 
+			st.stop()
 		st.stop()
      
 	
-########### to do 
-#### SCENARIO_SCHEDULE_AVAIL needs to be an enduring object - use as parameter carried over to simulation page	   		
-
 
 
 

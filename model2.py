@@ -106,7 +106,7 @@ SET_SESSIONS_PER_WEEKDAY = {'Monday': 3, 'Tuesday': 3, 'Wednesday': 3, 'Thursday
 SET_SESSIONS_PER_WEEKDAY_LIST = list(SET_SESSIONS_PER_WEEKDAY.values())
 SET_ALLOCATION = {'Monday': ['2P_or_1R', '2P_or_1R', '1P'], 'Tuesday': ['2P_or_1R', '2P_or_1R','1P'], 'Wednesday': ['2P_or_1R', '2P_or_1R','1P'], 
               'Thursday': ['2P_or_1R', '2P_or_1R', '1P'], 'Friday': ['2P_or_1R', '2P_or_1R', '1P'], 'Saturday': [], 'Sunday': []}
-SET_THEATRES_PER_WEEKDAY = {'Monday': 4, 'Tuesday': 4, 'Wednesday': 4, 'Thursday': 4, 'Friday': 4, 'Saturday': 0, 'Sunday': 0}
+SET_THEATRES_PER_WEEKDAY = {'Monday': 2, 'Tuesday': 2, 'Wednesday': 2, 'Thursday': 2, 'Friday': 2, 'Saturday': 0, 'Sunday': 0}
 
 
 #simulation parameters
@@ -353,7 +353,9 @@ class Scenario:
     Holds resources: beds
     Passed to hospital model and process classes
     """
-    def __init__(self, schedule, random_number_set=default_rng_set,
+    
+    def __init__(self, schedule, schedule_avail=None,
+    		 random_number_set=default_rng_set,
                  primary_hip_mean_los=DEFAULT_PRIMARY_HIP_MEAN_LOS,
                  primary_knee_mean_los=DEFAULT_PRIMARY_KNEE_MEAN_LOS,
                  revision_hip_mean_los=DEFAULT_REVISION_HIP_MEAN_LOS,
@@ -376,7 +378,8 @@ class Scenario:
         """
         controls initial seeds of each RNS used in model
         """
-        self.schedule = schedule
+        self.schedule = schedule.theatre_capacity()
+        self.schedule_avail = schedule_avail
         self.random_number_set = random_number_set
         self.primary_hip_mean_los = primary_hip_mean_los
         self.primary_knee_mean_los = primary_knee_mean_los
@@ -397,7 +400,7 @@ class Scenario:
         self.primary_prob = primary_prob
         self.revision_prob = revision_prob
         self.init_sampling()
-        self.schedule_avail = schedule.theatre_capacity()
+        
 
     def set_random_no_set(self, random_number_set):
         """
@@ -1214,7 +1217,7 @@ def daily_summ_bed_utilisation(m_day_results):
     """
     m_day_results_ts = m_day_results.groupby(['sim_time']).mean()
     m_day_results_ts.to_csv('data_summaries/audit_day_results_across_runs.csv')
-    fig, ax = plt.subplots(figsize=(22,3))
+    fig, ax = plt.subplots(figsize=(12,3))
     ax.plot(m_day_results_ts['bed_utilisation'])
     ax.set_title('Bed Utilisation across model runtime (days)')
     ax.set_ylabel('Mean daily proportion of bed utilisation')
@@ -1734,13 +1737,13 @@ def scenario_daily_audit(scenario_results):
     columns = list(map('_'.join, zip(columns, values)))
     values.columns = columns
     
-    fig, ax = plt.subplots(figsize=(24,5))
+    fig, ax = plt.subplots(figsize=(12,3))
     ax.plot(values)
     ax.set_title('Bed Utilisation across model runtime (days)')
     ax.set_ylabel('Mean daily bed utilisation')
     ax.legend(columns, bbox_to_anchor=(1.02, 1),loc='upper left')
     
-    return (daily_summary, fig)
+    return (plt)
     
 #scenario_daily_audit(scenario_results[1]);
 #plt.savefig('Daily bed utilisation scenarios')
@@ -1918,13 +1921,13 @@ def total_thruput_table(scenario_results):
 
         columns.append(sc_name)
         
-    patient_summary.rename(columns = {'lost slots':'Counts'}, inplace = True)
-    patient_summary = patient_summary.assign(Counts = lambda x: (x['Counts'] / DEFAULT_NUMBER_OF_RUNS)).fillna(0)
+    patient_summary.rename(columns = {'lost slots':'Throughput'}, inplace = True)
+    patient_summary = patient_summary.assign(Throughput = lambda x: (x['Throughput'] / DEFAULT_NUMBER_OF_RUNS)).fillna(0)
     columns = list(map('_'.join, zip(columns, patient_summary)))
     patient_summary.columns = columns
     patient_summary = patient_summary.reset_index()
     patient_summary = patient_summary.drop(['level_0', 'level_1'], axis=1)
-    values=patient_summary.filter(regex='_Counts')
+    #values=patient_summary.filter(regex='_Counts')
     patient_summary = pd.DataFrame(patient_summary.sum(axis=0)).T
     patient_summary['run time (days)'] = DEFAULT_RESULTS_COLLECTION_PERIOD
 

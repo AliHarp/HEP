@@ -21,7 +21,10 @@ st.title(':green[Hospital Efficiency Project]')
 
 st.header('Orthopaedic Planning Model')
 
-"The simulation model will use the schedule created on the previous page and compare it with a default schedule in which 4 theatres operate 5 days per week, with 3 sessions per day.  Of those session, 2 will randomly allocate either 2 primary joint replacements or 1 revision joint replacement, while the third session will schedule 1 primary joint replacement."
+"You can change the parameters of the simulation model and re-run it."  
+
+"It uses a default schedule in which 4 theatres operate 5 days per week, with 3 sessions per day. Of those sessions, 2 will randomly allocate either 2 primary joint replacements or 1 revision joint replacement, while the third session will schedule 1 primary joint replacement."
+ 
 
 
 with st.sidebar:
@@ -61,10 +64,10 @@ args.primary_hip_mean_los = primary_hip_los
 args.primary_knee_mean_los = primary_knee_los
 args.revision_hip_mean_los = revision_hip_los
 args.revision_knee_mean_los = revision_knee_los
-args.uncompart_knee_mean_los = unicompart_knee_los
+args.unicompart_knee_mean_los = unicompart_knee_los
 args.delay_post_los_mean = los_delay
 args.prob_ward_delay = prop_delay
-scenario_schedule = st.session_state['SCENARIO_SCHEDULE_AVAIL']
+#scenario_schedule = st.session_state['SCENARIO_SCHEDULE_AVAIL']
 
 
 if st.button('Start simulation'):
@@ -81,19 +84,18 @@ if st.button('Start simulation'):
 	# m_revision_pt_results.to_csv('data/revision_patient_results.csv')
 	st.success('Done!')
 	
-# # check outputs
-	st.table(m_results.head(3))
-	st.table(m_day_results.head(3))
-	st.table(m_primary_pt_results.head(3))
-	st.table(m_revision_pt_results.head(3))
+	col1, col2 = st.columns(2)
+	with col1:
+		st.dataframe(m_results.head(3))
+		st.dataframe(m_day_results.head(3))
+		st.dataframe(m_primary_pt_results.head(3))
+		st.dataframe(m_revision_pt_results.head(3))
+	with col2:
+		st.pyplot(md.weekly_summ_bed_utilisation(m_day_results))
+		st.pyplot(md.daily_summ_bed_utilisation(m_day_results))
         
     
     
-#    col1, col2 = st.columns(2)
- #   with col1.expander('Tabular results', expanded=True):
- #       summary_series = results.mean().round(1)
- #       summary_series.name = 'Mean'
- #       st.table(summary_series)
 
 
 
