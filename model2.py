@@ -346,125 +346,122 @@ class Schedule:
 
 
 class Scenario:
-    """
-    Holds LoS dists for each patient type
-    Holds delay dists
-    Holds prob of delay, prob of same day dist
-    Holds resources: beds
-    Passed to hospital model and process classes
-    """
+	"""
+	Holds LoS dists for each patient type
+	Holds delay dists
+	Holds prob of delay, prob of same day dist
+	Holds resources: beds
+	Passed to hospital model and process classes
+	"""
     
-    def __init__(self, schedule, schedule_avail=None,
-    		 random_number_set=default_rng_set,
-                 primary_hip_mean_los=DEFAULT_PRIMARY_HIP_MEAN_LOS,
-                 primary_knee_mean_los=DEFAULT_PRIMARY_KNEE_MEAN_LOS,
-                 revision_hip_mean_los=DEFAULT_REVISION_HIP_MEAN_LOS,
-                 revision_knee_mean_los=DEFAULT_REVISION_KNEE_MEAN_LOS,
-                 unicompart_knee_mean_los=DEFAULT_UNICOMPART_KNEE_MEAN_LOS,
-                 delay_post_los_mean=DEFAULT_DELAY_POST_LOS_MEAN,
-                 prob_ward_delay=DEFAULT_PROB_WARD_DELAY,
-                 n_beds=DEFAULT_NUMBER_BEDS,
-                 primary_hip_sd_los=DEFAULT_PRIMARY_HIP_SD_LOS,
-                 primary_knee_sd_los=DEFAULT_PRIMARY_KNEE_SD_LOS,
-                 revision_hip_sd_los=DEFAULT_REVISION_HIP_SD_LOS,
-                 revision_knee_sd_los=DEFAULT_REVISION_KNEE_SD_LOS,
-                 unicompart_knee_sd_los=DEFAULT_UNICOMPART_KNEE_SD_LOS,
-                 delay_post_los_sd=DEFAULT_DELAY_POST_LOS_SD,
-                 primary_dict=DEFAULT_PRIMARY_DICT,
-                 revision_dict=DEFAULT_REVISION_DICT,
-                 primary_prob=DEFAULT_PRIMARY_PROB,
-                 revision_prob=DEFAULT_REVISION_PROB):
+	def __init__(self, schedule, schedule_avail=None,
+		random_number_set=default_rng_set,
+                primary_hip_mean_los=DEFAULT_PRIMARY_HIP_MEAN_LOS,
+                primary_knee_mean_los=DEFAULT_PRIMARY_KNEE_MEAN_LOS,
+                revision_hip_mean_los=DEFAULT_REVISION_HIP_MEAN_LOS,
+                revision_knee_mean_los=DEFAULT_REVISION_KNEE_MEAN_LOS,
+                unicompart_knee_mean_los=DEFAULT_UNICOMPART_KNEE_MEAN_LOS,
+                delay_post_los_mean=DEFAULT_DELAY_POST_LOS_MEAN,
+                prob_ward_delay=DEFAULT_PROB_WARD_DELAY,
+                n_beds=DEFAULT_NUMBER_BEDS,
+                primary_hip_sd_los=DEFAULT_PRIMARY_HIP_SD_LOS,
+                primary_knee_sd_los=DEFAULT_PRIMARY_KNEE_SD_LOS,
+                revision_hip_sd_los=DEFAULT_REVISION_HIP_SD_LOS,
+                revision_knee_sd_los=DEFAULT_REVISION_KNEE_SD_LOS,
+                unicompart_knee_sd_los=DEFAULT_UNICOMPART_KNEE_SD_LOS,
+                delay_post_los_sd=DEFAULT_DELAY_POST_LOS_SD,
+                primary_dict=DEFAULT_PRIMARY_DICT,
+                revision_dict=DEFAULT_REVISION_DICT,
+                primary_prob=DEFAULT_PRIMARY_PROB,
+                revision_prob=DEFAULT_REVISION_PROB):
     
-        """
-        controls initial seeds of each RNS used in model
-        """
-        self.schedule = schedule.theatre_capacity()
-        self.schedule_avail = schedule_avail
-        self.random_number_set = random_number_set
-        self.primary_hip_mean_los = primary_hip_mean_los
-        self.primary_knee_mean_los = primary_knee_mean_los
-        self.revision_hip_mean_los = revision_hip_mean_los 
-        self.revision_knee_mean_los = revision_knee_mean_los
-        self.unicompart_knee_mean_los = unicompart_knee_mean_los
-        self.n_beds = n_beds
-        self.prob_ward_delay = prob_ward_delay
-        self.primary_hip_sd_los = primary_hip_sd_los
-        self.primary_knee_sd_los = primary_knee_sd_los
-        self.revision_hip_sd_los = revision_hip_sd_los
-        self.revision_knee_sd_los = revision_knee_sd_los
-        self.unicompart_knee_sd_los = unicompart_knee_sd_los
-        self.delay_post_los_mean = delay_post_los_mean
-        self.delay_post_los_sd = delay_post_los_sd
-        self.primary_dict = primary_dict
-        self.revision_dict = revision_dict
-        self.primary_prob = primary_prob
-        self.revision_prob = revision_prob
-        self.init_sampling()
-        
+		self.schedule = schedule
+		self.schedule_avail = schedule_avail if schedule_avail is not None else schedule.theatre_capacity()
+		self.random_number_set = random_number_set
+		self.primary_hip_mean_los = primary_hip_mean_los
+		self.primary_knee_mean_los = primary_knee_mean_los
+		self.revision_hip_mean_los = revision_hip_mean_los 
+		self.revision_knee_mean_los = revision_knee_mean_los
+		self.unicompart_knee_mean_los = unicompart_knee_mean_los
+		self.n_beds = n_beds
+		self.prob_ward_delay = prob_ward_delay
+		self.primary_hip_sd_los = primary_hip_sd_los
+		self.primary_knee_sd_los = primary_knee_sd_los
+		self.revision_hip_sd_los = revision_hip_sd_los
+		self.revision_knee_sd_los = revision_knee_sd_los
+		self.unicompart_knee_sd_los = unicompart_knee_sd_los
+		self.delay_post_los_mean = delay_post_los_mean
+		self.delay_post_los_sd = delay_post_los_sd
+		self.primary_dict = primary_dict
+		self.revision_dict = revision_dict
+		self.primary_prob = primary_prob
+		self.revision_prob = revision_prob
+		self.init_sampling()
+		
 
-    def set_random_no_set(self, random_number_set):
-        """
-        controls random sampling for each distribution used in simulations"""
-        self.random_number_set = random_number_set
-        self.init_sampling()
-        
-    def init_sampling(self):
-        """
-        distribs used in model and initialise seed"""
-        rng_streams = np.random.default_rng(self.random_number_set)
-        self.seeds = rng_streams.integers(0,99999999999, size = 20)
-        
-        #######  Distributions ########
-        # LoS distribution for each surgery patient type
-        self.primary_hip_dist = Lognormal(self.primary_hip_mean_los, self.primary_hip_sd_los,
-                                          random_seed=self.seeds[0])
-        self.primary_knee_dist = Lognormal(self.primary_knee_mean_los, self.primary_knee_sd_los,
-                                          random_seed=self.seeds[1])
-        self.revision_hip_dist = Lognormal(self.revision_hip_mean_los, self.revision_hip_sd_los,
-                                          random_seed=self.seeds[2])
-        self.revision_knee_dist = Lognormal(self.revision_knee_mean_los, self.revision_knee_sd_los,
-                                          random_seed=self.seeds[3])
-        self.unicompart_knee_dist = Lognormal(self.unicompart_knee_mean_los, self.unicompart_knee_sd_los,
-                                          random_seed=self.seeds[4])
-        
-        # distribution for delayed LoS
-        self.los_delay_dist = Lognormal(self.delay_post_los_mean, self.delay_post_los_sd,
-                                       random_seed=self.seeds[5])
-        
-        #probability of having LoS delayed on ward
-        self.los_delay = Bernoulli(self.prob_ward_delay, random_seed=self.seeds[7])
-        
-    def number_slots(self, schedule_avail):
-        """
-        convert to np arrays for each surgery type for patient generators
-        """
-        self.schedule_avail_primary = self.schedule_avail['Primary_slots'].to_numpy()
-        self.schedule_avail_revision = self.schedule_avail['Revision_slots'].to_numpy()
-        return(self.schedule_avail_primary, self.schedule_avail_revision)
+	def set_random_no_set(self, random_number_set):
+		"""
+		controls random sampling for each distribution used in simulations"""
+		self.random_number_set = random_number_set
+		self.init_sampling()
+		
+	def init_sampling(self):
+		"""
+		distribs used in model and initialise seed"""
+		rng_streams = np.random.default_rng(self.random_number_set)
+		self.seeds = rng_streams.integers(0,99999999999, size = 20)
+		
+		#######  Distributions ########
+		# LoS distribution for each surgery patient type
+		self.primary_hip_dist = Lognormal(self.primary_hip_mean_los, self.primary_hip_sd_los,
+		                                  random_seed=self.seeds[0])
+		self.primary_knee_dist = Lognormal(self.primary_knee_mean_los, self.primary_knee_sd_los,
+		                                  random_seed=self.seeds[1])
+		self.revision_hip_dist = Lognormal(self.revision_hip_mean_los, self.revision_hip_sd_los,
+		                                  random_seed=self.seeds[2])
+		self.revision_knee_dist = Lognormal(self.revision_knee_mean_los, self.revision_knee_sd_los,
+		                                  random_seed=self.seeds[3])
+		self.unicompart_knee_dist = Lognormal(self.unicompart_knee_mean_los, self.unicompart_knee_sd_los,
+		                                  random_seed=self.seeds[4])
+		
+		# distribution for delayed LoS
+		self.los_delay_dist = Lognormal(self.delay_post_los_mean, self.delay_post_los_sd,
+		                               random_seed=self.seeds[5])
+		
+		#probability of having LoS delayed on ward
+		self.los_delay = Bernoulli(self.prob_ward_delay, random_seed=self.seeds[7])
+		
+	def number_slots(self, schedule_avail):
+		"""
+		convert to np arrays for each surgery type for patient generators
+		"""
+		self.schedule_avail_primary = self.schedule_avail['Primary_slots'].to_numpy()
+		self.schedule_avail_revision = self.schedule_avail['Revision_slots'].to_numpy()
+		return(self.schedule_avail_primary, self.schedule_avail_revision)
 
-    def primary_types(self,prob):
-        """
-        randomly select primary surgical type from custom distribution: primary_prop
-        prob = primary_prop
-        used for generating primary patients of each surgical type
-        """
-        self.primary_surgery = np.random.choice(np.arange(1,4), p=prob)
-        return(self.primary_surgery)
-    
-    def revision_types(self,prob):
-        """
-        randomly select revision surgical type from custom distribution: revision_prop
-        prob = revision_prop
-        used for generating revision patients of each surgical type
-        """
-        self.revision_surgery = np.random.choice(np.arange(1,3), p=prob)
-        return(self.revision_surgery)
-     
-    def label_types(self, prop, dict): 
-        """
-        return label for each surgery type
-        """
-        return np.vectorize(dict.__getitem__)(prop)
+	def primary_types(self,prob):
+		"""
+		randomly select primary surgical type from custom distribution: primary_prop
+		prob = primary_prop
+		used for generating primary patients of each surgical type
+		"""
+		self.primary_surgery = np.random.choice(np.arange(1,4), p=prob)
+		return(self.primary_surgery)
+	    
+	def revision_types(self,prob):
+		"""
+		randomly select revision surgical type from custom distribution: revision_prop
+		prob = revision_prop
+		used for generating revision patients of each surgical type
+		"""
+		self.revision_surgery = np.random.choice(np.arange(1,3), p=prob)
+		return(self.revision_surgery)
+	     
+	def label_types(self, prop, dict): 
+		"""
+		return label for each surgery type
+		"""
+		return np.vectorize(dict.__getitem__)(prop)
     
 
 

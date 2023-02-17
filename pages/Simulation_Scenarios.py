@@ -54,7 +54,7 @@ with st.sidebar:
 	replications = st.slider(':green[Multiple runs]', 1, 50, 10)
 	runtime = st.slider(':green[Runtime (days)]', 30, 100, 60)
 
-
+########################################################################
 ########### Add scenarios to session state to create scenarios dataframe
 	
 if 'counter' not in st.session_state:
@@ -77,6 +77,7 @@ if 'scenarios_df' not in st.session_state:
 
 def add_scenario(n_beds, primary_hip_los, primary_knee_los, revision_hip_los, revision_knee_los, 
 		unicompart_knee_los, los_delay, prop_delay):
+	
     new_scenario = pd.DataFrame({
         'Scenario': [f'Scenario {st.session_state["counter"]}'],
         'n_beds': [n_beds],
@@ -130,7 +131,7 @@ def get_scenario_dict(df):
 	Returns:
 	--------
 	dict
-	Contains the scenarios for the model
+	Contains the scenario attributes for the model
 	'''
 		    
 	scenario_dict = {}
@@ -153,6 +154,13 @@ def get_scenarios(dict, new_schedule):
 
 	"""
 	Create dictionary of scenario objects using attribute dictionary
+	A set of baseline schedule
+	A set of new_schedule
+	
+	Returns:
+	--------
+	dict
+	Contains the scenarios for the model
   
 	"""
 	dict = get_scenario_dict(st.session_state['scenarios_df'])
@@ -166,7 +174,9 @@ def get_scenarios(dict, new_schedule):
 		scenarios[key] = md.Scenario(schedule,**attributes)
 		
 		if 'schedule_scenario' in st.session_state:
+			st.write("New schedule is in session state and will be added to scenarios")
 			new_schedule=st.session_state['schedule_scenario']
+			st.write(new_schedule.head())
 			# Create a scenario object with new schedule
 			scenarios[f'{key}_new_schedule'] = md.Scenario(schedule, schedule_avail = new_schedule, **attributes)
     		   
@@ -182,8 +192,10 @@ if st.button('Start simulation', type='primary'):
 
 		#get the scenarios
 		if 'schedule_scenario' in st.session_state:
+			st.write("New schedule is in session state and will be simulated")
 			scenarios = get_scenarios(dict, st.session_state['schedule_scenario'])
 		else:
+			st.write("New sched not found and won't be simulated")
 			scenarios = get_scenarios(dict, None)
 
 		#run the scenario analysis for all results
