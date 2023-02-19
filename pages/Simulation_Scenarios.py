@@ -171,15 +171,15 @@ def get_scenarios(dict_s, new_schedule):
 		for item in value:
 			for sub_key, sub_value in item.items():
 				attributes[sub_key] = sub_value
-		scenarios[key] = md.Scenario(schedule,**attributes)
-		
+		scenarios[key] = md.Scenario(schedule, **attributes)
+				
 		if 'schedule_scenario' in st.session_state:
 			st.write("New schedule is in session state and will be added to scenarios")
 			new_schedule=st.session_state['schedule_scenario']
 			st.write(new_schedule.head(7))
 			# Create a scenario object with new schedule
 			scenarios[f'{key}_new_schedule'] = md.Scenario(schedule, schedule_avail = new_schedule, **attributes)
-    		   
+	    		   
 	return scenarios
  
 

@@ -101,6 +101,7 @@ DEFAULT_PRIMARY_PROB = [0.4,0.4,0.2]
 DEFAULT_REVISION_PROB = [0.6, 0.4]
 #revision_prob = [0.6, 0.4]
 
+
 SET_WEEKDAY = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 SET_SESSIONS_PER_WEEKDAY = {'Monday': 3, 'Tuesday': 3, 'Wednesday': 3, 'Thursday': 3, 'Friday': 3, 'Saturday': 0, 'Sunday': 0}
 SET_SESSIONS_PER_WEEKDAY_LIST = list(SET_SESSIONS_PER_WEEKDAY.values())
@@ -325,6 +326,7 @@ class Schedule:
            DEFAULT_SCHEDULE_AVAIL = pd.concat([DEFAULT_SCHEDULE_AVAIL, single_random_week],axis=0)
        return DEFAULT_SCHEDULE_AVAIL.reset_index()
 
+   
 
 # ## Scenarios class 
 
@@ -362,7 +364,11 @@ class Scenario:
                 revision_prob=DEFAULT_REVISION_PROB):
     
 		self.schedule = schedule
-		self.schedule_avail = schedule_avail if schedule_avail is not None else schedule.theatre_capacity()
+		if schedule_avail is None:
+			self.schedule_avail = schedule.theatre_capacity()
+		else:
+			self.schedule_avail = schedule_avail.copy(deep=True)
+		print(self.schedule_avail.head(7))
 		self.random_number_set = random_number_set
 		self.primary_hip_mean_los = primary_hip_mean_los
 		self.primary_knee_mean_los = primary_knee_mean_los
@@ -923,7 +929,8 @@ class Hospital:
         Primary patients arrive according to daily theatre schedule
         ------------------
         """
-        sched = args.number_slots(self.args.schedule_avail)[0]
+        #sched = args.number_slots(self.args.schedule_avail)[0]
+        sched = self.args.schedule_avail['Primary_slots']
         pt_count = 1
         for day in range(len(sched)):
             
@@ -949,7 +956,8 @@ class Hospital:
         Revision patients arrive according to daily theatre schedule
         ------------------
         """    
-        sched = args.number_slots(self.args.schedule_avail)[1]
+        #sched = args.number_slots(self.args.schedule_avail)[1]
+        sched = self.args.schedule_avail['Revision_slots']
         pt_count = 1
         for day in range(len(sched)):
             
@@ -1637,14 +1645,13 @@ def run_scenario_analysis(scenarios, rc_period, n_reps):
     for sc_name, scenario in scenarios.items():
         
         print(f'Running {sc_name}', end=' => ')
-        replications_summ = multiple_reps(scenario, results_collection=DEFAULT_RESULTS_COLLECTION_PERIOD+DEFAULT_WARM_UP_PERIOD, 
-                                     n_reps=DEFAULT_NUMBER_OF_RUNS)[0]
-        replications_day = multiple_reps(scenario, results_collection=DEFAULT_RESULTS_COLLECTION_PERIOD+DEFAULT_WARM_UP_PERIOD, 
-                                     n_reps=DEFAULT_NUMBER_OF_RUNS)[1]
-        replications_ppat = multiple_reps(scenario, results_collection=DEFAULT_RESULTS_COLLECTION_PERIOD+DEFAULT_WARM_UP_PERIOD, 
-                                     n_reps=DEFAULT_NUMBER_OF_RUNS)[2]
-        replications_rpat = multiple_reps(scenario, results_collection=DEFAULT_RESULTS_COLLECTION_PERIOD+DEFAULT_WARM_UP_PERIOD, 
-                                     n_reps=DEFAULT_NUMBER_OF_RUNS)[3]
+        replications = multiple_reps(scenario, results_collection=DEFAULT_RESULTS_COLLECTION_PERIOD+DEFAULT_WARM_UP_PERIOD, 
+                                     n_reps=DEFAULT_NUMBER_OF_RUNS)
+        
+        replications_summ = replications[0]
+        replications_day = replications[1]
+        replications_ppat = replications[2]
+        replications_rpat = replications[3]
                     
         print('done.\n')
         

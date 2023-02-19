@@ -119,7 +119,7 @@ def week_schedule():
 	Convert daily_count() counts to a pandas DataFrame with 'primary' and 'revision' datily counts as columns 
 	with weekdays and day index.
 	"""
-	week_sched = pd.DataFrame(columns=['Primary_slots', 'revision_slots'])
+	week_sched = pd.DataFrame(columns=['Primary_slots', 'Revision_slots'])
 	day_data = create_schedule(weekday, sessions_per_weekday_list, allocation, theatres_per_weekday)
 	for key, value in day_data.items():
 		week_sched.loc[key] = daily_counts(value)
