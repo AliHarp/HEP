@@ -24,6 +24,7 @@ import math
 import warnings
 import streamlit as st
 from PIL import Image
+import model2 as md
 
 st.set_page_config(
      layout="wide",
@@ -33,8 +34,8 @@ st.set_page_config(
 #DEFAULT VALUES FROM SIMULATION
 ###########################################################################
 
-warm_up_period = 14
-results_collection_period = 40
+warm_up_period = md.DEFAULT_WARM_UP_PERIOD
+results_collection_period = md.DEFAULT_RESULTS_COLLECTION_PERIOD
 
 schedule_avail = pd.DataFrame()
 
@@ -160,8 +161,9 @@ for day,session,session_key, allocate, allocate_key, theatre, theatre_key, keyli
 	####################################################################
 	#select weekday - default values provided as indices of weekday list
 	
-	selected_weekday = st.selectbox("Select weekday:", weekday, key=keylist, index=indices[0])
-	st.write(":red[Selected weekday:]", selected_weekday)
+	selected_weekday = day
+	#selected_weekday = st.selectbox("Select weekday:", weekday, key=keylist, index=indices[0])
+	st.write(":red[Plan your sessions and number of theatres for]", selected_weekday)
 	
 	with st.expander(f"View scheduling details for {day}"):
 	

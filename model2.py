@@ -72,25 +72,25 @@ env = simpy.Environment()
 
 
 # ward parameters
-DEFAULT_PRIMARY_HIP_MEAN_LOS = 3.747
-DEFAULT_PRIMARY_KNEE_MEAN_LOS =  3.386
-DEFAULT_REVISION_HIP_MEAN_LOS = 7.149
-DEFAULT_REVISION_KNEE_MEAN_LOS= 7.022
-DEFAULT_UNICOMPART_KNEE_MEAN_LOS = 2.389
+DEFAULT_PRIMARY_HIP_MEAN_LOS = 2.747
+DEFAULT_PRIMARY_KNEE_MEAN_LOS =  2.386
+DEFAULT_REVISION_HIP_MEAN_LOS = 5.149
+DEFAULT_REVISION_KNEE_MEAN_LOS= 5.022
+DEFAULT_UNICOMPART_KNEE_MEAN_LOS = 1.389
 
 DEFAULT_PRIMARY_HIP_SD_LOS = 2
 DEFAULT_PRIMARY_KNEE_SD_LOS = 2
-DEFAULT_REVISION_HIP_SD_LOS = 3
-DEFAULT_REVISION_KNEE_SD_LOS = 3
+DEFAULT_REVISION_HIP_SD_LOS = 2
+DEFAULT_REVISION_KNEE_SD_LOS = 2
 DEFAULT_UNICOMPART_KNEE_SD_LOS = 1
 
-DEFAULT_DELAY_POST_LOS_MEAN = 8.6
-DEFAULT_DELAY_POST_LOS_SD = 3
+DEFAULT_DELAY_POST_LOS_MEAN = 6.6
+DEFAULT_DELAY_POST_LOS_SD = 2
 
 DEFAULT_PROB_WARD_DELAY = 0.05
 
 #Ward resources
-DEFAULT_NUMBER_BEDS = 46
+DEFAULT_NUMBER_BEDS = 40
 
 DEFAULT_PRIMARY_DICT = {1:'p_hip', 2:'p_knee', 3:'uni_knee'}
 #primary_dict = {1:'p_hip', 2:'p_knee', 3:'uni_knee'}
@@ -107,7 +107,7 @@ SET_SESSIONS_PER_WEEKDAY = {'Monday': 3, 'Tuesday': 3, 'Wednesday': 3, 'Thursday
 SET_SESSIONS_PER_WEEKDAY_LIST = list(SET_SESSIONS_PER_WEEKDAY.values())
 SET_ALLOCATION = {'Monday': ['2P_or_1R', '2P_or_1R', '1P'], 'Tuesday': ['2P_or_1R', '2P_or_1R','1P'], 'Wednesday': ['2P_or_1R', '2P_or_1R','1P'], 
               'Thursday': ['2P_or_1R', '2P_or_1R', '1P'], 'Friday': ['2P_or_1R', '2P_or_1R', '1P'], 'Saturday': [], 'Sunday': []}
-SET_THEATRES_PER_WEEKDAY = {'Monday': 2, 'Tuesday': 2, 'Wednesday': 2, 'Thursday': 2, 'Friday': 2, 'Saturday': 0, 'Sunday': 0}
+SET_THEATRES_PER_WEEKDAY = {'Monday': 4, 'Tuesday': 4, 'Wednesday': 4, 'Thursday': 4, 'Friday': 4, 'Saturday': 0, 'Sunday': 0}
 
 
 #simulation parameters
@@ -368,7 +368,6 @@ class Scenario:
 			self.schedule_avail = schedule.theatre_capacity()
 		else:
 			self.schedule_avail = schedule_avail.copy(deep=True)
-		print(self.schedule_avail.head(7))
 		self.random_number_set = random_number_set
 		self.primary_hip_mean_los = primary_hip_mean_los
 		self.primary_knee_mean_los = primary_knee_mean_los
@@ -1150,10 +1149,11 @@ args = Scenario(schedule)
 
 
 #args = Scenario(schedule)
-#m_results = multiple_reps(args, n_reps=DEFAULT_NUMBER_OF_RUNS)[0]
-#m_day_results = multiple_reps(args, n_reps=DEFAULT_NUMBER_OF_RUNS)[1]
-#m_primary_pt_results = multiple_reps(args, n_reps=DEFAULT_NUMBER_OF_RUNS)[2]
-#m_revision_pt_results = multiple_reps(args, n_reps=DEFAULT_NUMBER_OF_RUNS)[3]
+#results = multiple_reps(args, n_reps=DEFAULT_NUMBER_OF_RUNS)
+#m_results = results[0]
+#m_day_results = results[1]
+#m_primary_pt_results = results[2]
+#r_revision_pt_results = results[3]
   
 # # save results to csv 
 # m_day_results.to_csv('data/day_results.csv')
@@ -1731,7 +1731,8 @@ def scenario_daily_audit(scenario_results):
     ax.plot(values)
     ax.set_title('Bed Utilisation across model runtime (days)')
     ax.set_ylabel('Mean daily bed utilisation')
-    ax.legend(columns, bbox_to_anchor=(1.02, 1),loc='upper left')
+    #ax.legend(columns, bbox_to_anchor=(1.02, 1),loc='upper left')
+    ax.legend(columns, loc='lower center', bbox_to_anchor=(0.5, -0.45), ncol=2)
     
     return (plt)
     
@@ -1760,8 +1761,9 @@ def scenario_weekly_audit(scenario_results):
     day_map = {0: 'Mon', 1: 'Tues', 2: 'Weds', 3: 'Thurs', 4: 'Fri', 5: 'Sat', 6: 'Sun'}
     values = values.rename(index=day_map)
     values.plot(kind='bar', stacked=False,edgecolor='white',
-                title='Mean bed Utilisation per day of week')
+                title='Mean bed utilisation per day of week')
     plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
+    plt.legend(loc='lower center', bbox_to_anchor=(0.5, -0.4), ncol=2)
     return (plt)    
 
 #plot1 = scenario_weekly_audit(scenario_results[1])
@@ -1827,7 +1829,8 @@ def lost_slots(patient_summary):
     patient_summ['weekday'] = patient_summ['weekday'].map(day_map)
     patient_summ.plot(kind='bar', stacked=False, edgecolor='white', 
                       x='weekday', title='Mean lost slots per day of week')
-    plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
+    #plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
+    plt.legend(loc='lower center', bbox_to_anchor=(0.5, -0.4), ncol=2)
 
     return(plt)
 
@@ -1884,7 +1887,8 @@ def total_thruput_pt_results(scenario_results):
     plt.ylabel('Total surgery')
     plt.xlabel('')
     plt.title('Total joint replacements per week by type')
-    plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
+    #plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
+    plt.legend(loc='lower center', bbox_to_anchor=(0.5, -0.5), ncol=len(sc_name))
     
     return plt
 

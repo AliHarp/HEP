@@ -25,7 +25,9 @@ st.header('Orthopaedic Planning Model: Simulation')
 
 "You can set up multiple scenarios to compare by changing the parameters in the sliders and clicking 'Add Scenario'."
 
-	
+
+schedule = md.Schedule()
+args = md.Scenario(schedule)	
 
 with st.sidebar:
 	st.markdown('# Model Parameters')
@@ -36,11 +38,11 @@ with st.sidebar:
 	st.markdown('## Mean lengths-of-stay for each type of surgery:')
 	primary_hip_los = st.slider('Primary Hip LoS', 1.0, 5.0, md.DEFAULT_PRIMARY_HIP_MEAN_LOS, 0.1)
 
-	primary_knee_los = st.slider('Primary Knee LoS', 2.0, 5.0, md.DEFAULT_PRIMARY_KNEE_MEAN_LOS, 0.1)
+	primary_knee_los = st.slider('Primary Knee LoS', 1.0, 5.0, md.DEFAULT_PRIMARY_KNEE_MEAN_LOS, 0.1)
 
-	revision_hip_los = st.slider('Revision Hip LoS', 3.0, 8.0, md.DEFAULT_REVISION_HIP_MEAN_LOS, 0.1)
+	revision_hip_los = st.slider('Revision Hip LoS', 2.0, 8.0, md.DEFAULT_REVISION_HIP_MEAN_LOS, 0.1)
 
-	revision_knee_los = st.slider('Revision Knee LoS', 3.0, 8.0, md.DEFAULT_REVISION_KNEE_MEAN_LOS, 0.1)
+	revision_knee_los = st.slider('Revision Knee LoS', 2.0, 8.0, md.DEFAULT_REVISION_KNEE_MEAN_LOS, 0.1)
 
 	unicompart_knee_los = st.slider('Unicompart knee LoS', 1.0, 4.0,md.DEFAULT_UNICOMPART_KNEE_MEAN_LOS, 0.1)
 	    
@@ -92,7 +94,7 @@ def add_scenario(n_beds, primary_hip_los, primary_knee_los, revision_hip_los, re
     st.session_state['scenarios_df'] = pd.concat([st.session_state['scenarios_df'], new_scenario], ignore_index=True)
     st.session_state['counter'] += 1
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4 = st.columns([1,1,2,2])
 with col1:
 	if st.button('Add Scenario'):
 		add_scenario(n_beds, primary_hip_los, primary_knee_los, revision_hip_los, 
@@ -103,25 +105,34 @@ with col2:
 
 st.dataframe(st.session_state['scenarios_df'])
 
+########## look at default schedule
+
+default_sched = md.schedule.theatre_capacity()
+
 ########### add new schedule
 
-if st.button('Use newly defined theatre schedule in your simulation'):
-	st.write("Checking if you have created a theatre schedule...")
+if st.button('Use newly defined theatre schedule in your simulation', type='primary'):
+	st.write(":green[Checking if you have created a theatre schedule...]")
 	# Retrieve the DataFrame from SessionState:
 	try:
 		schedule_scenario = st.session_state.schedule_scenario
-		"Your schedule looks like this:"
-		st.write(st.session_state['schedule_scenario'].head(7))
-		"All your chosen scenarios will be run with both the baseline and the newly created schedule."
+		col1, col2 = st.columns(2)
+		with col1:
+			":orange[Your new schedule looks like this:]"
+			st.write(st.session_state['schedule_scenario'].head(7))
+		with col2:
+			":orange[The default schedule looks like this:]"
+			st.write(default_sched.head(7))
+		":green[**All your chosen scenarios will run with both the baseline and the newly created schedule.**]"
 		
 	except:
-		st.error("No schedule has been created: go to Flexible Schedule tab and generate a schedule if you want to use a schedule other than the default")
+		st.error("No schedule has been created: go to Flexible Theatre Schedule tab and generate a schedule if you want to use a schedule other than the default")
+		"The default schedule looks like this:"
+		st.write(default_sched.head(7))
 		st.session_state.schedule_scenario = None
 
 ############ set up scenarios
 
-schedule = md.Schedule()
-args = md.Scenario(schedule)
 
 
 def get_scenario_dict(df):
@@ -174,9 +185,7 @@ def get_scenarios(dict_s, new_schedule):
 		scenarios[key] = md.Scenario(schedule, **attributes)
 				
 		if 'schedule_scenario' in st.session_state:
-			st.write("New schedule is in session state and will be added to scenarios")
 			new_schedule=st.session_state['schedule_scenario']
-			st.write(new_schedule.head(7))
 			# Create a scenario object with new schedule
 			scenarios[f'{key}_new_schedule'] = md.Scenario(schedule, schedule_avail = new_schedule, **attributes)
 	    		   
@@ -192,10 +201,9 @@ if st.button('Start simulation', type='primary'):
 		dict_s = get_scenario_dict(st.session_state['scenarios_df'])
 		#get the scenarios
 		if 'schedule_scenario' in st.session_state:
-			st.write("New schedule is in session state and will be simulated")
 			scenarios = get_scenarios(dict_s, st.session_state['schedule_scenario'])
 		else:
-			st.write("New sched not found and won't be simulated")
+			st.write("A new schedule hasn't been found so only the default schedule will be used")
 			scenarios = get_scenarios(dict_s, None)
 
 		#run the scenario analysis for all results
@@ -214,20 +222,21 @@ if st.button('Start simulation', type='primary'):
 	table = md.total_thruput_table(scenario_results_patients)
 	st.write(table)	
 	
-	col1, col2 = st.columns(2)
+	col1, col2 = st.columns([2,1])
 	with col2:
 
-		st.write("The plots represent mean outputs for each scenario")
+		st.write("The plots represent mean results for each scenario")
 		
-		"Bed utilisation across the model runtime helps to understand how different scenarios affect the utilisation of beds each day and week."
+		":orange[Bed utilisation] across the model runtime helps to understand how different scenarios affect the utilisation of beds each day and week."
 		
 		"This is summarised for all weeks to show average bed utilisation for each day of week, for each of the scenarios investigated."
 		
-		"'Lost slots' represents a mismatch between the number of patients scheduled for surgery, and the number of beds available to them, given patient lengths-of-stay."
+		":orange['Lost slots'] represents a mismatch between the number of patients scheduled for surgery, and the number of beds available to them, given patient lengths-of-stay."
 		"Some of these lost slots may be accounted for by theatre cancellations for patient reasons.  Some may involve some bed management. "
 		"Others will result in lost theatre slots, if a bed isn't available for the patient."
+		"Lost slots therefore give a good indication of scenarios which are putting the system under pressure."
 		
-		"Total throughput represents the average number of surgeries that can be performed per week, for each scenario investigated."
+		":orange[Total throughput] represents the average number of surgeries that can be performed per week, for each scenario investigated."
 		
 	with col1:
 

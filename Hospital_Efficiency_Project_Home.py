@@ -31,7 +31,7 @@ col1, col2 = st.columns(2)
 
 with col1:
 
-	"Hospital Efficiency Project is a 3-year, HDRUK funded project aimed at improving the efficiency of orthopaedic pathways. Is is a collaboration between \
+	"Hospital Efficiency Project is a 3-year, HDRUK funded project aimed at improving the efficiency of orthopaedic pathways. It is a collaboration between \
 	the Universities of Bristol and Exeter, and North Bristol NHS Trust."
 
 	"This interactive tool is a discrete event simulation model, developed as a single component of the larger Hospital Efficiency Project multi-study."
@@ -63,13 +63,13 @@ with col1:
 	"Other scenarios can also be investigated in the model."
 
 	"For example, the mean lengths-of-stay of different surgical types, and the number of ringfenced beds available to patients can be changed to understand \
-	effects on surgical throughput.  Additionally, the mean number of days delayed can be changed.  This represents a proportion of patients whose ward length-of-stay\
-	is delayed for various reasons, such as awaiting a community package of care."
-	  
-	"The proportion of these patients can also be changed."
+	effects on surgical throughput."
+	
+	"Additionally, the mean number of days delayed can be changed.  This represents a proportion of patients whose ward length-of-stay\
+	is delayed for various reasons, such as awaiting a community package of care. The proportion of these patients can also be changed."
 
 	":green[The HEP project group consists of:]"
-	":green[Rebecca Wilson, Maria Theresa Redaniel, Emily Eyles, Tim Jones, Chris Penfold, Ashley Blom, Andrew Elliott, Alison Harper, Tim Keen, Martin Pitt, Andrew Judge]"
+	":green[Alison Harper, Rebecca Wilson, Maria Theresa Redaniel, Emily Eyles, Tim Jones, Chris Penfold, Andrew Elliott, Tim Keen, Ashley Blom, Martin Pitt, Andrew Judge]"
 	":green[With thanks to Mike Whitehead, Tom Woodward and Tom Monks for their support]"
 	
 	":green[This project is supported by the NIHR. The views expressed are those of the author(s) and not necessarily those of the NIHR or the Department of Health and Social Care.]"
