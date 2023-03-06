@@ -73,15 +73,12 @@ args.prob_ward_delay = prop_delay
 if st.button('Start simulation'):
     # Get results
 	with st.spinner('Simulating...'):
-		m_results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)[0]
-		m_day_results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)[1]
-		m_primary_pt_results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)[2]
-		m_revision_pt_results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)[3]
+		results = md.multiple_reps(args, n_reps = replications, results_collection=runtime+md.DEFAULT_WARM_UP_PERIOD)
+		m_results = results[0]
+		m_day_results = results[1]
+		m_primary_pt_results = results[2]
+		m_revision_pt_results = results[3]
   
-	# # save results to csv 
-	# m_day_results.to_csv('data/day_results.csv')
-	# m_primary_pt_results.to_csv('data/primary_patient_results.csv')
-	# m_revision_pt_results.to_csv('data/revision_patient_results.csv')
 	st.success('Done!')
 	
 	col1, col2 = st.columns(2)

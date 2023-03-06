@@ -26,6 +26,8 @@ import streamlit as st
 from PIL import Image
 import model2 as md
 
+#st.cache_data.clear()
+
 st.set_page_config(
      layout="wide",
      initial_sidebar_state="expanded"
@@ -131,7 +133,7 @@ def week_schedule():
 
 
 #### USE PREVIOUS TWO FUNCTIONS TO GENERATE SCHEDULE FOR RUN LENGTH + WARM_UP
-
+#@st.cache
 def create_full_schedule():
 	"""  
 	Determine length of schedule
@@ -224,16 +226,32 @@ for day,session,session_key, allocate, allocate_key, theatre, theatre_key, keyli
 			st.write(":orange[If you have selected 0 sessions per day, the number of theatres in use will also be 0]")
 			st.write("Selected theatres:", selected_theatres)
 			theatres_per_weekday[theatre_key] = selected_theatres
-
+#@st.cache
+def new_sched_rules_df():
+	"""
+	params: 
+	weekday is list of weekdays
+	sessions_per_weekday_list is number of sessions per day
+	allocations per session
+	theatres per session
+	
+	returns: a df of theatre rules for the new user schedule
+	"""
+	new_sched_rules = pd.DataFrame(list(zip(weekday, sessions_per_weekday_list, allocation.values(), theatres_per_weekday.values())), 
+		columns =['Weekday', 'Sessions', 'Allocations', 'Theatre numbers'])
+	return new_sched_rules	      
+		       		
 
 #Refresh schedule with new values if no conflict between number of sessions and allocations.  Error message if conflict.		
-if st.button('Generate schedule'):
+if st.button('Generate schedule', type='primary'):
 	alln = True
 	while alln == True:
 		if all(session == len(allocate) for session, allocate, allocate_keys in zip(sessions_per_weekday_list, allocation.values(), allocation.keys())):
 			schedule_scenario = create_full_schedule()
+			st.write("Done!")
+			st.write("You can view a sample of the theatre schedule in :orange['sample two-weekly schedule'] tab")
 			if 'schedule_scenario' not in st.session_state:
-				st.session_state.schedule_scenario = schedule_scenario		
+				st.session_state.schedule_scenario = schedule_scenario
 			alln = False
 			break
 		else:
@@ -241,21 +259,25 @@ if st.button('Generate schedule'):
 				st.write(f":green[**Please check that you have allocated all sessions**]") 
 				st.write(":green[The highlighted rows in the weekday scheduling table show days with incorrectly allocated sessions]")
 				break
-
+	new_sched_rules = new_sched_rules_df()
+	if 'new_sched_rules' not in st.session_state:
+		st.session_state.new_sched_rules = new_sched_rules	       		
+			
 	
 tab1, tab2 = st.tabs(["Weekday scheduling values","A sample two-weekly schedule"])
 
 
 # Display table of selected theatre options.  Highlight row/s with conflict between number sessions and sessions allocated.  			
 with tab1:
-	df = pd.DataFrame(list(zip(weekday, sessions_per_weekday_list, allocation.values(), theatres_per_weekday.values())),
-		       columns =['Weekday', 'Sessions', 'Allocations', 'Theatre numbers'])
-		       
+	df = pd.DataFrame(list(zip(weekday, sessions_per_weekday_list, allocation.values(), theatres_per_weekday.values())), 
+		columns =['Weekday', 'Sessions', 'Allocations', 'Theatre numbers'])
+     
 	def highlight(s):
 		is_highlight = (s[1]) > (len(s[2]))
 		return ['background-color: yellow' if is_highlight else '' for i in range(len(s))]
 
 	st.dataframe(df.style.apply(highlight, axis=1))
+
 
 # Display sample 2 week schedule where number sessions == sessions allocated.
 # Error message if no schedule created.  Clear session state if change has been made to schedule and not regenerated. 
@@ -268,6 +290,7 @@ with tab2:
 		st.error("No schedule has been created")
 		try:
 			del st.session_state['schedule_scenario']
+			del st.session_state['new_sched_rules']
 		except: 
 			st.stop()
 		st.stop()

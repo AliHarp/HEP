@@ -13,5 +13,6 @@ dependencies:
   - simpy=4.0.1
   - pip:
     - arrow
-    - streamlit
+    - streamlit==1.17.0
+    - plotly==5.13.0
 

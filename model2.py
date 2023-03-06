@@ -15,6 +15,8 @@ import arrow
 import random
 import math
 import warnings
+import plotly.express as px
+import plotly.graph_objs as go
 
 
 # ## Set start date and define it to be equal to the simulation time
@@ -1881,15 +1883,31 @@ def total_thruput_pt_results(scenario_results):
 
     # plot the stacked bar chart
     fig, ax = plt.subplots(figsize=(8, 6))
+    #fig = go.Figure()
     melted_df.groupby(['_Counts', 'surgery type']).sum()['Counts'].unstack().plot(kind='bar', 
                                     stacked=True, ax=ax, colormap='tab20b', edgecolor='white')
     plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
     plt.ylabel('Total surgery')
     plt.xlabel('')
     plt.title('Total joint replacements per week by type')
-    #plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
+    plt.legend(loc='center left', bbox_to_anchor=(1,0.5))
     plt.legend(loc='lower center', bbox_to_anchor=(0.5, -0.5), ncol=len(sc_name))
-    
+    #data = melted_df.groupby(['_Counts', 'surgery type']).sum()['Counts'].unstack().reset_index()
+
+    #for col in data.columns[1:]:
+    #	fig.add_trace(go.Bar(x=data['_Counts'], y=data[col], name=col))
+
+    #fig.update_layout(
+	#    title='Total joint replacements per week by type',
+	#    xaxis_title='',
+	#    yaxis_title='Total surgery',
+	#    xaxis_tickangle=-45,
+	#    legend=dict(x=0.5, y=-0.3, orientation='h'),
+	#    barmode='stack',
+	#    bargap=0.2,
+	#    uniformtext_minsize=8,
+	#    uniformtext_mode='hide',
+	#)
     return plt
 
 def total_thruput_table(scenario_results):
