@@ -298,6 +298,7 @@ if st.button('Start simulation', type='primary'):
 		if 'schedule_scenario' in st.session_state or len(st.session_state['scenarios_df'])>1:
 			st.pyplot(md.scenario_daily_audit(scenario_results[1]))
 			st.pyplot(md.scenario_weekly_audit(scenario_results[1]))
+			st.pyplot(md.scenario_weekly_boxplots(scenario_results[1]))
 			st.pyplot(md.lost_slots(patient_summary))
 			st.pyplot(md.total_thruput_pt_results(scenario_results_patients))
 		else:
@@ -319,4 +320,6 @@ with col2:
 		st.session_state['scenarios_df'] = st.session_state['scenarios_df'].iloc[[0]]
 		st.session_state['counter'] = 1
 		if 'schedule_scenario' in st.session_state:
-			del st.session_state['schedule_scenario']   
+			del st.session_state['schedule_scenario']  
+			
+			 

@@ -1740,7 +1740,34 @@ def scenario_daily_audit(scenario_results):
 #plt.savefig('Daily bed utilisation scenarios')
 
 
-# In[31]:
+def scenario_weekly_boxplots(scenario_results):
+    """
+    Weekly audit results for each performance measure by scenario
+    """
+    columns = []
+    weekly_summary = pd.DataFrame()
+
+    for sc_name, replications in scenario_results.items():
+            weekly_summary = pd.concat([weekly_summary, replications.groupby(['weekday']).apply(lambda x:x)],
+                                axis=1)
+            columns.append(sc_name)
+
+
+    values = weekly_summary['bed_utilisation']
+    columns = list(map('_'.join, zip(columns, values)))
+    values.columns = columns
+    
+    fig, ax = plt.subplots(figsize=(8, 6))
+
+    # create the boxplot
+    bp = ax.boxplot(values.values, patch_artist=True)
+    ax.set_ylabel('Utilisation')
+
+    plt.xticks(range(1, len(values.columns) +1), values.columns)
+    ax.set_xticklabels(values.columns, fontsize=12, rotation=45, ha='right')
+    ax.set_title('Bed Utilisation', fontsize=16)
+    
+    return (plt)
 
 
 def scenario_weekly_audit(scenario_results):
