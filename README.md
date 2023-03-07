@@ -38,7 +38,7 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 * Visit our [jupyter book](https://github.com/AliHarp/HEP) for interactive code and explanatory text
 * Run our Jupyter notebooks in binder [![Binder](https://mybinder.org/badge_logo.svg)](https://github.com/AliHarp/HEP/main)
 
-## Repo overview
+## Repo overview --- UPDATE
 
 ```bash
 .
