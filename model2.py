@@ -15,8 +15,6 @@ import arrow
 import random
 import math
 import warnings
-import plotly.express as px
-import plotly.graph_objs as go
 
 
 # ## Set start date and define it to be equal to the simulation time
