@@ -8,8 +8,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 from PIL import Image
-import plotly.express as px
-import plotly.graph_objs as go
 import model2 as md
 
 
