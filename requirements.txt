@@ -1,0 +1,8 @@
+matplotlib==3.5.3
+numpy==1.23.2
+pandas==1.4.4
+matplotlib==3.5.3
+scipy==1.9.1
+simpy==4.0.1
+streamlit==1.17.0
+arrow
