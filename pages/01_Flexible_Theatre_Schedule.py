@@ -1,16 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## Flexible Theatre Scheduling
-# 
-# 
-# 1. Choose number of sessions per weekday
-# 2. Choose surgeries per session: (1P) 1 primary; (1R) 1 revision (2P) 2 primaries (2P\1R) random allocation of 2 primary or 1 revision
-# 3. Number of theatres per weekday
-# 
-# NOTE: This means each theatre per weekday will have the same number of sessions and the same surgery allocation 
-
-
 import simpy
 import statistics
 import numpy as np

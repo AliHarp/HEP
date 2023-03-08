@@ -8,8 +8,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 from PIL import Image
-import plotly.express as px
-import plotly.graph_objs as go
 import model2 as md
 
 
@@ -286,6 +284,8 @@ if st.button('Start simulation', type='primary'):
 		
 		"This is summarised for all weeks to show average bed utilisation for each day of week, for each of the scenarios investigated."
 		
+		"It is also summarised using boxplots for each scenario.  This shows the spread of values across days and simulation replications." 
+		
 		":orange['Lost slots'] represents a mismatch between the number of patients scheduled for surgery, and the number of beds available to them, given patient lengths-of-stay."
 		"Some of these lost slots may be accounted for by theatre cancellations for patient reasons.  Some may involve some bed management. "
 		"Others will result in lost theatre slots, if a bed isn't available for the patient."
@@ -300,6 +300,7 @@ if st.button('Start simulation', type='primary'):
 		if 'schedule_scenario' in st.session_state or len(st.session_state['scenarios_df'])>1:
 			st.pyplot(md.scenario_daily_audit(scenario_results[1]))
 			st.pyplot(md.scenario_weekly_audit(scenario_results[1]))
+			st.pyplot(md.scenario_weekly_boxplots(scenario_results[1]))
 			st.pyplot(md.lost_slots(patient_summary))
 			st.pyplot(md.total_thruput_pt_results(scenario_results_patients))
 		else:
@@ -321,4 +322,6 @@ with col2:
 		st.session_state['scenarios_df'] = st.session_state['scenarios_df'].iloc[[0]]
 		st.session_state['counter'] = 1
 		if 'schedule_scenario' in st.session_state:
-			del st.session_state['schedule_scenario']   
+			del st.session_state['schedule_scenario']  
+			
+			 
