@@ -1129,8 +1129,8 @@ def multiple_reps(scenario, results_collection=DEFAULT_RESULTS_COLLECTION_PERIOD
 
 
 # a single run
-schedule = Schedule()
-args = Scenario(schedule)
+#schedule = Schedule()
+#args = Scenario(schedule)
 #create schedule    
 
 
@@ -1229,7 +1229,7 @@ def weekly_summ_bed_utilisation(m_day_results):
     warm-up results are excluded at runtime
     """
     m_day_results_wd = m_day_results.groupby(['weekday']).mean()
-    m_day_results_wd.to_csv('data_summaries/audit_weekday_results_across_runs.csv')
+    #m_day_results_wd.to_csv('data_summaries/audit_weekday_results_across_runs.csv')
     values = m_day_results_wd['bed_utilisation']
     names = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     fig, ax = plt.subplots(figsize=(8,4))
