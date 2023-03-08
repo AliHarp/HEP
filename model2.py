@@ -1585,25 +1585,25 @@ def get_scenarios():
     scenarios['base'] = Scenario(schedule)
     
     # define scenarios
-    scenarios['beds+20'] = Scenario(schedule, n_beds=scenarios['base'].n_beds+20)
+    #scenarios['beds+20'] = Scenario(schedule, n_beds=scenarios['base'].n_beds+20)
     
     #scenarios['theatres+4'] = Scenario(n_theatres=scenarios['base'].n_theatres + 4)
     
-    reduction = 20 
-    primary_hip_mean_los = scenarios['base'].primary_hip_mean_los + reduction
-    revision_hip_mean_los = scenarios['base'].revision_hip_mean_los + reduction
-    revision_knee_mean_los = scenarios['base'].revision_knee_mean_los + reduction
-    primary_knee_mean_los = scenarios['base'].primary_knee_mean_los + reduction
-    unicompart_knee_mean_los = scenarios['base'].unicompart_knee_mean_los + reduction
-    scenarios[f'los+{reduction}'] = Scenario(schedule,primary_hip_mean_los=primary_hip_mean_los,
-                                            revision_hip_mean_los=revision_hip_mean_los,
-                                            revision_knee_mean_los=revision_knee_mean_los,
-                                            primary_knee_mean_los=primary_knee_mean_los,
-                                            unicompart_knee_mean_los=unicompart_knee_mean_los)
+    #reduction = 20 
+    #primary_hip_mean_los = scenarios['base'].primary_hip_mean_los + reduction
+    #revision_hip_mean_los = scenarios['base'].revision_hip_mean_los + reduction
+    #revision_knee_mean_los = scenarios['base'].revision_knee_mean_los + reduction
+    #primary_knee_mean_los = scenarios['base'].primary_knee_mean_los + reduction
+    #unicompart_knee_mean_los = scenarios['base'].unicompart_knee_mean_los + reduction
+    #scenarios[f'los+{reduction}'] = Scenario(schedule,primary_hip_mean_los=primary_hip_mean_los,
+    #                                        revision_hip_mean_los=revision_hip_mean_los,
+    #                                        revision_knee_mean_los=revision_knee_mean_los,
+    #                                        primary_knee_mean_los=primary_knee_mean_los,
+    #                                        unicompart_knee_mean_los=unicompart_knee_mean_los)
 
     
-    new_delay_prob = 0
-    scenarios['Proportion_delayed'] = Scenario(schedule,prob_ward_delay = new_delay_prob)
+   # new_delay_prob = 0
+    #scenarios['Proportion_delayed'] = Scenario(schedule,prob_ward_delay = new_delay_prob)
 
     #new_schedule = SCENARIO_SCHEDULE_AVAIL
     #scenarios['Schedule_change'] = Scenario(schedule, schedule_avail=new_schedule)
