@@ -1129,8 +1129,8 @@ def multiple_reps(scenario, results_collection=DEFAULT_RESULTS_COLLECTION_PERIOD
 
 
 # a single run
-#schedule = Schedule()
-#args = Scenario(schedule)
+schedule = Schedule()
+args = Scenario(schedule)
 #create schedule    
 
 
