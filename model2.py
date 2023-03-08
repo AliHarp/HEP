@@ -1207,7 +1207,7 @@ def daily_summ_bed_utilisation(m_day_results):
     warm-up results are excluded at runtime
     """
     m_day_results_ts = m_day_results.groupby(['sim_time']).mean()
-    m_day_results_ts.to_csv('data_summaries/audit_day_results_across_runs.csv')
+    #m_day_results_ts.to_csv('data_summaries/audit_day_results_across_runs.csv')
     fig, ax = plt.subplots(figsize=(12,3))
     ax.plot(m_day_results_ts['bed_utilisation'])
     ax.set_title('Bed Utilisation across model runtime (days)')
@@ -1275,7 +1275,7 @@ def calc_lost_theatre_slots(primary_pt_results, revision_pt_results):
     #truncate to correct length and save to column
     sequence = flat_seq[:len(lost_slots_df)]
     lost_slots_df['weekday'] = sequence
-    lost_slots_df.to_csv('data_summaries/Lost_slots_results_per_day.csv')
+    #Hospital_Efficiency_Project_Home.pylost_slots_df.to_csv('data_summaries/Lost_slots_results_per_day.csv')
     return(pd.DataFrame(lost_slots_df))
 
 
