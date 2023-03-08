@@ -1765,7 +1765,7 @@ def scenario_weekly_boxplots(scenario_results):
 
     plt.xticks(range(1, len(values.columns) +1), values.columns)
     ax.set_xticklabels(values.columns, fontsize=12, rotation=45, ha='right')
-    ax.set_title('Bed Utilisation', fontsize=16)
+    ax.set_title('Bed Utilisation per scenario', fontsize=14)
     
     return (plt)
 

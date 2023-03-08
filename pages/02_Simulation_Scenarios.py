@@ -284,6 +284,8 @@ if st.button('Start simulation', type='primary'):
 		
 		"This is summarised for all weeks to show average bed utilisation for each day of week, for each of the scenarios investigated."
 		
+		"It is also summarised using boxplots for each scenario.  This shows the spread of values across days and simulation replications." 
+		
 		":orange['Lost slots'] represents a mismatch between the number of patients scheduled for surgery, and the number of beds available to them, given patient lengths-of-stay."
 		"Some of these lost slots may be accounted for by theatre cancellations for patient reasons.  Some may involve some bed management. "
 		"Others will result in lost theatre slots, if a bed isn't available for the patient."
