@@ -33,7 +33,7 @@ with col1:
 
 	":green[This interactive tool is a discrete event simulation model, developed as a single component of the larger Hospital Efficiency Project multi-study.]"
 
-	":green[The model represents total joint replacement activity from theatre scheduling, to ward stay, to discharge for primary and revision hip and knee replacement surgeries, \
+	":green[The model represents surgical joint replacement activity from theatre scheduling, to ward stay, to discharge for primary and revision hip and knee replacement surgeries, \
 	and unicompartmental knee replacement surgery.]"
 	st.markdown("***")
 

@@ -163,15 +163,15 @@ for day,session,session_key, allocate, allocate_key, theatre, theatre_key, keyli
 		
 		with col1:
 		#select number of sessions per weekday
-			st.write(f"Please select the number of theatre sessions required for {day}")
+			st.write(f":green[**1.**	Please select the number of theatre sessions required for {day}]")
 			selected_sessions = st.slider("Number of sessions:", 0, 4, 3, key=keylist*10)
 			st.write("Selected sessions:", selected_sessions)
 			sessions_per_weekday[session_key] = selected_sessions
 			sessions_per_weekday_list = list(sessions_per_weekday.values())
 			
 		with col2:
-			st.markdown(":orange[Please select the surgery allocation for each session.]")
-			st.markdown(f":orange[You may allocate {selected_sessions} of the following surgical categories:] ")
+			st.write(":green[**2.**	Please select the surgery allocation for each session.]")
+			st.markdown(f"You may allocate {selected_sessions} of the following surgical categories:")
 			st.markdown(" -  **1R:** *1 revision*")
 			st.markdown(" -  **2P:** *2 primary*")
 			st.markdown(" -  **1R or 2P:** *random allocation of 1 revision or 2 primary*")
@@ -195,7 +195,7 @@ for day,session,session_key, allocate, allocate_key, theatre, theatre_key, keyli
 			# count down remaining sessions to be allocated	
 			remaining = selected_sessions - len(selected_allocations)
 			if (len(selected_allocations) < selected_sessions):
-				st.write(f":green[**You have {remaining} options remaining - all sessions must be allocated**]")
+				st.write(f":orange[**You have {remaining} options remaining - all sessions must be allocated**]")
 				
 			st.write("Selected allocations:", selected_allocations)
 			allocation[allocate_key] = selected_allocations
@@ -204,7 +204,7 @@ for day,session,session_key, allocate, allocate_key, theatre, theatre_key, keyli
 		#select number of theatres - if number of sessions is set to 0, number of theatre will be set to 0
 
 		with col1:
-			st.write(f"Please select the number of operating theatres required for {day}")
+			st.write(f":green[**3.**	Please select the number of operating theatres required for {day}]")
 			
 			# if no sessions are chosen, number of theatres must also be 0
 			if selected_sessions == 0:

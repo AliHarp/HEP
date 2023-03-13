@@ -15,4 +15,6 @@ dependencies:
     - arrow
     - streamlit==1.17.0
     - plotly==5.13.0
+    - fitter
+    - seaborn
 

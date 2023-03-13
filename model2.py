@@ -22,72 +22,34 @@ import warnings
 # 
 # Defined in days: Monday = 0
 
-# In[2]:
+
+start = arrow.get('2022-06-27')  #start on a monday
 
 
-start = arrow.get('2022-06-27')  #start on a monday -- ?more dynamic?
-env = simpy.Environment()
-
-
-# In[3]:
-
-
-# #checking - note start a/a not in real time.  Monday=0
-# current_date = start.shift(days=env.now)  
-# print('Current weekday:', current_date.weekday())
-
-# tomorrow_date = current_date.shift(days=+1)
-# print('Tomorrow weekday:', tomorrow_date.weekday())
-
-
-# start.shift(days=env.now).weekday()
-
-
-# ## Output created: HEP_fit_delayed_LOS.docx
-# > ### summary(primary_hip_v_los)  
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   
-#   1.000   3.000   4.000   5.747   7.000  29.000   
-# > ### summary(primary_knee_v_los)  
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   
-#   1.000   3.000   4.000   5.386   6.000  28.000   
-# > ### summary(revise_hip_v_los)  
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   
-#   1.000   4.000   7.000   9.149  13.000  29.000   
-# > ### summary(revise_knee_v_los)  
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   
-#   1.000   4.000   7.000   9.022  13.000  29.000   
-# > ### summary(uni_knee_v_los)  
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   
-#   1.000   2.000   3.000   3.389   4.000  28.000   
-# > ### summary(delayed_los)  
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.   
-#   30.00   34.00   43.00   49.61   58.00  156.00   
-#   0        4       39      19.6    28     126  
 
 # ## Parameters
 # * Primary: primary hip, primary knee, primary uni-compartmental knee
 # * Revision: revision hip, revision knee
 
-# In[4]:
 
 
 # ward parameters
-DEFAULT_PRIMARY_HIP_MEAN_LOS = 2.747
-DEFAULT_PRIMARY_KNEE_MEAN_LOS =  2.386
-DEFAULT_REVISION_HIP_MEAN_LOS = 5.149
-DEFAULT_REVISION_KNEE_MEAN_LOS= 5.022
-DEFAULT_UNICOMPART_KNEE_MEAN_LOS = 1.389
+DEFAULT_PRIMARY_HIP_MEAN_LOS = 4.433333 
+DEFAULT_PRIMARY_KNEE_MEAN_LOS =  4.651163 
+DEFAULT_REVISION_HIP_MEAN_LOS = 6.908867 
+DEFAULT_REVISION_KNEE_MEAN_LOS = 7.194118 
+DEFAULT_UNICOMPART_KNEE_MEAN_LOS = 2.914671 
 
-DEFAULT_PRIMARY_HIP_SD_LOS = 2
-DEFAULT_PRIMARY_KNEE_SD_LOS = 2
-DEFAULT_REVISION_HIP_SD_LOS = 2
-DEFAULT_REVISION_KNEE_SD_LOS = 2
-DEFAULT_UNICOMPART_KNEE_SD_LOS = 1
+DEFAULT_PRIMARY_HIP_SD_LOS = 2.949526
+DEFAULT_PRIMARY_KNEE_SD_LOS = 2.828129
+DEFAULT_REVISION_HIP_SD_LOS = 6.965812
+DEFAULT_REVISION_KNEE_SD_LOS = 7.598554
+DEFAULT_UNICOMPART_KNEE_SD_LOS = 2.136334
 
-DEFAULT_DELAY_POST_LOS_MEAN = 6.6
-DEFAULT_DELAY_POST_LOS_SD = 2
+DEFAULT_DELAY_POST_LOS_MEAN = 16.521739
+DEFAULT_DELAY_POST_LOS_SD = 15.153132
 
-DEFAULT_PROB_WARD_DELAY = 0.05
+DEFAULT_PROB_WARD_DELAY = 0.076  
 
 #Ward resources
 DEFAULT_NUMBER_BEDS = 40
@@ -541,7 +503,7 @@ class PrimaryPatient:
                           f'has been allocated a bed at {self.env.now:.3f}' 
                           f'and queued for {self.queue_beds:.3f}')
                     
-                    self.primary_los = self.primary_los + args.los_delay_dist.sample()
+                    self.primary_los = args.los_delay_dist.sample()
                     yield self.env.timeout(self.primary_los)
                     self.lost_slots_bool = False
                     self.delayed_los_bool = True
@@ -672,7 +634,7 @@ class RevisionPatient:
                           f'has been allocated a bed at {self.env.now:.3f}'
                           f'and queued for {self.queue_beds:.3f}')
                 
-                    self.revision_los = self.revision_los + args.los_delay_dist.sample()
+                    self.revision_los = args.los_delay_dist.sample()
                     yield self.env.timeout(self.revision_los)
                     self.lost_slots_bool = False
                     self.delayed_los_bool = True
