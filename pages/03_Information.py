@@ -60,7 +60,7 @@ st.markdown("***")
 	
 ":green[The HEP project group consists of:]"
 ":green[Alison Harper, Rebecca Wilson, Maria Theresa Redaniel, Emily Eyles, Tim Jones, Chris Penfold, Andrew Elliott, Tim Keen, Ashley Blom, Martin Pitt, Andrew Judge]"
-":green[With thanks to Mike Whitehead, Tom Woodward and Tom Monks for their support]"
+":green[With thanks to Mike Whitehouse, Tom Woodward and Tom Monks for their support]"
 	
 ":green[For further information, comments, or requests, please contact: Alison Harper a.l.harper@exeter.ac.uk]"
 	
