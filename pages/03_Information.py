@@ -62,7 +62,7 @@ st.markdown("***")
 ":green[Alison Harper, Rebecca Wilson, Maria Theresa Redaniel, Emily Eyles, Tim Jones, Chris Penfold, Andrew Elliott, Tim Keen, Ashley Blom, Martin Pitt, Andrew Judge]"
 ":green[With thanks to Mike Whitehouse, Tom Woodward and Tom Monks for their support]"
 	
-":green[For further information, comments, or requests, please contact: Alison Harper a.l.harper@exeter.ac.uk]"
+":green[For further information or feedback, please contact: Alison Harper a.l.harper@exeter.ac.uk]"
 	
 st.markdown("***")	
 		
