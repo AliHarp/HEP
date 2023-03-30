@@ -54,7 +54,7 @@ with col1:
 
 	"The theatre schedule is flexible. The number of sessions per weekday, the surgical categories per session, and the number of operating theatres can be selected."
 
-	"These can be compared with a default schedule in which 4 theatres operate 5 days per week, with 3 sessions per day.  Of those sessions, 2 will randomly \
+	"These can be compared with a default schedule in which 4 theatres operate 5 days per week, with 3 sessions per day.  Of those sessions, two will randomly \
 	allocate either 2 primary joint replacements or 1 revision joint replacement, while the third session will schedule 1 primary joint replacement."
 
 	"The flexible schedule will enable experimentation with the model, for example the effects of increasing the number of sessions per weekday, of adding \

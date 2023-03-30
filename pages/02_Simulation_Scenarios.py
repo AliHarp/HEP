@@ -21,7 +21,7 @@ st.title(':green[Hospital Efficiency Project]')
 
 st.header('Orthopaedic Planning Model: Simulation')
 
-"The simulation model will use the schedule created on the previous page and compare it with a default schedule in which 4 theatres operate 5 days per week, with 3 sessions per day.  Of those sessions, 2 will randomly allocate either 2 primary joint replacements or 1 revision joint replacement, while the third session will schedule 1 primary joint replacement."
+"The simulation model will use the schedule created on the previous page and compare it with a default schedule in which 4 theatres operate 5 days per week, with 3 sessions per day.  Of those sessions, two will randomly allocate either 2 primary joint replacements or 1 revision joint replacement, while the third session will schedule 1 primary joint replacement."
 
 "You can set up multiple scenarios for comparison by changing the parameters in the sliders and clicking 'Add Scenario'."
 
