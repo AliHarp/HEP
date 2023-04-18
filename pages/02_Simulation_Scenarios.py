@@ -163,7 +163,7 @@ if st.button('Use newly defined theatre schedule in your simulation', type='prim
 				st.write(st.session_state['new_sched_rules'])
 				#st.write(st.session_state['schedule_scenario'].head(7))
 			with col2:
-				":orange[These are the default theatre schedule rules:]"
+				":orange[These are the baseline theatre schedule rules:]"
 				default_sched_rules = default_sched_rules
 				st.dataframe(default_sched_rules)
 				#st.write(default_sched.head(7))
@@ -176,7 +176,7 @@ if st.button('Use newly defined theatre schedule in your simulation', type='prim
 			st.dataframe(new_sched_df)
 	except:
 		st.error("No schedule has been created: go to Flexible Theatre Schedule tab and generate a schedule if you want to use a schedule other than the default")
-		":orange[The default schedule looks like this:]"
+		":orange[The baseline schedule looks like this:]"
 		st.dataframe(default_sched_rules)
 		#if 'schedule_scenario' in st.session_state: 
 		#	del st.session_state['schedule_scenario']
