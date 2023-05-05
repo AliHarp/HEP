@@ -4,6 +4,7 @@
 [![Read the Docs](https://readthedocs.org/projects/pip/badge/?version=latest)](https://github.com/AliHarp/HEP/blob/main/HEP_notebooks/01_intro.md)
 [![License: MIT](https://img.shields.io/badge/ORCID-0000--0001--5274--5037-brightgreen)](https://orcid.org/0000-0001-5274-5037)
 [![License: MIT](https://img.shields.io/badge/ORCID-0000--0003--2631--4481-brightgreen)](https://orcid.org/0000-0003-2631-4481)
+[![ORCID: Pitt](https://img.shields.io/badge/ORCID-0000--0003--4026--8346-brightgreen)](https://orcid.org/0000-0003-4026-8346)
 
 # HOSPITAL EFFICIENCY PROJECT
 
@@ -14,6 +15,7 @@ The materials and data in this repository support: Hospital Efficiency Project D
 
 [![ORCID: Harper](https://img.shields.io/badge/ORCID-0000--0001--5274--5037-brightgreen)](https://orcid.org/0000-0001-5274-5037)
 [![ORCID: Monks](https://img.shields.io/badge/ORCID-0000--0003--2631--4481-brightgreen)](https://orcid.org/0000-0003-2631-4481)
+[![ORCID: Pitt](https://img.shields.io/badge/ORCID-0000--0003--4026--8346-brightgreen)](https://orcid.org/0000-0003-4026-8346)
 
 ## Write up of study
 
@@ -35,7 +37,7 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 > `conda env create -f binder/environment.yml`
 
 **Online Alternatives**:
-* Visit our [jupyter book](https://github.com/AliHarp/HEP) for interactive code and explanatory text
+* Visit our [jupyter book](https://aliharp.github.io/HEP/HEP_notebooks/01_intro.html) for interactive code and explanatory text
 * Run our Jupyter notebooks in binder 
 * [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AliHarp/HEP/HEAD)
 
