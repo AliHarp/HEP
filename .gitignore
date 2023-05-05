@@ -4,6 +4,9 @@ data/*
 data_summaries/*
 notebooks/HipKnee_with_los_delay.csv
 
+#Jupyter book build
+_build/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

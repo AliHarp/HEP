@@ -1,0 +1,16 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: HEP_notebooks/01_intro
+parts:
+- caption: RUNNING THE MODEL
+  chapters:
+  - file: HEP_notebooks/01_model/01_HEP_main
+  - file: HEP_notebooks/01_model/02_Scenario_testing
+  - file: HEP_notebooks/01_model/03_HEP_fit_dists
+- caption: REPORTING GUIDELINES
+  chapters:
+  - file: HEP_notebooks/02_STRESS/STRESS_DES
+
+
