@@ -1,0 +1,1900 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Scenario Testing &#8212; Hospital Efficiency Project Orthopaedic Planning Model</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'HEP_notebooks/01_model/02_Scenario_testing';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Fitting LoS distributions for HEP" href="03_HEP_fit_dists.html" />
+    <link rel="prev" title="Model" href="01_HEP_main.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../01_intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/HdRlogo.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/HdRlogo.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../01_intro.html">
+                    Hospital Efficiency Project
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">RUNNING THE MODEL</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_HEP_main.html">Model</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Scenario Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_HEP_fit_dists.html">Fitting LoS distributions for HEP</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">REPORTING GUIDELINES</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_STRESS/STRESS_DES.html">STRESS-DES</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/AliHarp/HEP/main?urlpath=lab/tree/HEP_notebooks/01_model/02_Scenario_testing.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/AliHarp/HEP" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/AliHarp/HEP/issues/new?title=Issue%20on%20page%20%2FHEP_notebooks/01_model/02_Scenario_testing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/HEP_notebooks/01_model/02_Scenario_testing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Scenario Testing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-extreme-scenarios">MODEL TEST RUNS: Extreme Scenarios:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-bed-parameters">MODEL TEST RUNS: Changing bed parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-variance-on-los-of-revision-patients">MODEL TEST RUNS: Variance on LoS of revision patients</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-revision-los">MODEL TEST RUNS: Changing Revision LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-all-los">MODEL TEST RUNS: Changing all LoS</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="scenario-testing">
+<h1>Scenario Testing<a class="headerlink" href="#scenario-testing" title="Permalink to this headline">#</a></h1>
+<section id="model-test-runs-extreme-scenarios">
+<h2>MODEL TEST RUNS: Extreme Scenarios:<a class="headerlink" href="#model-test-runs-extreme-scenarios" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">import</span> <span class="nn">model2</span> <span class="k">as</span> <span class="nn">md</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Creates a dictionary object containing</span>
+<span class="sd">    objects of type `Scenario` to run.</span>
+<span class="sd">    </span>
+<span class="sd">    Used for testing extreme scenarios</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Contains stress tests for the model</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">scenarios</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">schedule</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Schedule</span><span class="p">()</span>
+    <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">)</span>
+    
+    <span class="c1"># define scenarios</span>
+    <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;beds-20&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span><span class="o">=</span><span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_beds</span><span class="o">-</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;beds+20&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span><span class="o">=</span><span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">n_beds</span><span class="o">+</span><span class="mi">20</span><span class="p">)</span>
+    
+    <span class="n">reduction</span> <span class="o">=</span> <span class="mi">2</span> 
+    <span class="n">primary_hip_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">primary_hip_mean_los</span> <span class="o">-</span> <span class="n">reduction</span>
+    <span class="n">revision_hip_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">revision_hip_mean_los</span> <span class="o">-</span> <span class="n">reduction</span>
+    <span class="n">revision_knee_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">revision_knee_mean_los</span> <span class="o">-</span> <span class="n">reduction</span>
+    <span class="n">primary_knee_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">primary_knee_mean_los</span> <span class="o">-</span> <span class="n">reduction</span>
+    <span class="n">unicompart_knee_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unicompart_knee_mean_los</span> <span class="o">-</span> <span class="n">reduction</span>
+    <span class="n">scenarios</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;los-</span><span class="si">{</span><span class="n">reduction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span><span class="n">primary_hip_mean_los</span><span class="o">=</span><span class="n">primary_hip_mean_los</span><span class="p">,</span>
+                                            <span class="n">revision_hip_mean_los</span><span class="o">=</span><span class="n">revision_hip_mean_los</span><span class="p">,</span>
+                                            <span class="n">revision_knee_mean_los</span><span class="o">=</span><span class="n">revision_knee_mean_los</span><span class="p">,</span>
+                                            <span class="n">primary_knee_mean_los</span><span class="o">=</span><span class="n">primary_knee_mean_los</span><span class="p">,</span>
+                                            <span class="n">unicompart_knee_mean_los</span><span class="o">=</span><span class="n">unicompart_knee_mean_los</span><span class="p">)</span>
+    
+    <span class="n">increase</span> <span class="o">=</span> <span class="mi">20</span> 
+    <span class="n">primary_hip_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">primary_hip_mean_los</span> <span class="o">+</span> <span class="n">increase</span>
+    <span class="n">revision_hip_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">revision_hip_mean_los</span> <span class="o">+</span> <span class="n">increase</span>
+    <span class="n">revision_knee_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">revision_knee_mean_los</span> <span class="o">+</span> <span class="n">increase</span>
+    <span class="n">primary_knee_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">primary_knee_mean_los</span> <span class="o">+</span> <span class="n">increase</span>
+    <span class="n">unicompart_knee_mean_los</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unicompart_knee_mean_los</span> <span class="o">+</span> <span class="n">increase</span>
+    <span class="n">scenarios</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;los+</span><span class="si">{</span><span class="n">increase</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span><span class="n">primary_hip_mean_los</span><span class="o">=</span><span class="n">primary_hip_mean_los</span><span class="p">,</span>
+                                            <span class="n">revision_hip_mean_los</span><span class="o">=</span><span class="n">revision_hip_mean_los</span><span class="p">,</span>
+                                            <span class="n">revision_knee_mean_los</span><span class="o">=</span><span class="n">revision_knee_mean_los</span><span class="p">,</span>
+                                            <span class="n">primary_knee_mean_los</span><span class="o">=</span><span class="n">primary_knee_mean_los</span><span class="p">,</span>
+                                            <span class="n">unicompart_knee_mean_los</span><span class="o">=</span><span class="n">unicompart_knee_mean_los</span><span class="p">)</span>
+
+    
+    <span class="n">new_delay_prob</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_PROB_WARD_DELAY</span><span class="o">*</span><span class="mi">10</span>
+    <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;delay_*_10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="o">=</span><span class="n">schedule</span><span class="p">,</span><span class="n">prob_ward_delay</span> <span class="o">=</span> <span class="n">new_delay_prob</span><span class="p">)</span>
+    
+    <span class="n">zero_delay_prob</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;no_delay&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="o">=</span><span class="n">schedule</span><span class="p">,</span><span class="n">prob_ward_delay</span> <span class="o">=</span> <span class="n">zero_delay_prob</span><span class="p">)</span>
+    
+    <span class="n">new_schedule</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Test_data/new_schedule.csv&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">new_schedule</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+    <span class="n">scenarios</span><span class="p">[</span><span class="s1">&#39;Schedule_change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="o">=</span><span class="n">schedule</span><span class="p">,</span> <span class="n">schedule_avail</span> <span class="o">=</span> <span class="n">new_schedule</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">scenarios</span>
+
+
+<span class="k">def</span> <span class="nf">run_scenario_analysis</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="n">rc_period</span><span class="p">,</span> <span class="n">n_reps</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run each of the scenarios for a specified results</span>
+<span class="sd">    collection period and replications.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    a) summary results table</span>
+<span class="sd">    b) Results per day</span>
+<span class="sd">    c) Patient-level results</span>
+<span class="sd">       </span>
+<span class="sd">    Params:</span>
+<span class="sd">    ------</span>
+<span class="sd">    scenarios: dict</span>
+<span class="sd">        dictionary of Scenario objects</span>
+<span class="sd">        </span>
+<span class="sd">    rc_period: float</span>
+<span class="sd">        model run length</span>
+<span class="sd">        </span>
+<span class="sd">    n_rep: int</span>
+<span class="sd">        Number of replications</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario Analysis&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No. Scenario: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Replications: </span><span class="si">{</span><span class="n">n_reps</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">scenario_results_summ</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_day</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_ppat</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_rpat</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="n">scenarios</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Running </span><span class="si">{</span><span class="n">sc_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; =&gt; &#39;</span><span class="p">)</span>
+        
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">multiple_reps</span><span class="p">(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">results_collection</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span> 
+                                     <span class="n">n_reps</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span>
+        
+        <span class="n">replications_summ</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">replications_day</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">replications_ppat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">replications_rpat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        
+                    
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;done.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="c1">#save the results</span>
+        <span class="n">scenario_results_summ</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_summ</span>
+        <span class="n">scenario_results_day</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_day</span>
+        <span class="n">scenario_results_ppat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_ppat</span>
+        <span class="n">scenario_results_rpat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_rpat</span>
+    
+         
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario analysis complete.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">scenario_results_summ</span><span class="p">,</span> <span class="n">scenario_results_day</span><span class="p">,</span><span class="n">scenario_results_ppat</span><span class="p">,</span><span class="n">scenario_results_rpat</span><span class="p">)</span>
+
+<span class="c1">#script to run scenario analysis</span>
+<span class="c1">#get the scenarios</span>
+<span class="n">scenarios</span> <span class="o">=</span> <span class="n">get_scenarios</span><span class="p">()</span>
+
+<span class="c1">#run the scenario analysis for summary results</span>
+<span class="n">scenario_results</span> <span class="o">=</span> <span class="n">run_scenario_analysis</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> 
+                                         <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span>
+                                         <span class="n">n_reps</span><span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span><span class="c1">#number_of_runs</span>
+
+<span class="n">scenario_results_patients</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scenario_results</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">key</span><span class="p">],</span> <span class="n">scenario_results</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">key</span><span class="p">]],</span> 
+                              <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scenario_results</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+
+<span class="k">def</span> <span class="nf">scenario_summary_frame</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Mean results for each performance measure by scenario</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    ----------</span>
+<span class="sd">    scenario_results: dict</span>
+<span class="sd">        dictionary of replications.  </span>
+<span class="sd">        Key identifies the performance measure</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">replications</span> <span class="ow">in</span> <span class="n">scenario_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">summary</span><span class="p">,</span> <span class="n">replications</span><span class="o">.</span><span class="n">mean</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_name</span><span class="p">)</span>
+
+    <span class="n">summary</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+    <span class="k">return</span> <span class="n">summary</span>
+
+<span class="c1">#summary_frame = scenario_summary_frame(scenario_results[0])</span>
+<span class="c1">#summary_frame.round(2)</span>
+<span class="c1">#summary_frame.to_csv(&#39;data/scenarios_summary_frame.csv&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Unnamed: 0  index        Day  Primary_slots  Revision_slots
+0           0      0     Monday             24               8
+1           1      1    Tuesday             28               6
+2           2      2  Wednesday             24               8
+3           3      3   Thursday             22               9
+4           4      4     Friday             22               9
+5           5      5   Saturday             34               7
+6           6      6     Sunday             32               8
+Scenario Analysis
+No. Scenario: 8
+Replications: 50
+Running base =&gt; done.
+
+Running beds-20 =&gt; done.
+
+Running beds+20 =&gt; done.
+
+Running los-2 =&gt; done.
+
+Running los+20 =&gt; done.
+
+Running delay_*_10 =&gt; done.
+
+Running no_delay =&gt; done.
+
+Running Schedule_change =&gt; done.
+
+Scenario analysis complete.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scenario_daily_audit</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Daily audit results for each performance measure by scenario</span>
+<span class="sd">    Takes scenario_results[1] as an input: daily audit outputs</span>
+<span class="sd">    Outputs: mean bed utilisation per day</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">daily_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">replications</span> <span class="ow">in</span> <span class="n">scenario_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">daily_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">daily_summary</span><span class="p">,</span> <span class="n">replications</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;sim_time&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()],</span>
+                                    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_name</span><span class="p">)</span>
+    
+    <span class="n">values</span> <span class="o">=</span> <span class="n">daily_summary</span><span class="p">[</span><span class="s1">&#39;bed_utilisation&#39;</span><span class="p">]</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">values</span><span class="p">)))</span>
+    <span class="n">values</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Bed Utilisation across model runtime (days)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Mean daily bed utilisation&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="n">daily_summary</span><span class="p">,</span> <span class="n">fig</span><span class="p">)</span>
+    
+<span class="n">scenario_daily_audit</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="c1">#plt.savefig(&#39;Daily bed utilisation scenarios&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/69dfb9440d7ec12cb15de41420f5eeb09ca8a2861a81f892173ca692c15ef63b.png" src="../../_images/69dfb9440d7ec12cb15de41420f5eeb09ca8a2861a81f892173ca692c15ef63b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scenario_weekly_audit</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Weekly audit results for each performance measure by scenario</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">weekly_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">replications</span> <span class="ow">in</span> <span class="n">scenario_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">weekly_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">weekly_summary</span><span class="p">,</span> <span class="n">replications</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;weekday&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()],</span>
+                                    <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_name</span><span class="p">)</span>
+        
+    <span class="n">values</span> <span class="o">=</span> <span class="n">weekly_summary</span><span class="p">[</span><span class="s1">&#39;bed_utilisation&#39;</span><span class="p">]</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">values</span><span class="p">)))</span>
+    <span class="n">values</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+    <span class="n">day_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Mon&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Tues&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Weds&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;Thurs&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;Fri&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;Sat&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;Sun&#39;</span><span class="p">}</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">day_map</span><span class="p">)</span>
+    <span class="n">values</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean bed Utilisation per day of week&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">plt</span><span class="p">)</span>    
+
+<span class="n">plot1</span> <span class="o">=</span> <span class="n">scenario_weekly_audit</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2053a89511988fac2e63891b1a4aa6a5038b9679da214ce3ab87154d78ac5cd9.png" src="../../_images/2053a89511988fac2e63891b1a4aa6a5038b9679da214ce3ab87154d78ac5cd9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scenario_weekly_boxplots</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Audit results for each performance measure by scenario</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">weekly_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">replications</span> <span class="ow">in</span> <span class="n">scenario_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">weekly_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">weekly_summary</span><span class="p">,</span> <span class="n">replications</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;weekday&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">)],</span>
+                                <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_name</span><span class="p">)</span>
+
+
+    <span class="n">values</span> <span class="o">=</span> <span class="n">weekly_summary</span><span class="p">[</span><span class="s1">&#39;bed_utilisation&#39;</span><span class="p">]</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">values</span><span class="p">)))</span>
+    <span class="n">values</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+    <span class="c1"># create the boxplot</span>
+    <span class="n">bp</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">patch_artist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Utilisation&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">values</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Bed Utilisation&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="n">plot1</span> <span class="o">=</span> <span class="n">scenario_weekly_boxplots</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b678e6213485add7ec7e6ab54bb70e72744927c93d6cac1c6a4c8f73cae8dfd5.png" src="../../_images/b678e6213485add7ec7e6ab54bb70e72744927c93d6cac1c6a4c8f73cae8dfd5.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">patient_scenarios</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes patient level results for each performance measure by scenario</span>
+<span class="sd">    Selects lost slots to return lost slots </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">replications</span> <span class="ow">in</span> <span class="n">scenario_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">patient_summary</span><span class="p">,</span> <span class="n">replications</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Day&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday&#39;</span><span class="p">])</span>\
+                                     <span class="p">[</span><span class="s1">&#39;lost slots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+        <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_name</span><span class="p">)</span> 
+        
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_summary</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">patient_summary</span><span class="p">)))</span>
+    <span class="n">patient_summary</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_summary</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">patient_summary</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;level_0&#39;</span><span class="p">:</span><span class="s1">&#39;Day&#39;</span><span class="p">,</span> <span class="s1">&#39;level_1&#39;</span><span class="p">:</span><span class="s1">&#39;weekday&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">return</span><span class="p">(</span><span class="n">patient_summary</span><span class="p">)</span>
+
+<span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_scenarios</span><span class="p">(</span><span class="n">scenario_results_patients</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lost_slots</span><span class="p">(</span><span class="n">patient_summary</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes output of previous function patient_scenarios()</span>
+<span class="sd">    Deals with 0-day arrivals</span>
+<span class="sd">    plot lost slots per scenario per weekday</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">patient_summ</span> <span class="o">=</span> <span class="p">(</span><span class="n">patient_summary</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">patient_summary</span><span class="o">.</span><span class="n">Day</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">patient_summary</span><span class="o">.</span><span class="n">Day</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
+    <span class="n">shortseq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">)))</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_summ</span><span class="p">)</span> <span class="o">/</span> <span class="mi">7</span><span class="p">)</span>
+        <span class="c1">#create total sequence and flatten array list into list of elements</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">((</span><span class="n">shortseq</span><span class="p">),</span><span class="n">length</span><span class="p">)])</span>
+    <span class="n">flat_seq</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">sequence</span><span class="p">))</span>
+        <span class="c1">#truncate to correct length and save to column</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="n">flat_seq</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_summ</span><span class="p">)]</span>
+    <span class="n">patient_summ</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequence</span> 
+    <span class="n">patient_summ</span> <span class="o">=</span> <span class="n">patient_summ</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="n">patient_summ</span> <span class="o">=</span> <span class="n">patient_summ</span><span class="p">[</span><span class="n">patient_summ</span><span class="p">[</span><span class="s2">&quot;Day&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">]</span>    
+    <span class="n">patient_summ</span> <span class="o">=</span> <span class="n">patient_summ</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;weekday&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">patient_summ</span> <span class="o">=</span> <span class="n">patient_summ</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">patient_summ</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="s1">&#39;Day&#39;</span><span class="p">]</span>
+    <span class="n">day_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Mon&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Tues&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Weds&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;Thurs&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;Fri&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;Sat&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;Sun&#39;</span><span class="p">}</span>
+    <span class="n">patient_summ</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_summ</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">day_map</span><span class="p">)</span>
+    <span class="n">patient_summ</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> 
+                      <span class="n">x</span><span class="o">=</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean lost slots per day of week&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">))</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">plt</span><span class="p">)</span>
+
+<span class="n">plot2</span> <span class="o">=</span> <span class="n">lost_slots</span><span class="p">(</span><span class="n">patient_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a6445b34fc19b82e728854e9080a0ffe9ad964f2aea5fbef3ba3a8b2385a54ea.png" src="../../_images/a6445b34fc19b82e728854e9080a0ffe9ad964f2aea5fbef3ba3a8b2385a54ea.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">total_thruput_pt_results</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span> 
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes patient level results for each performance measure by scenario</span>
+<span class="sd">    Deal with 0-day arrivals</span>
+<span class="sd">    Return plot of total thruput stacked by surgery type per scenario</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">replications</span> <span class="ow">in</span> <span class="n">scenario_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="n">replications</span><span class="p">[</span><span class="s1">&#39;lost slots&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">]</span>
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="n">replications</span><span class="p">[</span><span class="s1">&#39;Day&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">]</span>
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[[</span><span class="s1">&#39;Day&#39;</span><span class="p">,</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span><span class="s1">&#39;surgery type&#39;</span><span class="p">,</span> <span class="s1">&#39;depart&#39;</span><span class="p">]]</span>
+        
+        <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">patient_summary</span><span class="p">,</span> <span class="n">replications</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Day&#39;</span><span class="p">,</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span><span class="s1">&#39;surgery type&#39;</span><span class="p">])</span>\
+                                     <span class="p">[</span><span class="s1">&#39;surgery type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_name</span><span class="p">)</span>  
+
+    <span class="n">patient_summary</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;surgery type&#39;</span><span class="p">:</span><span class="s1">&#39;Counts&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_summary</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Counts</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Counts&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">patient_summary</span><span class="p">)))</span>
+    <span class="n">patient_summary</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_summary</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">patient_summary</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;level_0&#39;</span><span class="p">:</span><span class="s1">&#39;Day&#39;</span><span class="p">,</span> <span class="s1">&#39;level_1&#39;</span><span class="p">:</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span> <span class="s1">&#39;level_2&#39;</span><span class="p">:</span><span class="s1">&#39;surgery type&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">patient_summary</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span><span class="s1">&#39;surgery type&#39;</span><span class="p">])[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+    
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_summary</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">day_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Mon&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Tues&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Weds&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;Thurs&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;Fri&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;Sat&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;Sun&#39;</span><span class="p">}</span>
+    
+    <span class="n">values</span><span class="o">=</span><span class="n">patient_summary</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="s1">&#39;_Counts&#39;</span><span class="p">)</span>
+    <span class="n">melted_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">patient_summary</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span> <span class="s1">&#39;surgery type&#39;</span><span class="p">],</span> <span class="n">value_vars</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> 
+                        <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;_Counts&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>
+
+    <span class="c1"># plot the stacked bar chart</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">melted_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;_Counts&#39;</span><span class="p">,</span> <span class="s1">&#39;surgery type&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="s1">&#39;Counts&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> 
+                                    <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;tab20b&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Total surgery&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Total joint replacements per week by type&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">plt</span>
+
+<span class="k">def</span> <span class="nf">total_thruput_table</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span>
+    
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes patient level results for each performance measure by scenario</span>
+<span class="sd">    Removes lost slots (never had surgery)</span>
+<span class="sd">    Returns table of total throuput across run-time</span>
+<span class="sd">    (Add run time value)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">replications</span> <span class="ow">in</span> <span class="n">scenario_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="n">replications</span><span class="p">[</span><span class="s1">&#39;lost slots&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">]</span>
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="n">replications</span><span class="p">[</span><span class="s1">&#39;Day&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">]</span>
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[[</span><span class="s1">&#39;Day&#39;</span><span class="p">,</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span> <span class="s1">&#39;lost slots&#39;</span><span class="p">]]</span>
+        
+        <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">patient_summary</span><span class="p">,</span> <span class="n">replications</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Day&#39;</span><span class="p">,</span><span class="s1">&#39;weekday&#39;</span><span class="p">])</span>\
+                                     <span class="p">[</span><span class="s1">&#39;lost slots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+
+        <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_name</span><span class="p">)</span>
+        
+    <span class="n">patient_summary</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lost slots&#39;</span><span class="p">:</span><span class="s1">&#39;Counts&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_summary</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Counts</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Counts&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">))</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">patient_summary</span><span class="p">)))</span>
+    <span class="n">patient_summary</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_summary</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">patient_summary</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;level_0&#39;</span><span class="p">,</span> <span class="s1">&#39;level_1&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">values</span><span class="o">=</span><span class="n">patient_summary</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="s1">&#39;_Counts&#39;</span><span class="p">)</span>
+    <span class="n">patient_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">patient_summary</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">patient_summary</span><span class="p">[</span><span class="s1">&#39;run time (days)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span>
+
+    <span class="k">return</span> <span class="n">patient_summary</span>
+
+    <span class="c1">######################################</span>
+
+<span class="n">thruput</span> <span class="o">=</span> <span class="n">total_thruput_pt_results</span><span class="p">(</span><span class="n">scenario_results_patients</span><span class="p">)</span>
+<span class="c1">#plt.savefig(&#39;thruput_lnorm&#39;)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">total_thruput_table</span><span class="p">(</span><span class="n">scenario_results_patients</span><span class="p">)</span>
+<span class="n">table</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>base_Counts</th>
+      <th>beds-20_Counts</th>
+      <th>beds+20_Counts</th>
+      <th>los-2_Counts</th>
+      <th>los+20_Counts</th>
+      <th>delay_*_10_Counts</th>
+      <th>no_delay_Counts</th>
+      <th>Schedule_change_Counts</th>
+      <th>run time (days)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>467.72</td>
+      <td>245.04</td>
+      <td>657.64</td>
+      <td>650.96</td>
+      <td>111.66</td>
+      <td>196.08</td>
+      <td>530.92</td>
+      <td>532.86</td>
+      <td>70</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../../_images/7b7542e36bc27337c4cd0d01afe3d6792048a9b227de1627c8c8b55915ce22a7.png" src="../../_images/7b7542e36bc27337c4cd0d01afe3d6792048a9b227de1627c8c8b55915ce22a7.png" />
+</div>
+</div>
+</section>
+<section id="model-test-runs-changing-bed-parameters">
+<h2>MODEL TEST RUNS: Changing bed parameters<a class="headerlink" href="#model-test-runs-changing-bed-parameters" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_beds</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Creates a dictionary object containing</span>
+<span class="sd">    objects of type `Scenario` to run.</span>
+<span class="sd">    </span>
+<span class="sd">    Used for testing change in number of beds, all else stays the same</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Contains stress tests for the model</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">scenarios</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">schedule</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Schedule</span><span class="p">()</span>
+    <span class="c1">#scenarios[&#39;base&#39;] = Scenario(schedule)</span>
+    
+    <span class="c1"># define scenarios</span>
+    <span class="k">for</span> <span class="n">n_beds</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;beds</span><span class="si">{</span><span class="n">n_beds</span><span class="si">:</span><span class="s1">_</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># Create a key for each scenario</span>
+        <span class="n">scenarios</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span><span class="o">=</span><span class="n">n_beds</span><span class="p">)</span>
+   
+    <span class="k">return</span> <span class="n">scenarios</span>
+
+
+<span class="k">def</span> <span class="nf">run_scenario_analysis_beds</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="n">rc_period</span><span class="p">,</span> <span class="n">n_reps</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run each of the scenarios for a specified results</span>
+<span class="sd">    collection period and replications.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    a) summary results table</span>
+<span class="sd">    b) Results per day</span>
+<span class="sd">    c) Patient-level results</span>
+<span class="sd">       </span>
+<span class="sd">    Params:</span>
+<span class="sd">    ------</span>
+<span class="sd">    scenarios: dict</span>
+<span class="sd">        dictionary of Scenario objects</span>
+<span class="sd">        </span>
+<span class="sd">    rc_period: float</span>
+<span class="sd">        model run length</span>
+<span class="sd">        </span>
+<span class="sd">    n_rep: int</span>
+<span class="sd">        Number of replications</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario Analysis&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No. Scenario: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Replications: </span><span class="si">{</span><span class="n">n_reps</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">scenario_results_summ</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_day</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_ppat</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_rpat</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="n">scenarios</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Running </span><span class="si">{</span><span class="n">sc_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; =&gt; &#39;</span><span class="p">)</span>
+        
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">multiple_reps</span><span class="p">(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">results_collection</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span> 
+                                     <span class="n">n_reps</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span>
+        
+        <span class="n">replications_summ</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">replications_day</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">replications_ppat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">replications_rpat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        
+                    
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;done.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="c1">#save the results</span>
+        <span class="n">scenario_results_summ</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_summ</span>
+        <span class="n">scenario_results_day</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_day</span>
+        <span class="n">scenario_results_ppat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_ppat</span>
+        <span class="n">scenario_results_rpat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_rpat</span>
+    
+         
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario analysis complete.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">scenario_results_summ</span><span class="p">,</span> <span class="n">scenario_results_day</span><span class="p">,</span><span class="n">scenario_results_ppat</span><span class="p">,</span><span class="n">scenario_results_rpat</span><span class="p">)</span>
+
+<span class="c1">#script to run scenario analysis</span>
+<span class="c1">#get the scenarios</span>
+<span class="n">scenarios</span> <span class="o">=</span> <span class="n">get_scenarios_beds</span><span class="p">()</span>
+
+<span class="c1">#run the scenario analysis for summary results</span>
+<span class="n">scenario_results_beds</span> <span class="o">=</span> <span class="n">run_scenario_analysis_beds</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> 
+                                         <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span>
+                                         <span class="n">n_reps</span><span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span><span class="c1">#number_of_runs</span>
+
+<span class="n">scenario_results_patients_beds</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scenario_results_beds</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">key</span><span class="p">],</span> <span class="n">scenario_results_beds</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">key</span><span class="p">]],</span> 
+                              <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scenario_results_beds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scenario Analysis
+No. Scenario: 13
+Replications: 50
+Running beds20 =&gt; done.
+
+Running beds25 =&gt; done.
+
+Running beds30 =&gt; done.
+
+Running beds35 =&gt; done.
+
+Running beds40 =&gt; done.
+
+Running beds45 =&gt; done.
+
+Running beds50 =&gt; done.
+
+Running beds55 =&gt; done.
+
+Running beds60 =&gt; done.
+
+Running beds65 =&gt; done.
+
+Running beds70 =&gt; done.
+
+Running beds75 =&gt; done.
+
+Running beds80 =&gt; done.
+
+Scenario analysis complete.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scenario_weekly_boxplots</span><span class="p">(</span><span class="n">scenario_results_beds</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6ae3a05aa348d88b523d39d0c14693473440b14b35d2535c5ada6a12a69e18bb.png" src="../../_images/6ae3a05aa348d88b523d39d0c14693473440b14b35d2535c5ada6a12a69e18bb.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thruput_beds</span> <span class="o">=</span> <span class="n">total_thruput_pt_results</span><span class="p">(</span><span class="n">scenario_results_patients_beds</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">total_thruput_table</span><span class="p">(</span><span class="n">scenario_results_patients_beds</span><span class="p">)</span>
+<span class="n">table</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>beds20_Counts</th>
+      <th>beds25_Counts</th>
+      <th>beds30_Counts</th>
+      <th>beds35_Counts</th>
+      <th>beds40_Counts</th>
+      <th>beds45_Counts</th>
+      <th>beds50_Counts</th>
+      <th>beds55_Counts</th>
+      <th>beds60_Counts</th>
+      <th>beds65_Counts</th>
+      <th>beds70_Counts</th>
+      <th>beds75_Counts</th>
+      <th>beds80_Counts</th>
+      <th>run time (days)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>240.48</td>
+      <td>304.12</td>
+      <td>360.58</td>
+      <td>410.78</td>
+      <td>468.18</td>
+      <td>522.36</td>
+      <td>566.4</td>
+      <td>615.14</td>
+      <td>665.82</td>
+      <td>706.46</td>
+      <td>740.1</td>
+      <td>776.84</td>
+      <td>782.04</td>
+      <td>70</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../../_images/5cc1d8b15300cda9b19d157a7d71d43dbdb9ae84863face7f5264275c18c64af.png" src="../../_images/5cc1d8b15300cda9b19d157a7d71d43dbdb9ae84863face7f5264275c18c64af.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">patient_summary_beds</span> <span class="o">=</span> <span class="n">patient_scenarios</span><span class="p">(</span><span class="n">scenario_results_patients_beds</span><span class="p">)</span>
+<span class="n">lost_slots</span><span class="p">(</span><span class="n">patient_summary_beds</span><span class="p">)</span>
+<span class="c1">#plt.savefig(&#39;Lost slots beds&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/home/alison/anaconda3/envs/hep_env/lib/python3.8/site-packages/matplotlib/pyplot.py&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/40eaab6a88c81b237e64c0b983daee0c2bd7f5fcf3245e694d46ce4c0f537f5c.png" src="../../_images/40eaab6a88c81b237e64c0b983daee0c2bd7f5fcf3245e694d46ce4c0f537f5c.png" />
+</div>
+</div>
+</section>
+<section id="model-test-runs-variance-on-los-of-revision-patients">
+<h2>MODEL TEST RUNS: Variance on LoS of revision patients<a class="headerlink" href="#model-test-runs-variance-on-los-of-revision-patients" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_variance</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Creates a dictionary object containing</span>
+<span class="sd">    objects of type `Scenario` to run.</span>
+<span class="sd">    </span>
+<span class="sd">    Used for testing change in sd for revision hips and knees</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Contains stress tests for the model</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">scenarios</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">schedule</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Schedule</span><span class="p">()</span>
+    <span class="c1">#scenarios[&#39;base&#39;] = Scenario(schedule)</span>
+    
+    <span class="c1"># define scenarios       </span>
+    <span class="k">for</span> <span class="n">revision_hip_sd_los</span><span class="p">,</span> <span class="n">revision_knee_sd_los</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;hip</span><span class="si">{</span><span class="n">revision_hip_sd_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_knee</span><span class="si">{</span><span class="n">revision_knee_sd_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># Create a key for each scenario</span>
+        <span class="n">scenarios</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span> <span class="o">=</span> <span class="mi">65</span><span class="p">,</span> <span class="n">revision_hip_sd_los</span><span class="o">=</span><span class="n">revision_hip_sd_los</span><span class="p">,</span> <span class="n">revision_knee_sd_los</span><span class="o">=</span><span class="n">revision_knee_sd_los</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">scenarios</span>
+
+
+<span class="k">def</span> <span class="nf">run_scenario_analysis_variance</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="n">rc_period</span><span class="p">,</span> <span class="n">n_reps</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run each of the scenarios for a specified results</span>
+<span class="sd">    collection period and replications.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    a) summary results table</span>
+<span class="sd">    b) Results per day</span>
+<span class="sd">    c) Patient-level results</span>
+<span class="sd">       </span>
+<span class="sd">    Params:</span>
+<span class="sd">    ------</span>
+<span class="sd">    scenarios: dict</span>
+<span class="sd">        dictionary of Scenario objects</span>
+<span class="sd">        </span>
+<span class="sd">    rc_period: float</span>
+<span class="sd">        model run length</span>
+<span class="sd">        </span>
+<span class="sd">    n_rep: int</span>
+<span class="sd">        Number of replications</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario Analysis&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No. Scenario: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Replications: </span><span class="si">{</span><span class="n">n_reps</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">scenario_results_summ</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_day</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_ppat</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_rpat</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="n">scenarios</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Running </span><span class="si">{</span><span class="n">sc_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; =&gt; &#39;</span><span class="p">)</span>
+        
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">multiple_reps</span><span class="p">(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">results_collection</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span> 
+                                     <span class="n">n_reps</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span>
+        
+        <span class="n">replications_summ</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">replications_day</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">replications_ppat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">replications_rpat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        
+                    
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;done.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="c1">#save the results</span>
+        <span class="n">scenario_results_summ</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_summ</span>
+        <span class="n">scenario_results_day</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_day</span>
+        <span class="n">scenario_results_ppat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_ppat</span>
+        <span class="n">scenario_results_rpat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_rpat</span>
+    
+         
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario analysis complete.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">scenario_results_summ</span><span class="p">,</span> <span class="n">scenario_results_day</span><span class="p">,</span><span class="n">scenario_results_ppat</span><span class="p">,</span><span class="n">scenario_results_rpat</span><span class="p">)</span>
+
+<span class="c1">#script to run scenario analysis</span>
+<span class="c1">#get the scenarios</span>
+<span class="n">scenarios</span> <span class="o">=</span> <span class="n">get_scenarios_variance</span><span class="p">()</span>
+
+<span class="c1">#run the scenario analysis for summary results</span>
+<span class="n">scenario_results_variance</span> <span class="o">=</span> <span class="n">run_scenario_analysis_variance</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> 
+                                         <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span>
+                                         <span class="n">n_reps</span><span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span><span class="c1">#number_of_runs</span>
+
+<span class="n">scenario_results_patients_variance</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scenario_results_variance</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">key</span><span class="p">],</span> <span class="n">scenario_results_variance</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">key</span><span class="p">]],</span> 
+                              <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scenario_results_variance</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scenario Analysis
+No. Scenario: 10
+Replications: 50
+Running hip2.0_knee2.0 =&gt; done.
+
+Running hip3.0_knee3.0 =&gt; done.
+
+Running hip4.0_knee4.0 =&gt; done.
+
+Running hip5.0_knee5.0 =&gt; done.
+
+Running hip6.0_knee6.0 =&gt; done.
+
+Running hip7.0_knee7.0 =&gt; done.
+
+Running hip8.0_knee8.0 =&gt; done.
+
+Running hip9.0_knee9.0 =&gt; done.
+
+Running hip10.0_knee10.0 =&gt; done.
+
+Running hip11.0_knee11.0 =&gt; done.
+
+Scenario analysis complete.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scenario_weekly_boxplots</span><span class="p">(</span><span class="n">scenario_results_variance</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/61fccfd99092f3b7a0829cb23aca10edc2b235aeb70d0f85777a34960cf73d04.png" src="../../_images/61fccfd99092f3b7a0829cb23aca10edc2b235aeb70d0f85777a34960cf73d04.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thruput_variance</span> <span class="o">=</span> <span class="n">total_thruput_pt_results</span><span class="p">(</span><span class="n">scenario_results_patients_variance</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">total_thruput_table</span><span class="p">(</span><span class="n">scenario_results_patients_variance</span><span class="p">)</span>
+<span class="n">table</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>hip2.0_knee2.0_Counts</th>
+      <th>hip3.0_knee3.0_Counts</th>
+      <th>hip4.0_knee4.0_Counts</th>
+      <th>hip5.0_knee5.0_Counts</th>
+      <th>hip6.0_knee6.0_Counts</th>
+      <th>hip7.0_knee7.0_Counts</th>
+      <th>hip8.0_knee8.0_Counts</th>
+      <th>hip9.0_knee9.0_Counts</th>
+      <th>hip10.0_knee10.0_Counts</th>
+      <th>hip11.0_knee11.0_Counts</th>
+      <th>run time (days)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>705.42</td>
+      <td>715.42</td>
+      <td>715.06</td>
+      <td>697.4</td>
+      <td>702.76</td>
+      <td>702.16</td>
+      <td>706.5</td>
+      <td>699.66</td>
+      <td>704.46</td>
+      <td>710.1</td>
+      <td>70</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../../_images/0f3ba3f7bb85057c5dd0796b349f9e701daf5783b2d469d1fd94b7aefda2cebd.png" src="../../_images/0f3ba3f7bb85057c5dd0796b349f9e701daf5783b2d469d1fd94b7aefda2cebd.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">patient_summary_variance</span> <span class="o">=</span> <span class="n">patient_scenarios</span><span class="p">(</span><span class="n">scenario_results_patients_variance</span><span class="p">)</span>
+<span class="n">lost_slots</span><span class="p">(</span><span class="n">patient_summary_variance</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/home/alison/anaconda3/envs/hep_env/lib/python3.8/site-packages/matplotlib/pyplot.py&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/020833e891a234e40ca481200a691e57ea9034c0aa8f24ee179734f1d5ef1cf1.png" src="../../_images/020833e891a234e40ca481200a691e57ea9034c0aa8f24ee179734f1d5ef1cf1.png" />
+</div>
+</div>
+</section>
+<section id="model-test-runs-changing-revision-los">
+<h2>MODEL TEST RUNS: Changing Revision LoS<a class="headerlink" href="#model-test-runs-changing-revision-los" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_revision_los</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Creates a dictionary object containing</span>
+<span class="sd">    objects of type `Scenario` to run.</span>
+<span class="sd">    </span>
+<span class="sd">    Used for testing change in sd for revision hips and knees</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Contains stress tests for the model</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">scenarios</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">schedule</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Schedule</span><span class="p">()</span>
+    <span class="c1">#scenarios[&#39;base&#39;] = Scenario(schedule)</span>
+    
+    <span class="c1"># define scenarios       </span>
+    <span class="k">for</span> <span class="n">revision_hip_mean_los</span><span class="p">,</span> <span class="n">revision_knee_mean_los</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;hip</span><span class="si">{</span><span class="n">revision_hip_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_knee</span><span class="si">{</span><span class="n">revision_knee_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># Create a key for each scenario</span>
+        <span class="n">scenarios</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span> <span class="n">revision_hip_mean_los</span><span class="o">=</span><span class="n">revision_hip_mean_los</span><span class="p">,</span> <span class="n">revision_knee_mean_los</span><span class="o">=</span><span class="n">revision_knee_mean_los</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">scenarios</span>
+
+
+<span class="k">def</span> <span class="nf">run_scenario_analysis_revision_los</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="n">rc_period</span><span class="p">,</span> <span class="n">n_reps</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run each of the scenarios for a specified results</span>
+<span class="sd">    collection period and replications.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    a) summary results table</span>
+<span class="sd">    b) Results per day</span>
+<span class="sd">    c) Patient-level results</span>
+<span class="sd">       </span>
+<span class="sd">    Params:</span>
+<span class="sd">    ------</span>
+<span class="sd">    scenarios: dict</span>
+<span class="sd">        dictionary of Scenario objects</span>
+<span class="sd">        </span>
+<span class="sd">    rc_period: float</span>
+<span class="sd">        model run length</span>
+<span class="sd">        </span>
+<span class="sd">    n_rep: int</span>
+<span class="sd">        Number of replications</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario Analysis&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No. Scenario: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Replications: </span><span class="si">{</span><span class="n">n_reps</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">scenario_results_summ</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_day</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_ppat</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_rpat</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="n">scenarios</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Running </span><span class="si">{</span><span class="n">sc_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; =&gt; &#39;</span><span class="p">)</span>
+        
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">multiple_reps</span><span class="p">(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">results_collection</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span> 
+                                     <span class="n">n_reps</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span>
+        
+        <span class="n">replications_summ</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">replications_day</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">replications_ppat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">replications_rpat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        
+                    
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;done.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="c1">#save the results</span>
+        <span class="n">scenario_results_summ</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_summ</span>
+        <span class="n">scenario_results_day</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_day</span>
+        <span class="n">scenario_results_ppat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_ppat</span>
+        <span class="n">scenario_results_rpat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_rpat</span>
+    
+         
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario analysis complete.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">scenario_results_summ</span><span class="p">,</span> <span class="n">scenario_results_day</span><span class="p">,</span><span class="n">scenario_results_ppat</span><span class="p">,</span><span class="n">scenario_results_rpat</span><span class="p">)</span>
+
+<span class="c1">#script to run scenario analysis</span>
+<span class="c1">#get the scenarios</span>
+<span class="n">scenarios</span> <span class="o">=</span> <span class="n">get_scenarios_revision_los</span><span class="p">()</span>
+
+<span class="c1">#run the scenario analysis for summary results</span>
+<span class="n">scenario_results_revision_los</span> <span class="o">=</span> <span class="n">run_scenario_analysis_revision_los</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> 
+                                         <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span>
+                                         <span class="n">n_reps</span><span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span><span class="c1">#number_of_runs</span>
+
+<span class="n">scenario_results_patients_revision_los</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scenario_results_revision_los</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">key</span><span class="p">],</span> <span class="n">scenario_results_revision_los</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">key</span><span class="p">]],</span> 
+                              <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scenario_results_revision_los</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scenario Analysis
+No. Scenario: 7
+Replications: 50
+Running hip1.0_knee1.0 =&gt; done.
+
+Running hip2.0_knee2.0 =&gt; done.
+
+Running hip3.0_knee3.0 =&gt; done.
+
+Running hip4.0_knee4.0 =&gt; done.
+
+Running hip5.0_knee5.0 =&gt; done.
+
+Running hip6.0_knee6.0 =&gt; done.
+
+Running hip7.0_knee7.0 =&gt; done.
+
+Scenario analysis complete.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scenario_weekly_boxplots</span><span class="p">(</span><span class="n">scenario_results_revision_los</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/c903ab2741148ee9bb239f2c36d03df3d8dd8e31c9ef76ad8ead619e03df1bdb.png" src="../../_images/c903ab2741148ee9bb239f2c36d03df3d8dd8e31c9ef76ad8ead619e03df1bdb.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thruput_revision_los</span> <span class="o">=</span> <span class="n">total_thruput_pt_results</span><span class="p">(</span><span class="n">scenario_results_patients_revision_los</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">total_thruput_table</span><span class="p">(</span><span class="n">scenario_results_patients_revision_los</span><span class="p">)</span>
+<span class="n">table</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>hip1.0_knee1.0_Counts</th>
+      <th>hip2.0_knee2.0_Counts</th>
+      <th>hip3.0_knee3.0_Counts</th>
+      <th>hip4.0_knee4.0_Counts</th>
+      <th>hip5.0_knee5.0_Counts</th>
+      <th>hip6.0_knee6.0_Counts</th>
+      <th>hip7.0_knee7.0_Counts</th>
+      <th>run time (days)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>552.7</td>
+      <td>524.22</td>
+      <td>510.2</td>
+      <td>496.6</td>
+      <td>488.44</td>
+      <td>472.56</td>
+      <td>464.32</td>
+      <td>70</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../../_images/f25aa51359310393a6a9f67f4be2a11e7880b657ec13638a7eca904bb2298a6e.png" src="../../_images/f25aa51359310393a6a9f67f4be2a11e7880b657ec13638a7eca904bb2298a6e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">patient_summary_revision_los</span> <span class="o">=</span> <span class="n">patient_scenarios</span><span class="p">(</span><span class="n">scenario_results_patients_revision_los</span><span class="p">)</span>
+<span class="n">lost_slots</span><span class="p">(</span><span class="n">patient_summary_revision_los</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/home/alison/anaconda3/envs/hep_env/lib/python3.8/site-packages/matplotlib/pyplot.py&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/8b949f038089527a30795a883f1bfc93fe66d59eab7e0839413f070dcf1963d4.png" src="../../_images/8b949f038089527a30795a883f1bfc93fe66d59eab7e0839413f070dcf1963d4.png" />
+</div>
+</div>
+</section>
+<section id="model-test-runs-changing-all-los">
+<h2>MODEL TEST RUNS: Changing all LoS<a class="headerlink" href="#model-test-runs-changing-all-los" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_all_los</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Creates a dictionary object containing</span>
+<span class="sd">    objects of type `Scenario` to run.</span>
+<span class="sd">    </span>
+<span class="sd">    Used for testing change in sd for revision hips and knees</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Contains stress tests for the model</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">scenarios</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">schedule</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Schedule</span><span class="p">()</span>
+    <span class="c1">#scenarios[&#39;base&#39;] = Scenario(schedule)</span>
+    
+    <span class="c1"># define scenarios       </span>
+    <span class="k">for</span> <span class="n">revision_hip_mean_los</span><span class="p">,</span> <span class="n">revision_knee_mean_los</span><span class="p">,</span> <span class="n">primary_hip_mean_los</span><span class="p">,</span><span class="n">primary_knee_mean_los</span><span class="p">,</span> <span class="n">unicompart_knee_mean_los</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+                                                           <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+                                                           <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;r-THR</span><span class="si">{</span><span class="n">revision_hip_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_r-TKR</span><span class="si">{</span><span class="n">revision_knee_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_p-THR</span><span class="si">{</span><span class="n">primary_hip_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_p-TKR</span><span class="si">{</span><span class="n">primary_knee_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_p-UKR</span><span class="si">{</span><span class="n">unicompart_knee_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># Create a key for each scenario</span>
+        <span class="n">scenarios</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span> <span class="o">=</span> <span class="mi">65</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">scenarios</span>
+
+
+<span class="k">def</span> <span class="nf">run_scenario_analysis_all_los</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> <span class="n">rc_period</span><span class="p">,</span> <span class="n">n_reps</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run each of the scenarios for a specified results</span>
+<span class="sd">    collection period and replications.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    a) summary results table</span>
+<span class="sd">    b) Results per day</span>
+<span class="sd">    c) Patient-level results</span>
+<span class="sd">       </span>
+<span class="sd">    Params:</span>
+<span class="sd">    ------</span>
+<span class="sd">    scenarios: dict</span>
+<span class="sd">        dictionary of Scenario objects</span>
+<span class="sd">        </span>
+<span class="sd">    rc_period: float</span>
+<span class="sd">        model run length</span>
+<span class="sd">        </span>
+<span class="sd">    n_rep: int</span>
+<span class="sd">        Number of replications</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario Analysis&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No. Scenario: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">scenarios</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Replications: </span><span class="si">{</span><span class="n">n_reps</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">scenario_results_summ</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_day</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_ppat</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">scenario_results_rpat</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">sc_name</span><span class="p">,</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="n">scenarios</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Running </span><span class="si">{</span><span class="n">sc_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; =&gt; &#39;</span><span class="p">)</span>
+        
+        <span class="n">replications</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">multiple_reps</span><span class="p">(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">results_collection</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span> 
+                                     <span class="n">n_reps</span><span class="o">=</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span>
+        
+        <span class="n">replications_summ</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">replications_day</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">replications_ppat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">replications_rpat</span> <span class="o">=</span> <span class="n">replications</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        
+                    
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;done.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        
+        <span class="c1">#save the results</span>
+        <span class="n">scenario_results_summ</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_summ</span>
+        <span class="n">scenario_results_day</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_day</span>
+        <span class="n">scenario_results_ppat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_ppat</span>
+        <span class="n">scenario_results_rpat</span><span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">replications_rpat</span>
+    
+         
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Scenario analysis complete.&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">scenario_results_summ</span><span class="p">,</span> <span class="n">scenario_results_day</span><span class="p">,</span><span class="n">scenario_results_ppat</span><span class="p">,</span><span class="n">scenario_results_rpat</span><span class="p">)</span>
+
+<span class="c1">#script to run scenario analysis</span>
+<span class="c1">#get the scenarios</span>
+<span class="n">scenarios</span> <span class="o">=</span> <span class="n">get_scenarios_all_los</span><span class="p">()</span>
+
+<span class="c1">#run the scenario analysis for summary results</span>
+<span class="n">scenario_results_all_los</span> <span class="o">=</span> <span class="n">run_scenario_analysis_all_los</span><span class="p">(</span><span class="n">scenarios</span><span class="p">,</span> 
+                                         <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_RESULTS_COLLECTION_PERIOD</span><span class="o">+</span><span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_WARM_UP_PERIOD</span><span class="p">,</span>
+                                         <span class="n">n_reps</span><span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">DEFAULT_NUMBER_OF_RUNS</span><span class="p">)</span><span class="c1">#number_of_runs</span>
+
+<span class="n">scenario_results_patients_all_los</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scenario_results_all_los</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">key</span><span class="p">],</span> <span class="n">scenario_results_all_los</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">key</span><span class="p">]],</span> 
+                              <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">scenario_results_all_los</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scenario Analysis
+No. Scenario: 5
+Replications: 50
+Running r-THR3.0_r-TKR3.0_p-THR1.0_p-TKR1.0_p-UKR1.0 =&gt; done.
+
+Running r-THR4.0_r-TKR4.0_p-THR2.0_p-TKR2.0_p-UKR2.0 =&gt; done.
+
+Running r-THR5.0_r-TKR5.0_p-THR3.0_p-TKR3.0_p-UKR3.0 =&gt; done.
+
+Running r-THR6.0_r-TKR6.0_p-THR4.0_p-TKR4.0_p-UKR4.0 =&gt; done.
+
+Running r-THR7.0_r-TKR7.0_p-THR5.0_p-TKR5.0_p-UKR5.0 =&gt; done.
+
+Scenario analysis complete.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scenario_weekly_boxplots</span><span class="p">(</span><span class="n">scenario_results_all_los</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a481d61fc3644efa88f2aa3efeda50fffa3a31ec9a63c918568b87e4ce91cefc.png" src="../../_images/a481d61fc3644efa88f2aa3efeda50fffa3a31ec9a63c918568b87e4ce91cefc.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thruput_all_los</span> <span class="o">=</span> <span class="n">total_thruput_pt_results</span><span class="p">(</span><span class="n">scenario_results_patients_all_los</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">total_thruput_table</span><span class="p">(</span><span class="n">scenario_results_patients_all_los</span><span class="p">)</span>
+<span class="n">table</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>r-THR3.0_r-TKR3.0_p-THR1.0_p-TKR1.0_p-UKR1.0_Counts</th>
+      <th>r-THR4.0_r-TKR4.0_p-THR2.0_p-TKR2.0_p-UKR2.0_Counts</th>
+      <th>r-THR5.0_r-TKR5.0_p-THR3.0_p-TKR3.0_p-UKR3.0_Counts</th>
+      <th>r-THR6.0_r-TKR6.0_p-THR4.0_p-TKR4.0_p-UKR4.0_Counts</th>
+      <th>r-THR7.0_r-TKR7.0_p-THR5.0_p-TKR5.0_p-UKR5.0_Counts</th>
+      <th>run time (days)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>700.06</td>
+      <td>698.58</td>
+      <td>700.72</td>
+      <td>695.98</td>
+      <td>694.58</td>
+      <td>70</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="../../_images/1d78693bdfd5ee521db6a9dd5ddc339af351e372d891ee7d56b8b60051a309ec.png" src="../../_images/1d78693bdfd5ee521db6a9dd5ddc339af351e372d891ee7d56b8b60051a309ec.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">patient_summary_all_los</span> <span class="o">=</span> <span class="n">patient_scenarios</span><span class="p">(</span><span class="n">scenario_results_patients_all_los</span><span class="p">)</span>
+<span class="n">lost_slots</span><span class="p">(</span><span class="n">patient_summary_all_los</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/home/alison/anaconda3/envs/hep_env/lib/python3.8/site-packages/matplotlib/pyplot.py&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/8e1b0cc5c41b4a0511846a676d0f1ed1303cf71f7c46af9b0cc9925945861bd7.png" src="../../_images/8e1b0cc5c41b4a0511846a676d0f1ed1303cf71f7c46af9b0cc9925945861bd7.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./HEP_notebooks/01_model"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_HEP_main.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_HEP_fit_dists.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Fitting LoS distributions for HEP</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-extreme-scenarios">MODEL TEST RUNS: Extreme Scenarios:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-bed-parameters">MODEL TEST RUNS: Changing bed parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-variance-on-los-of-revision-patients">MODEL TEST RUNS: Variance on LoS of revision patients</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-revision-los">MODEL TEST RUNS: Changing Revision LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-all-los">MODEL TEST RUNS: Changing all LoS</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alison Harper, Thomas Monks, Martin Pitt
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

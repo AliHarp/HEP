@@ -1,0 +1,1770 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Fitting LoS distributions for HEP &#8212; Hospital Efficiency Project Orthopaedic Planning Model</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'HEP_notebooks/01_model/03_HEP_fit_dists';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="STRESS-DES" href="../02_STRESS/STRESS_DES.html" />
+    <link rel="prev" title="Scenario Testing" href="02_Scenario_testing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../01_intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/HdRlogo.jpg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/HdRlogo.jpg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../01_intro.html">
+                    Hospital Efficiency Project
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">RUNNING THE MODEL</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_HEP_main.html">Model</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="02_Scenario_testing.html">Scenario Testing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fitting LoS distributions for HEP</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">REPORTING GUIDELINES</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_STRESS/STRESS_DES.html">STRESS-DES</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/AliHarp/HEP/main?urlpath=lab/tree/HEP_notebooks/01_model/03_HEP_fit_dists.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/AliHarp/HEP" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/AliHarp/HEP/issues/new?title=Issue%20on%20page%20%2FHEP_notebooks/01_model/03_HEP_fit_dists.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/HEP_notebooks/01_model/03_HEP_fit_dists.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Fitting LoS distributions for HEP</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fitting LoS distributions for HEP</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-hips-and-knees">Calculate proportions of surgical types within Hips and Knees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision">Calculate proportions of surgical types within classes: Primary and Revision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportion-delayed">Calculate proportion delayed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectors-for-fitting-no-delay-los">Vectors for fitting no delay LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-vector-for-delayed-discharge-all-surgical-types">Los vector for delayed discharge (all surgical types)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-los-distributions">Plot LoS distributions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-to-numpy-arrays-for-use-in-fitter">Convert to NumPy arrays for use in Fitter</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip-arrays">Clip arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-clipped-data">Fit clipped data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarise-clipped-data">Summarise clipped data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-empirical-dist-used-in-model">check empirical dist used in model</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="fitting-los-distributions-for-hep">
+<h1>Fitting LoS distributions for HEP<a class="headerlink" href="#fitting-los-distributions-for-hep" title="Permalink to this headline">#</a></h1>
+<ul class="simple">
+<li><p>Primary Hip</p></li>
+<li><p>Revision Hip</p></li>
+<li><p>Primary Knee</p></li>
+<li><p>Revision Knee</p></li>
+<li><p>Unicompartmental Primary Knee</p></li>
+<li><p>Delayed Discharge</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">fitter</span> <span class="kn">import</span> <span class="n">Fitter</span><span class="p">,</span> <span class="n">get_common_distributions</span><span class="p">,</span> <span class="n">get_distributions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HipKnee_1320_mffd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Test_data/HipKnee_with_los_delay_.csv&quot;</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;admission_date&#39;</span><span class="p">,</span>
+                                                                         <span class="s1">&#39;discharge_date&#39;</span><span class="p">,</span>
+                                                                         <span class="s1">&#39;spell_los&#39;</span><span class="p">,</span>
+                                                                         <span class="s1">&#39;mffd&#39;</span><span class="p">,</span>
+                                                                         <span class="s1">&#39;hip_prim_proc&#39;</span><span class="p">,</span>
+                                                                         <span class="s1">&#39;knee_prim_proc&#39;</span><span class="p">,</span>
+                                                                         <span class="s1">&#39;surgery_site&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="calculate-proportions-of-surgical-types-within-hips-and-knees">
+<h2>Calculate proportions of surgical types within Hips and Knees<a class="headerlink" href="#calculate-proportions-of-surgical-types-within-hips-and-knees" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All hips, all knees</span>
+<span class="n">length_hip</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;surgery_site&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Site: hip&quot;</span><span class="p">]</span> 
+<span class="n">length_knee</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;surgery_site&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Site: knee&quot;</span><span class="p">]</span>
+
+<span class="c1"># hip types within all hips</span>
+<span class="n">primary_hip_n</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;hip_prim_proc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Primary THR&quot;</span><span class="p">]</span>
+<span class="n">revision_hip_n</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;hip_prim_proc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Revision of hip&quot;</span><span class="p">]</span>
+<span class="n">hip_resurfacing_n</span> <span class="o">=</span>  <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;hip_prim_proc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Hip resurfacing&quot;</span><span class="p">]</span>
+
+<span class="c1"># knee types within all knees</span>
+<span class="n">primary_knee_n</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;knee_prim_proc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Primary TKR&quot;</span><span class="p">]</span>
+<span class="n">revision_knee_n</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;knee_prim_proc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Revision of knee&quot;</span><span class="p">]</span>
+<span class="n">unicompart_knee_n</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;knee_prim_proc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Primary UKR&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># counts for both delayed and not delayed</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">primary_hip_n</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">revision_hip_n</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">hip_resurfacing_n</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">primary_knee_n</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">revision_knee_n</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">unicompart_knee_n</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">primary_hip_n</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">revision_hip_n</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">hip_resurfacing_n</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">primary_knee_n</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">revision_knee_n</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">unicompart_knee_n</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3057 482 52 2302 392 679
+6964
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prop of hip types within hips</span>
+<span class="n">prop_prim_hip</span> <span class="o">=</span> <span class="n">primary_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">length_hip</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">prop_rev_hip</span> <span class="o">=</span> <span class="n">revision_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">length_hip</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">prop_hip_resurfacing</span> <span class="o">=</span> <span class="n">hip_resurfacing_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">length_hip</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">tot_hips</span> <span class="o">=</span> <span class="n">prop_prim_hip</span> <span class="o">+</span> <span class="n">prop_rev_hip</span> <span class="o">+</span> <span class="n">prop_hip_resurfacing</span>
+
+<span class="c1"># prop knee types within knees</span>
+<span class="n">prop_prim_knee</span> <span class="o">=</span> <span class="n">primary_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">length_knee</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">prop_rev_knee</span> <span class="o">=</span> <span class="n">revision_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">length_knee</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">prop_uncompart_knee</span> <span class="o">=</span> <span class="n">unicompart_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">length_knee</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">tot_knees</span> <span class="o">=</span> <span class="n">prop_prim_knee</span> <span class="o">+</span> <span class="n">prop_rev_knee</span> <span class="o">+</span> <span class="n">prop_uncompart_knee</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#proportions for both delayed and not delayed by joint</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prop_prim_hip</span><span class="p">,</span> <span class="n">prop_rev_hip</span><span class="p">,</span> <span class="n">prop_prim_knee</span><span class="p">,</span> <span class="n">prop_rev_knee</span><span class="p">,</span> <span class="n">prop_uncompart_knee</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8616121758737317 0.1358511837655017 0.6738875878220141 0.11475409836065574 0.1987704918032787
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-proportions-of-surgical-types-within-classes-primary-and-revision">
+<h2>Calculate proportions of surgical types within classes: Primary and Revision<a class="headerlink" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prop primary types within primaries</span>
+<span class="n">prop_primary_hips</span> <span class="o">=</span> <span class="n">primary_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">primary_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">primary_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">unicompart_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prop_primary_knees</span> <span class="o">=</span> <span class="n">primary_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">primary_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">primary_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">unicompart_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prop_unicompart_knees</span> <span class="o">=</span> <span class="n">unicompart_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">primary_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">primary_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">unicompart_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># prop revision types within revisions</span>
+<span class="n">prop_revision_hips</span> <span class="o">=</span> <span class="n">revision_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">revision_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">revision_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prop_revision_knees</span> <span class="o">=</span> <span class="n">revision_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">revision_hip_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">revision_knee_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#proportions for both delayed and not delayed by primary/revision</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prop_primary_hips</span><span class="p">,</span> <span class="n">prop_primary_knees</span><span class="p">,</span> <span class="n">prop_unicompart_knees</span><span class="p">,</span> <span class="n">prop_revision_hips</span><span class="p">,</span> <span class="n">prop_revision_knees</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5062934746604836 0.3812520702219278 0.1124544551175886 0.551487414187643 0.448512585812357
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-proportion-delayed">
+<h2>Calculate proportion delayed<a class="headerlink" href="#calculate-proportion-delayed" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Overall delay for all surgical types</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># count of NOT delayed and proportion of delayed</span>
+<span class="n">delay_n</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="n">delay_prop</span> <span class="o">=</span> <span class="p">(</span><span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">delay_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">delay</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">delay_n</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">delay</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>529
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># overall proportion of patients delayed</span>
+<span class="n">delay_prop</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.07596209075244112
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dataframes for checking - patients delayed per surgery</span>
+<span class="n">primary_knee_del</span> <span class="o">=</span> <span class="n">primary_knee_n</span><span class="p">[</span><span class="n">primary_knee_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">uni_knee_del</span> <span class="o">=</span> <span class="n">unicompart_knee_n</span><span class="p">[</span><span class="n">unicompart_knee_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">revise_knee_del</span> <span class="o">=</span> <span class="n">revision_knee_n</span><span class="p">[</span><span class="n">revision_knee_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">primary_hip_del</span> <span class="o">=</span> <span class="n">primary_hip_n</span><span class="p">[</span><span class="n">primary_hip_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">revise_hip_del</span> <span class="o">=</span> <span class="n">revision_hip_n</span><span class="p">[</span><span class="n">revision_hip_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+
+<span class="c1"># df patients not delayed</span>
+<span class="n">primary_knee</span> <span class="o">=</span> <span class="n">primary_knee_n</span><span class="p">[</span><span class="n">primary_knee_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="n">uni_knee</span> <span class="o">=</span> <span class="n">unicompart_knee_n</span><span class="p">[</span><span class="n">unicompart_knee_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="n">revise_knee</span> <span class="o">=</span> <span class="n">revision_knee_n</span><span class="p">[</span><span class="n">revision_knee_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="n">primary_hip</span> <span class="o">=</span> <span class="n">primary_hip_n</span><span class="p">[</span><span class="n">primary_hip_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<span class="n">revise_hip</span> <span class="o">=</span> <span class="n">revision_hip_n</span><span class="p">[</span><span class="n">revision_hip_n</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+
+<span class="c1"># checking proportions per surgery - compare with overall proportion delayed</span>
+<span class="n">prop_primary_knee_del</span> <span class="o">=</span> <span class="n">primary_knee_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">primary_knee</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">primary_knee_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prop_revision_knee_del</span> <span class="o">=</span> <span class="n">revise_knee_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">revise_knee</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">revise_knee_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prop_unicom_knee_del</span> <span class="o">=</span> <span class="n">uni_knee_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">uni_knee</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">uni_knee_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prop_primary_hip_del</span> <span class="o">=</span> <span class="n">primary_hip_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">primary_hip</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">primary_hip_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">prop_revison_hip_del</span> <span class="o">=</span> <span class="n">revise_hip_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">revise_hip</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">revise_hip_del</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># proportion of patients delayed per surgery type</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prop_primary_hip_del</span><span class="p">,</span> <span class="n">prop_primary_knee_del</span><span class="p">,</span> <span class="n">prop_revison_hip_del</span><span class="p">,</span> <span class="n">prop_revision_knee_del</span><span class="p">,</span> <span class="n">prop_unicom_knee_del</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0775269872423945 0.06602953953084274 0.15767634854771784 0.1326530612244898 0.016200294550810016
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="vectors-for-fitting-no-delay-los">
+<h2>Vectors for fitting no delay LoS<a class="headerlink" href="#vectors-for-fitting-no-delay-los" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Save to csv for using empirical distributions in model</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">primary_knee_v</span> <span class="o">=</span> <span class="n">primary_knee</span><span class="p">[</span><span class="s1">&#39;spell_los&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">uni_knee_v</span> <span class="o">=</span> <span class="n">uni_knee</span><span class="p">[</span><span class="s1">&#39;spell_los&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">revise_knee_v</span> <span class="o">=</span> <span class="n">revise_knee</span><span class="p">[</span><span class="s1">&#39;spell_los&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">primary_hip_v</span> <span class="o">=</span> <span class="n">primary_hip</span><span class="p">[</span><span class="s1">&#39;spell_los&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">revise_hip_v</span> <span class="o">=</span> <span class="n">revise_hip</span><span class="p">[</span><span class="s1">&#39;spell_los&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">series_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Primary Knee&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">primary_knee_v</span><span class="p">),</span>
+               <span class="s1">&#39;Unicompart Knee&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">uni_knee_v</span><span class="p">),</span>
+               <span class="s1">&#39;Revision Knee&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">revise_knee_v</span><span class="p">),</span>
+               <span class="s1">&#39;Primary Hip&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">primary_hip_v</span><span class="p">),</span>
+               <span class="s1">&#39;Revision Hip&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">revise_hip_v</span><span class="p">)}</span>
+
+<span class="c1">#save to df with 0 changed to very small number</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">series_dict</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Test_data/los_spells.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1">######################################################</span>
+<span class="c1">#save to df with 0 eliminated</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">primary_knee_v</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">uni_knee_v</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">revise_knee_v</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">primary_hip_v</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">e</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">revise_hip_v</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">nonzero_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Primary Knee&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">a</span><span class="p">),</span>
+               <span class="s1">&#39;Unicompart Knee&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">b</span><span class="p">),</span>
+               <span class="s1">&#39;Revision Knee&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+               <span class="s1">&#39;Primary Hip&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">d</span><span class="p">),</span>
+               <span class="s1">&#39;Revision Hip&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nonzero_dict</span><span class="p">)</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;Test_data/los_spells_no_zero.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="los-vector-for-delayed-discharge-all-surgical-types">
+<h2>Los vector for delayed discharge (all surgical types)<a class="headerlink" href="#los-vector-for-delayed-discharge-all-surgical-types" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delayed_los</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+<span class="n">delayed_los_v</span> <span class="o">=</span> <span class="n">delayed_los</span><span class="p">[</span><span class="s1">&#39;spell_los&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-los-distributions">
+<h2>Plot LoS distributions<a class="headerlink" href="#plot-los-distributions" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Summarise</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.hist(primary_knee_v, bins=50);</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">font_scale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">primary_knee_v</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f89ce4d19a0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/4406d282ee5d024220fb93aaaca8f4907c3b42aa764ec1596fe51fefdf376bcf.png" src="../../_images/4406d282ee5d024220fb93aaaca8f4907c3b42aa764ec1596fe51fefdf376bcf.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.hist(uni_knee_v, bins=20);</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">font_scale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">uni_knee_v</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f89ce3f32b0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/cf54bdcad1ccd8c5688070901481de2434c61883bb58198b8052912a24b0d119.png" src="../../_images/cf54bdcad1ccd8c5688070901481de2434c61883bb58198b8052912a24b0d119.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.hist(revise_knee_v, bins=50);</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">font_scale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">revise_knee_v</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f89c63aaf70&gt;
+</pre></div>
+</div>
+<img alt="../../_images/7023e8f20f98ff493f4dca7f46d842ad9bbf455c92b4f85b0bddbdcbd8befcf0.png" src="../../_images/7023e8f20f98ff493f4dca7f46d842ad9bbf455c92b4f85b0bddbdcbd8befcf0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.hist(primary_hip_v, bins=50);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">font_scale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">primary_hip_v</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f89c62b1fa0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/20ffa12bb7b78dcdb3c3d7e47f807077e948f7be0a6a8421e7529a74d62bedb6.png" src="../../_images/20ffa12bb7b78dcdb3c3d7e47f807077e948f7be0a6a8421e7529a74d62bedb6.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.hist(revise_hip_v, bins=50);</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">font_scale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">revise_hip_v</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f89c621f100&gt;
+</pre></div>
+</div>
+<img alt="../../_images/ca3789c9b23ed6a4205ae03e75fe6366d2acc27a4178e89d783bc89cd49146c9.png" src="../../_images/ca3789c9b23ed6a4205ae03e75fe6366d2acc27a4178e89d783bc89cd49146c9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.hist(delayed_los_v, bins=50);</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">font_scale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">delayed_los_v</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;hist&quot;</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f89c6036190&gt;
+</pre></div>
+</div>
+<img alt="../../_images/c0c6714d4e6cc9d874967873ea7c7dc2976ce0726ff6e7b138349e1e091091c5.png" src="../../_images/c0c6714d4e6cc9d874967873ea7c7dc2976ce0726ff6e7b138349e1e091091c5.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delay_los_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">delayed_los_v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;delay_los&quot;</span><span class="p">,</span> <span class="n">delay_los_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">primary_knee_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">primary_knee_v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;primary_knee&quot;</span><span class="p">,</span> <span class="n">primary_knee_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">uni_knee_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">uni_knee_v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;uni_knee&quot;</span><span class="p">,</span> <span class="n">uni_knee_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">revise_knee_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">revise_knee_v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;revise_knee&quot;</span><span class="p">,</span> <span class="n">revise_knee_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">primary_hip_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">primary_hip_v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;primary_hip&quot;</span><span class="p">,</span> <span class="n">primary_hip_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">revise_hip_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">revise_hip_v</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;revise_hip&quot;</span><span class="p">,</span> <span class="n">revise_hip_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>delay_los count    529.000000
+mean      16.521739
+std       15.153132
+min        2.000000
+25%        8.000000
+50%       13.000000
+75%       19.000000
+max      156.000000
+dtype: float64
+primary_knee count    2150.000000
+mean        4.651163
+std         2.828129
+min         0.000000
+25%         3.000000
+50%         4.000000
+75%         6.000000
+max        42.000000
+dtype: float64
+uni_knee count    668.000000
+mean       2.914671
+std        2.136334
+min        0.000000
+25%        2.000000
+50%        3.000000
+75%        4.000000
+max       16.000000
+dtype: float64
+revise_knee count    340.000000
+mean       7.194118
+std        7.598554
+min        0.000000
+25%        3.000000
+50%        5.000000
+75%        9.000000
+max       63.000000
+dtype: float64
+primary_hip count    2820.000000
+mean        4.433333
+std         2.949526
+min         0.000000
+25%         3.000000
+50%         4.000000
+75%         5.000000
+max        44.000000
+dtype: float64
+revise_hip count    406.000000
+mean       6.908867
+std        6.965812
+min        0.000000
+25%        3.000000
+50%        5.000000
+75%        8.000000
+max       86.000000
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="convert-to-numpy-arrays-for-use-in-fitter">
+<h1>Convert to NumPy arrays for use in Fitter<a class="headerlink" href="#convert-to-numpy-arrays-for-use-in-fitter" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delay_los_npv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">delayed_los_v</span><span class="p">)</span>
+<span class="n">primary_knee_npv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">primary_knee_v</span><span class="p">)</span>
+<span class="n">uni_knee_npv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">uni_knee_v</span><span class="p">)</span>
+<span class="n">revise_knee_npv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">revise_knee_v</span><span class="p">)</span>
+<span class="n">primary_hip_npv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">primary_hip_v</span><span class="p">)</span>
+<span class="n">revise_hip_npv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">revise_hip_v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_distributions</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;_fit&#39;,
+ &#39;alpha&#39;,
+ &#39;anglit&#39;,
+ &#39;arcsine&#39;,
+ &#39;argus&#39;,
+ &#39;beta&#39;,
+ &#39;betaprime&#39;,
+ &#39;bradford&#39;,
+ &#39;burr&#39;,
+ &#39;burr12&#39;,
+ &#39;cauchy&#39;,
+ &#39;chi&#39;,
+ &#39;chi2&#39;,
+ &#39;cosine&#39;,
+ &#39;crystalball&#39;,
+ &#39;dgamma&#39;,
+ &#39;dweibull&#39;,
+ &#39;erlang&#39;,
+ &#39;expon&#39;,
+ &#39;exponnorm&#39;,
+ &#39;exponpow&#39;,
+ &#39;exponweib&#39;,
+ &#39;f&#39;,
+ &#39;fatiguelife&#39;,
+ &#39;fisk&#39;,
+ &#39;foldcauchy&#39;,
+ &#39;foldnorm&#39;,
+ &#39;gamma&#39;,
+ &#39;gausshyper&#39;,
+ &#39;genexpon&#39;,
+ &#39;genextreme&#39;,
+ &#39;gengamma&#39;,
+ &#39;genhalflogistic&#39;,
+ &#39;genhyperbolic&#39;,
+ &#39;geninvgauss&#39;,
+ &#39;genlogistic&#39;,
+ &#39;gennorm&#39;,
+ &#39;genpareto&#39;,
+ &#39;gibrat&#39;,
+ &#39;gilbrat&#39;,
+ &#39;gompertz&#39;,
+ &#39;gumbel_l&#39;,
+ &#39;gumbel_r&#39;,
+ &#39;halfcauchy&#39;,
+ &#39;halfgennorm&#39;,
+ &#39;halflogistic&#39;,
+ &#39;halfnorm&#39;,
+ &#39;hypsecant&#39;,
+ &#39;invgamma&#39;,
+ &#39;invgauss&#39;,
+ &#39;invweibull&#39;,
+ &#39;johnsonsb&#39;,
+ &#39;johnsonsu&#39;,
+ &#39;kappa3&#39;,
+ &#39;kappa4&#39;,
+ &#39;ksone&#39;,
+ &#39;kstwo&#39;,
+ &#39;kstwobign&#39;,
+ &#39;laplace&#39;,
+ &#39;laplace_asymmetric&#39;,
+ &#39;levy&#39;,
+ &#39;levy_l&#39;,
+ &#39;levy_stable&#39;,
+ &#39;loggamma&#39;,
+ &#39;logistic&#39;,
+ &#39;loglaplace&#39;,
+ &#39;lognorm&#39;,
+ &#39;loguniform&#39;,
+ &#39;lomax&#39;,
+ &#39;maxwell&#39;,
+ &#39;mielke&#39;,
+ &#39;moyal&#39;,
+ &#39;nakagami&#39;,
+ &#39;ncf&#39;,
+ &#39;nct&#39;,
+ &#39;ncx2&#39;,
+ &#39;norm&#39;,
+ &#39;norminvgauss&#39;,
+ &#39;pareto&#39;,
+ &#39;pearson3&#39;,
+ &#39;powerlaw&#39;,
+ &#39;powerlognorm&#39;,
+ &#39;powernorm&#39;,
+ &#39;rayleigh&#39;,
+ &#39;rdist&#39;,
+ &#39;recipinvgauss&#39;,
+ &#39;reciprocal&#39;,
+ &#39;rice&#39;,
+ &#39;rv_continuous&#39;,
+ &#39;rv_histogram&#39;,
+ &#39;semicircular&#39;,
+ &#39;skewcauchy&#39;,
+ &#39;skewnorm&#39;,
+ &#39;studentized_range&#39;,
+ &#39;t&#39;,
+ &#39;trapezoid&#39;,
+ &#39;trapz&#39;,
+ &#39;triang&#39;,
+ &#39;truncexpon&#39;,
+ &#39;truncnorm&#39;,
+ &#39;truncweibull_min&#39;,
+ &#39;tukeylambda&#39;,
+ &#39;uniform&#39;,
+ &#39;vonmises&#39;,
+ &#39;vonmises_line&#39;,
+ &#39;wald&#39;,
+ &#39;weibull_max&#39;,
+ &#39;weibull_min&#39;,
+ &#39;wrapcauchy&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">delay_los_npv</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;erlang&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 distributions: 100%|████████████████████| 5/5 [00:00&lt;00:00, 27.32it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic          bic  kl_div  ks_statistic  \
+lognorm         0.004644  1608.122559 -6140.474568     inf      0.051474   
+beta            0.005357  1924.655190 -6058.553177     inf      0.087312   
+erlang          0.005441  1895.761508 -6056.655095     inf      0.088753   
+expon           0.009436  1599.608397 -5771.632045     inf      0.162747   
+gamma           0.035865  6380.344444 -5059.053541     inf      0.921926   
+
+            ks_pvalue  
+lognorm  1.170505e-01  
+beta     5.866521e-04  
+erlang   4.477466e-04  
+expon    1.037166e-12  
+gamma    0.000000e+00  
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.6977106156387711,
+  &#39;loc&#39;: 0.46203959259225885,
+  &#39;scale&#39;: 12.381893465319441}}
+</pre></div>
+</div>
+<img alt="../../_images/1a4e17eee7eceb1f9cd3ca44dae60cea77abac15082c477ab9347c3774973fa2.png" src="../../_images/1a4e17eee7eceb1f9cd3ca44dae60cea77abac15082c477ab9347c3774973fa2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">primary_knee_npv</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;erlang&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 distributions: 100%|████████████████████| 5/5 [00:00&lt;00:00, 21.09it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic           bic  kl_div  ks_statistic  \
+lognorm         0.578484  1860.575987 -17651.201383     inf      0.151704   
+expon           0.792283  1214.423450 -16982.682686     inf      0.363244   
+beta            0.904699  1153.425425 -16682.064683     inf      0.427036   
+erlang          0.957660  4442.059841 -16567.424259     inf      0.992310   
+gamma           1.696721  2924.646338 -15337.709648     inf      0.872199   
+
+             ks_pvalue  
+lognorm   1.150099e-43  
+expon    1.064843e-254  
+beta      0.000000e+00  
+erlang    0.000000e+00  
+gamma     0.000000e+00  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.4054742453283533,
+  &#39;loc&#39;: -1.0156970361318063,
+  &#39;scale&#39;: 5.187968679570998}}
+</pre></div>
+</div>
+<img alt="../../_images/fd61eaf8184034e8d3c7497f17c0fe295d74082e38605ebbd353652c78c1f0ae.png" src="../../_images/fd61eaf8184034e8d3c7497f17c0fe295d74082e38605ebbd353652c78c1f0ae.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">uni_knee_pdv</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;erlang&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 distributions: 100%|████████████████████| 5/5 [00:00&lt;00:00, 29.26it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic          bic  kl_div  ks_statistic  \
+lognorm         6.349747   924.541981 -3090.610424     inf      0.171962   
+gamma           6.363627   945.514562 -3089.151847     inf      0.167334   
+beta            6.373490   921.072492 -3081.613030     inf      0.168304   
+expon           6.603280   766.898464 -3070.961471     inf      0.271955   
+erlang          7.357514  3288.577391 -2992.209312     inf      0.919689   
+
+            ks_pvalue  
+lognorm  9.648984e-18  
+gamma    8.102790e-17  
+beta     5.212017e-17  
+expon    3.872916e-44  
+erlang   0.000000e+00  
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.3803355622865142,
+  &#39;loc&#39;: -2.1623715729774657,
+  &#39;scale&#39;: 4.71533144760631}}
+</pre></div>
+</div>
+<img alt="../../_images/7a7cd1ca71a53f0ca26aef78e55331b2ade5adf60ce1c74a1994e8094b5016e3.png" src="../../_images/7a7cd1ca71a53f0ca26aef78e55331b2ade5adf60ce1c74a1994e8094b5016e3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">revise_knee_npv</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;erlang&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 distributions: 100%|████████████████████| 5/5 [00:00&lt;00:00, 25.60it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic          bic  kl_div  ks_statistic  \
+expon           0.068790  1274.368194 -2880.262979     inf      0.123337   
+beta            0.100426  1301.742494 -2739.959169     inf      0.310421   
+lognorm         0.118113  1229.635547 -2690.633827     inf      0.366558   
+erlang          0.170774  5154.728107 -2565.275127     inf      0.895442   
+gamma           0.398495  4032.310584 -2277.175334     inf      0.699071   
+
+             ks_pvalue  
+expon     5.759763e-05  
+beta      1.342060e-29  
+lognorm   1.816040e-41  
+erlang    0.000000e+00  
+gamma    5.534748e-167  
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;expon&#39;: {&#39;loc&#39;: 0.0, &#39;scale&#39;: 7.194117647058824}}
+</pre></div>
+</div>
+<img alt="../../_images/841cba0e2ad89bf57ce6d352b5bece13dc8544138cfc3e70bf36709135f79f25.png" src="../../_images/841cba0e2ad89bf57ce6d352b5bece13dc8544138cfc3e70bf36709135f79f25.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">primary_hip_npv</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;erlang&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 distributions: 100%|████████████████████| 5/5 [00:00&lt;00:00, 19.18it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic           bic  kl_div  ks_statistic  \
+lognorm         0.509158  1963.042781 -24283.125652     inf      0.166587   
+beta            0.516464  2432.283680 -24235.005142     inf      0.168023   
+expon           0.654193  1294.311552 -23584.255723     inf      0.334257   
+gamma           0.686329  1119.561080 -23441.078834     inf      0.325523   
+erlang          0.828594  4614.364362 -22909.864887     inf      0.962388   
+
+             ks_pvalue  
+lognorm   7.205752e-69  
+beta      4.630348e-70  
+expon    2.091397e-281  
+gamma    1.536661e-266  
+erlang    0.000000e+00  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.3615166592899655,
+  &#39;loc&#39;: -2.4363376840086204,
+  &#39;scale&#39;: 6.4116655364890836}}
+</pre></div>
+</div>
+<img alt="../../_images/c820446981a2a6d67b1ca5b6a0200a1ebd25fa07f0fb02f847cf70e230098d17.png" src="../../_images/c820446981a2a6d67b1ca5b6a0200a1ebd25fa07f0fb02f847cf70e230098d17.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">revise_hip_npv</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;erlang&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 distributions: 100%|████████████████████| 5/5 [00:00&lt;00:00, 20.38it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic          bic  kl_div  ks_statistic  \
+lognorm         0.022496  1733.019612 -3961.087365     inf      0.107411   
+beta            0.033304  2128.183021 -3795.802654     inf      0.142546   
+expon           0.059486  1635.338315 -3572.307506     inf      0.241396   
+erlang          0.130983  5711.381127 -3245.831210     inf      0.983865   
+gamma           0.138877  3996.315953 -3222.070957     inf      0.938027   
+
+            ks_pvalue  
+lognorm  1.559684e-04  
+beta     1.162057e-07  
+expon    2.614308e-21  
+erlang   0.000000e+00  
+gamma    0.000000e+00  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.6152292643165856,
+  &#39;loc&#39;: -0.934387442319201,
+  &#39;scale&#39;: 6.350152207311825}}
+</pre></div>
+</div>
+<img alt="../../_images/6821ffc17814e1a68bd0e566d571d9f8e6f78dd46efce39e49fc5f000c49abc8.png" src="../../_images/6821ffc17814e1a68bd0e566d571d9f8e6f78dd46efce39e49fc5f000c49abc8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.6152292643165856,
+  &#39;loc&#39;: -0.934387442319201,
+  &#39;scale&#39;: 6.350152207311825}}
+</pre></div>
+</div>
+</div>
+</div>
+<section id="clip-arrays">
+<h2>Clip arrays<a class="headerlink" href="#clip-arrays" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delay_los_npv_clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">delayed_los_v</span><span class="p">)</span> <span class="c1"># leave as is</span>
+<span class="n">primary_knee_npv_clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">primary_knee_v</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">uni_knee_npv_clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">uni_knee_v</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">revise_knee_npv_clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">revise_knee_v</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">primary_hip_npv_clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">primary_hip_v</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">revise_hip_npv_clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">revise_hip_v</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fit-clipped-data">
+<h2>Fit clipped data<a class="headerlink" href="#fit-clipped-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">primary_knee_npv_clip</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 4 distributions: 100%|████████████████████| 4/4 [00:00&lt;00:00, 27.25it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic           bic  kl_div  ks_statistic  \
+lognorm         1.352282  1383.035323 -15825.554283     inf      0.151034   
+gamma           1.369003  1633.491636 -15799.132769     inf      0.167515   
+beta            1.371934  1592.110062 -15786.860642     inf      0.166926   
+expon           1.651798   957.270922 -15403.074367     inf      0.363888   
+
+             ks_pvalue  
+lognorm   2.775736e-43  
+gamma     3.330412e-53  
+beta      7.852058e-53  
+expon    1.245667e-255  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.40225541615533966,
+  &#39;loc&#39;: -1.0399482363715324,
+  &#39;scale&#39;: 5.212995574296882}}
+</pre></div>
+</div>
+<img alt="../../_images/f1d2ba69acde07c729e174c870a94f164d93ba0a9adfb8cc8e9f33ae6f8d4c7a.png" src="../../_images/f1d2ba69acde07c729e174c870a94f164d93ba0a9adfb8cc8e9f33ae6f8d4c7a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">uni_knee_npv_clip</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 4 distributions: 100%|████████████████████| 4/4 [00:00&lt;00:00, 39.90it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error         aic          bic  kl_div  ks_statistic  \
+lognorm         6.349747  924.541981 -3090.610424     inf      0.171962   
+gamma           6.363627  945.514562 -3089.151847     inf      0.167334   
+beta            6.373490  921.072492 -3081.613030     inf      0.168304   
+expon           6.603280  766.898464 -3070.961471     inf      0.271955   
+
+            ks_pvalue  
+lognorm  9.648984e-18  
+gamma    8.102790e-17  
+beta     5.212017e-17  
+expon    3.872916e-44  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.3803355622865142,
+  &#39;loc&#39;: -2.1623715729774657,
+  &#39;scale&#39;: 4.71533144760631}}
+</pre></div>
+</div>
+<img alt="../../_images/8a87aa34803e870b4f19de340a3bed470b920c62ab1607827920cdc6e4dab5ab.png" src="../../_images/8a87aa34803e870b4f19de340a3bed470b920c62ab1607827920cdc6e4dab5ab.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">revise_knee_npv_clip</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 4 distributions: 100%|████████████████████| 4/4 [00:00&lt;00:00, 27.84it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic          bic  kl_div  ks_statistic  \
+expon           0.553174   824.389317 -2171.491717     inf      0.134110   
+beta            0.567029   862.802255 -2151.423185     inf      0.246918   
+lognorm         0.614330  1100.527541 -2130.010433     inf      0.399620   
+gamma           0.635206   904.170953 -2118.648631     inf      0.369219   
+
+            ks_pvalue  
+expon    8.562804e-06  
+beta     9.612934e-19  
+lognorm  1.649474e-49  
+gamma    4.379593e-42  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;expon&#39;: {&#39;loc&#39;: 0.0, &#39;scale&#39;: 6.920588235294118}}
+</pre></div>
+</div>
+<img alt="../../_images/4dd0b5d9fb1b9064892a337977692707a6152fa7170f3ff91625b656abab1d22.png" src="../../_images/4dd0b5d9fb1b9064892a337977692707a6152fa7170f3ff91625b656abab1d22.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">primary_hip_npv_clip</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 4 distributions: 100%|████████████████████| 4/4 [00:00&lt;00:00, 29.62it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error          aic           bic  kl_div  ks_statistic  \
+lognorm         1.309768  1377.265202 -21618.657207     inf      0.165827   
+gamma           1.321269  1546.157021 -21594.003778     inf      0.166356   
+beta            1.324767  1505.611887 -21578.602914     inf      0.169617   
+expon           1.537796   979.324423 -21173.990919     inf      0.334836   
+
+             ks_pvalue  
+lognorm   3.051803e-68  
+gamma     1.117626e-68  
+beta      2.135810e-71  
+expon    2.091822e-282  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.35741083072060453,
+  &#39;loc&#39;: -2.489064861474697,
+  &#39;scale&#39;: 6.466619066862258}}
+</pre></div>
+</div>
+<img alt="../../_images/b36f7dcdeaf9117e1938d78b983d50c103174b1459d9df776ec1ea4a4bab73da.png" src="../../_images/b36f7dcdeaf9117e1938d78b983d50c103174b1459d9df776ec1ea4a4bab73da.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">revise_hip_npv_clip</span><span class="p">,</span>
+           <span class="n">distributions</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;lognorm&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;beta&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;expon&#39;</span>
+                          <span class="p">]);</span>
+<span class="n">f</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">get_best</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;sumsquare_error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 4 distributions: 100%|████████████████████| 4/4 [00:00&lt;00:00, 39.23it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         sumsquare_error         aic          bic  kl_div  ks_statistic  \
+lognorm         0.780455  903.666307 -2521.198708     inf      0.106709   
+beta            0.796737  919.212449 -2506.809528     inf      0.132526   
+gamma           0.796812  916.728918 -2512.777811     inf      0.132578   
+expon           0.885004  833.485595 -2476.164953     inf      0.251605   
+
+            ks_pvalue  
+lognorm  1.764127e-04  
+beta     1.116592e-06  
+gamma    1.104079e-06  
+expon    3.889626e-23  
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lognorm&#39;: {&#39;s&#39;: 0.5796389432896831,
+  &#39;loc&#39;: -1.102767801493329,
+  &#39;scale&#39;: 6.517280834355917}}
+</pre></div>
+</div>
+<img alt="../../_images/e8e9e8f26098bc6e3993a41ca2de2dea444170674a2b80810365bf77d7a52a46.png" src="../../_images/e8e9e8f26098bc6e3993a41ca2de2dea444170674a2b80810365bf77d7a52a46.png" />
+</div>
+</div>
+</section>
+<section id="summarise-clipped-data">
+<h2>Summarise clipped data<a class="headerlink" href="#summarise-clipped-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delay_los_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">delay_los_npv_clip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;delay_los&quot;</span><span class="p">,</span> <span class="n">delay_los_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">primary_knee_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">primary_knee_npv_clip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;primary_knee&quot;</span><span class="p">,</span> <span class="n">primary_knee_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">uni_knee_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">uni_knee_npv_clip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;uni_knee&quot;</span><span class="p">,</span> <span class="n">uni_knee_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">revise_knee_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">revise_knee_npv_clip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;revise_knee&quot;</span><span class="p">,</span> <span class="n">revise_knee_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">primary_hip_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">primary_hip_npv_clip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;primary_hip&quot;</span><span class="p">,</span> <span class="n">primary_hip_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="n">revise_hip_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">revise_hip_npv_clip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;revise_hip&quot;</span><span class="p">,</span> <span class="n">revise_hip_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>delay_los count    529.000000
+mean      16.521739
+std       15.153132
+min        2.000000
+25%        8.000000
+50%       13.000000
+75%       19.000000
+max      156.000000
+dtype: float64
+primary_knee count    2150.000000
+mean        4.642326
+std         2.731335
+min         0.000000
+25%         3.000000
+50%         4.000000
+75%         6.000000
+max        30.000000
+dtype: float64
+uni_knee count    668.000000
+mean       2.914671
+std        2.136334
+min        0.000000
+25%        2.000000
+50%        3.000000
+75%        4.000000
+max       16.000000
+dtype: float64
+revise_knee count    340.000000
+mean       6.920588
+std        6.291085
+min        0.000000
+25%        3.000000
+50%        5.000000
+75%        9.000000
+max       30.000000
+dtype: float64
+primary_hip count    2820.000000
+mean        4.425887
+std         2.869115
+min         0.000000
+25%         3.000000
+50%         4.000000
+75%         5.000000
+max        30.000000
+dtype: float64
+revise_hip count    406.000000
+mean       6.665025
+std        5.232482
+min        0.000000
+25%        3.000000
+50%        5.000000
+75%        8.000000
+max       30.000000
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-empirical-dist-used-in-model">
+<h2>check empirical dist used in model<a class="headerlink" href="#check-empirical-dist-used-in-model" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_number_set</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">rng_streams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_number_set</span><span class="p">)</span>
+<span class="n">seeds</span> <span class="o">=</span> <span class="n">rng_streams</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">99999999999</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+
+
+
+<span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="n">los_data</span><span class="p">,</span> <span class="n">random_seed</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">los_data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">delay_los_npv</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="n">seeds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">delay_los_npv</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="n">seeds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>67
+67
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./HEP_notebooks/01_model"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_Scenario_testing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Scenario Testing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../02_STRESS/STRESS_DES.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">STRESS-DES</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fitting LoS distributions for HEP</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-hips-and-knees">Calculate proportions of surgical types within Hips and Knees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision">Calculate proportions of surgical types within classes: Primary and Revision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportion-delayed">Calculate proportion delayed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectors-for-fitting-no-delay-los">Vectors for fitting no delay LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-vector-for-delayed-discharge-all-surgical-types">Los vector for delayed discharge (all surgical types)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-los-distributions">Plot LoS distributions</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-to-numpy-arrays-for-use-in-fitter">Convert to NumPy arrays for use in Fitter</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip-arrays">Clip arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-clipped-data">Fit clipped data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarise-clipped-data">Summarise clipped data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-empirical-dist-used-in-model">check empirical dist used in model</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alison Harper, Thomas Monks, Martin Pitt
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
