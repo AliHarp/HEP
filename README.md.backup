@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://github.com/AliHarp/HEP/main)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AliHarp/HEP/HEAD)
 [![Python 3.8.12](https://img.shields.io/badge/python-3.8.12-blue.svg)](https://www.python.org/downloads/release/python-3812/)
 [![Read the Docs](https://readthedocs.org/projects/pip/badge/?version=latest)](https://github.com/AliHarp/HEP)
 [![License: MIT](https://img.shields.io/badge/ORCID-0000--0001--5274--5037-brightgreen)](https://orcid.org/0000-0001-5274-5037)
@@ -36,29 +36,30 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 
 **Online Alternatives**:
 * Visit our [jupyter book](https://github.com/AliHarp/HEP) for interactive code and explanatory text
-* Run our Jupyter notebooks in binder [![Binder](https://mybinder.org/badge_logo.svg)](https://github.com/AliHarp/HEP/main)
+* Run our Jupyter notebooks in binder 
+* [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AliHarp/HEP/HEAD)
 
-## Repo overview --- UPDATE
+## Repo overview 
 
 ```bash
 .
 ├── binder
 │   └── environment.yml
 ├── _config.yml
-├── content
+├── HEP_notebooks
 │   ├── 01_intro
-│   ├── 02_methods
-│   └── 03_results
-├── data
+│   ├── 01_model
+│   └── 02_STRESS
+├── pages
 ├── LICENSE
 ├── README.md
 └── _toc.yml
 ```
 * `binder` - contains the environment.yml file (hep_env) and all dependencies managed via conda
 * `_config.yml` - configuration of our Jupyter Book
-* `content` - the analysis notebooks and markdown arranged by introductory, methods and results chapters.
-* `data` - directory containing data files used by analysis notebooks
-* `LICENSE` - details of the MIT permissive license of this work.
-* `README` - what you are reading now!
+* `HEP_notebooks` - the notebooks and markdown arranged by introduction, model (and test data) and reporting guidelines chapters.
+* pages - set up for streamlit
+* LICENSE` - details of the MIT permissive license of this work.
+* `README` - this document
 * `_toc.yml` - the table of contents for our Jupyter Book.
 
