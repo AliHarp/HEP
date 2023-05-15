@@ -6,3 +6,4 @@ scipy==1.9.1
 simpy==4.0.1
 streamlit==1.17.0
 arrow
+altair <5
