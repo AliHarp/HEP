@@ -58,10 +58,8 @@ DEFAULT_PRIMARY_DICT = {1:'p_hip', 2:'p_knee', 3:'uni_knee'}
 #primary_dict = {1:'p_hip', 2:'p_knee', 3:'uni_knee'}
 DEFAULT_REVISION_DICT = {1:'r_hip', 2:'r_knee'}
 #revision_dict = {1:'r_hip', 2:'r_knee'}
-DEFAULT_PRIMARY_PROB = [0.4,0.4,0.2]
-#primary_prob = [0.4,0.4,0.2]
-DEFAULT_REVISION_PROB = [0.6, 0.4]
-#revision_prob = [0.6, 0.4]
+DEFAULT_PRIMARY_PROB = [0.51, 0.38, 0.11]
+DEFAULT_REVISION_PROB = [0.55, 0.45]
 
 
 SET_WEEKDAY = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
