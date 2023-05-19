@@ -105,6 +105,8 @@ The model was run on Intel i7-12700H CPU with 32GB RAM running Pop!_OS 22.04 Lin
 
 Simulation model code, streamlit code, and Jupyter book is available at the main branch of GitHub repo: https://github.com/AliHarp/HEP
 
+It is permanently archived on Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7951080.svg)](https://doi.org/10.5281/zenodo.7951080)
+
 
 
 
