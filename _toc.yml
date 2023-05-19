@@ -8,7 +8,8 @@ parts:
   chapters:
   - file: HEP_notebooks/01_model/01_HEP_main
   - file: HEP_notebooks/01_model/02_Scenario_testing
-  - file: HEP_notebooks/01_model/03_HEP_fit_dists
+  - file: HEP_notebooks/01_model/03_Scenarios_paper
+  - file: HEP_notebooks/01_model/04_HEP_fit_dists
 - caption: REPORTING GUIDELINES
   chapters:
   - file: HEP_notebooks/02_STRESS/STRESS_DES
