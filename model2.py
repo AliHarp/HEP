@@ -85,25 +85,6 @@ interval = 1
 TRACE = False
 
 
-# ## TOM NOTES
-# 
-# one long run 10 yrs p159 robinson, Banks et al  
-# 
-# sensitivity analysis - los params and distrib (lnorm, gamma, edf) +/- trunc  
-# 
-# outliers, double peak etc  
-# 
-# vary run lengths eg 1mth vs 1 year  
-# 
-# outputs by day and by patient  
-# 
-# 2k design, interaction - robinson, tom paper
-# 
-# MORE plots
-
-
-
-
 # ## Trace utility for debugging
 
 # In[6]:
