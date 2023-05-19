@@ -37,6 +37,7 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 > `conda env create -f binder/environment.yml`
 
 **Online Alternatives**:
+* Visit our [interactable web app](https://hospital-efficiency-project.streamlit.app/)
 * Visit our [jupyter book](https://aliharp.github.io/HEP/HEP_notebooks/01_intro.html) for interactive code and explanatory text
 * Run our Jupyter notebooks in binder 
 * [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AliHarp/HEP/HEAD)
