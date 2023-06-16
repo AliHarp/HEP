@@ -27,7 +27,35 @@ The model is reported here [![Read the Docs](https://readthedocs.org/projects/pi
 
 ## Write up of study
 
-A preprint is being prepared.
+[**POST-COVID ORTHOPAEDIC ELECTIVE RESOURCE PLANNING USING SIMULATION
+MODELLING**](https://www.medrxiv.org/content/10.1101/2023.05.31.23290774v1.full.pdf)
+
+Alison Harper
+, Thomas Monks
+, Rebecca Wilson
+, Maria Theresa Redaniel
+, Emily Eyles
+, Tim Jones
+,
+Chris Penfold
+, Andrew Elliott
+, Tim Keen
+, Martin Pitt
+, Ashley Blom
+, Michael Whitehouse
+,
+and Andrew Judge
+
+An open-source, generalisable discrete-event simulation was developed, including a web-based
+application. The model used anonymised patient records between 2016-2019 of elective orthopaedic
+procedures from an NHS Trust in England. In this paper, it is used to investigate scenarios including resourcing
+(beds and theatres) and productivity (lengths-of-stay, delayed discharges, theatre activity) to support planning
+for meeting new NHS targets aimed at reducing elective orthopaedic surgical backlogs in a proposed ring
+fenced orthopaedic surgical facility. The simulation is interactive and intended for use by health service
+planners and clinicians to support capacity planning of orthopaedic elective services
+by identifying a balance of capacity across theatres and beds and predicting the impact of productivity
+measures on capacity requirements. It is applicable beyond the study site and can be adapted for other
+specialties.
 
 If you use or adapt the HEP model for research, reporting, education or any other reason, please cite it using details on Zenodo [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7951080.svg)](https://doi.org/10.5281/zenodo.7951080)
  
