@@ -157,15 +157,10 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">RUNNING THE MODEL</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01_HEP_main.html">Model</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="01_HEP_main.html">SimPy Model for elective orthopaedic theatre and ward planning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_Scenario_testing.html">Scenario Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_Scenarios_paper.html">Scenario analysis for BMJ Open paper</a></li>
-
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Fitting LoS distributions for HEP</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">REPORTING GUIDELINES</span></p>
 <ul class="nav bd-sidenav">
@@ -394,24 +389,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fitting LoS distributions for HEP</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-hips-and-knees">Calculate proportions of surgical types within Hips and Knees</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision">Calculate proportions of surgical types within classes: Primary and Revision</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportion-delayed">Calculate proportion delayed</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectors-for-fitting-no-delay-los">Vectors for fitting no delay LoS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-vector-for-delayed-discharge-all-surgical-types">Los vector for delayed discharge (all surgical types)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-los-distributions">Plot LoS distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">1. Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length-of-stay-categories">2. Length-of-stay categories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-data">3. Read in data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-hips-and-knees">4. Calculate proportions of surgical types within Hips and Knees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision">5. Calculate proportions of surgical types within classes: Primary and Revision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportion-delayed">6. Calculate proportion delayed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectors-for-fitting-no-delay-los">7. Vectors for fitting no delay LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-vector-for-delayed-discharge-all-surgical-types">8. Los vector for delayed discharge (all surgical types)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualise-los-distributions">9. Visualise LoS distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-to-numpy-arrays-for-use-in-fitter">10. Convert to NumPy arrays for use in Fitter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-distributions">11. Fit distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip-arrays-optional-truncation-of-los-data">12. Clip arrays - optional truncation of los data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-clipped-data">12.1  Fit clipped data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarise-clipped-data">12.2 Summarise clipped data</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-to-numpy-arrays-for-use-in-fitter">Convert to NumPy arrays for use in Fitter</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip-arrays">Clip arrays</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-clipped-data">Fit clipped data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarise-clipped-data">Summarise clipped data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-empirical-dist-used-in-model">check empirical dist used in model</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -424,14 +418,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="fitting-los-distributions-for-hep">
 <h1>Fitting LoS distributions for HEP<a class="headerlink" href="#fitting-los-distributions-for-hep" title="Permalink to this headline">#</a></h1>
-<ul class="simple">
-<li><p>Primary Hip</p></li>
-<li><p>Revision Hip</p></li>
-<li><p>Primary Knee</p></li>
-<li><p>Revision Knee</p></li>
-<li><p>Unicompartmental Primary Knee</p></li>
-<li><p>Delayed Discharge</p></li>
-</ul>
+<section id="imports">
+<h2>1. Imports<a class="headerlink" href="#imports" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -444,6 +432,20 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="length-of-stay-categories">
+<h2>2. Length-of-stay categories<a class="headerlink" href="#length-of-stay-categories" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Primary Hip</p></li>
+<li><p>Revision Hip</p></li>
+<li><p>Primary Knee</p></li>
+<li><p>Revision Knee</p></li>
+<li><p>Unicompartmental Primary Knee</p></li>
+<li><p>Delayed Discharge</p></li>
+</ul>
+</section>
+<section id="read-in-data">
+<h2>3. Read in data<a class="headerlink" href="#read-in-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HipKnee_1320_mffd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;Test_data/HipKnee_with_los_delay_.csv&quot;</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;admission_date&#39;</span><span class="p">,</span>
@@ -457,8 +459,9 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 <section id="calculate-proportions-of-surgical-types-within-hips-and-knees">
-<h2>Calculate proportions of surgical types within Hips and Knees<a class="headerlink" href="#calculate-proportions-of-surgical-types-within-hips-and-knees" title="Permalink to this headline">#</a></h2>
+<h2>4. Calculate proportions of surgical types within Hips and Knees<a class="headerlink" href="#calculate-proportions-of-surgical-types-within-hips-and-knees" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All hips, all knees</span>
@@ -525,7 +528,7 @@ document.write(`
 </div>
 </section>
 <section id="calculate-proportions-of-surgical-types-within-classes-primary-and-revision">
-<h2>Calculate proportions of surgical types within classes: Primary and Revision<a class="headerlink" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision" title="Permalink to this headline">#</a></h2>
+<h2>5. Calculate proportions of surgical types within classes: Primary and Revision<a class="headerlink" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prop primary types within primaries</span>
@@ -555,7 +558,7 @@ document.write(`
 </div>
 </section>
 <section id="calculate-proportion-delayed">
-<h2>Calculate proportion delayed<a class="headerlink" href="#calculate-proportion-delayed" title="Permalink to this headline">#</a></h2>
+<h2>6. Calculate proportion delayed<a class="headerlink" href="#calculate-proportion-delayed" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Overall delay for all surgical types</p></li>
 </ul>
@@ -629,7 +632,7 @@ document.write(`
 </div>
 </section>
 <section id="vectors-for-fitting-no-delay-los">
-<h2>Vectors for fitting no delay LoS<a class="headerlink" href="#vectors-for-fitting-no-delay-los" title="Permalink to this headline">#</a></h2>
+<h2>7. Vectors for fitting no delay LoS<a class="headerlink" href="#vectors-for-fitting-no-delay-los" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Save to csv for using empirical distributions in model</p></li>
 </ul>
@@ -674,7 +677,7 @@ document.write(`
 </div>
 </section>
 <section id="los-vector-for-delayed-discharge-all-surgical-types">
-<h2>Los vector for delayed discharge (all surgical types)<a class="headerlink" href="#los-vector-for-delayed-discharge-all-surgical-types" title="Permalink to this headline">#</a></h2>
+<h2>8. Los vector for delayed discharge (all surgical types)<a class="headerlink" href="#los-vector-for-delayed-discharge-all-surgical-types" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delayed_los</span> <span class="o">=</span> <span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="n">HipKnee_1320_mffd</span><span class="p">[</span><span class="s1">&#39;mffd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
@@ -684,11 +687,8 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="plot-los-distributions">
-<h2>Plot LoS distributions<a class="headerlink" href="#plot-los-distributions" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p>Summarise</p></li>
-</ul>
+<section id="visualise-los-distributions">
+<h2>9. Visualise LoS distributions<a class="headerlink" href="#visualise-los-distributions" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.hist(primary_knee_v, bins=50);</span>
@@ -878,9 +878,8 @@ dtype: float64
 </div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="convert-to-numpy-arrays-for-use-in-fitter">
-<h1>Convert to NumPy arrays for use in Fitter<a class="headerlink" href="#convert-to-numpy-arrays-for-use-in-fitter" title="Permalink to this headline">#</a></h1>
+<section id="convert-to-numpy-arrays-for-use-in-fitter">
+<h2>10. Convert to NumPy arrays for use in Fitter<a class="headerlink" href="#convert-to-numpy-arrays-for-use-in-fitter" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delay_los_npv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">delayed_los_v</span><span class="p">)</span>
@@ -893,6 +892,9 @@ dtype: float64
 </div>
 </div>
 </div>
+</section>
+<section id="fit-distributions">
+<h2>11. Fit distributions<a class="headerlink" href="#fit-distributions" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_distributions</span><span class="p">()</span>
@@ -1286,8 +1288,9 @@ gamma    0.000000e+00
 </div>
 </div>
 </div>
-<section id="clip-arrays">
-<h2>Clip arrays<a class="headerlink" href="#clip-arrays" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="clip-arrays-optional-truncation-of-los-data">
+<h2>12. Clip arrays - optional truncation of los data<a class="headerlink" href="#clip-arrays-optional-truncation-of-los-data" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delay_los_npv_clip</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">delayed_los_v</span><span class="p">)</span> <span class="c1"># leave as is</span>
@@ -1300,9 +1303,8 @@ gamma    0.000000e+00
 </div>
 </div>
 </div>
-</section>
 <section id="fit-clipped-data">
-<h2>Fit clipped data<a class="headerlink" href="#fit-clipped-data" title="Permalink to this headline">#</a></h2>
+<h3>12.1  Fit clipped data<a class="headerlink" href="#fit-clipped-data" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">Fitter</span><span class="p">(</span><span class="n">primary_knee_npv_clip</span><span class="p">,</span>
@@ -1513,7 +1515,7 @@ expon    3.889626e-23
 </div>
 </section>
 <section id="summarise-clipped-data">
-<h2>Summarise clipped data<a class="headerlink" href="#summarise-clipped-data" title="Permalink to this headline">#</a></h2>
+<h3>12.2 Summarise clipped data<a class="headerlink" href="#summarise-clipped-data" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delay_los_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">delay_los_npv_clip</span><span class="p">)</span>
@@ -1537,98 +1539,19 @@ expon    3.889626e-23
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>delay_los count    529.000000
-mean      16.521739
-std       15.153132
-min        2.000000
-25%        8.000000
-50%       13.000000
-75%       19.000000
-max      156.000000
-dtype: float64
-primary_knee count    2150.000000
-mean        4.642326
-std         2.731335
-min         0.000000
-25%         3.000000
-50%         4.000000
-75%         6.000000
-max        30.000000
-dtype: float64
-uni_knee count    668.000000
-mean       2.914671
-std        2.136334
-min        0.000000
-25%        2.000000
-50%        3.000000
-75%        4.000000
-max       16.000000
-dtype: float64
-revise_knee count    340.000000
-mean       6.920588
-std        6.291085
-min        0.000000
-25%        3.000000
-50%        5.000000
-75%        9.000000
-max       30.000000
-dtype: float64
-primary_hip count    2820.000000
-mean        4.425887
-std         2.869115
-min         0.000000
-25%         3.000000
-50%         4.000000
-75%         5.000000
-max        30.000000
-dtype: float64
-revise_hip count    406.000000
-mean       6.665025
-std        5.232482
-min        0.000000
-25%        3.000000
-50%        5.000000
-75%        8.000000
-max       30.000000
-dtype: float64
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">delay_los_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">delay_los_npv_clip</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;delay_los&quot;</span><span class="p">,</span> <span class="n">delay_los_pdv</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">primary_knee_pdv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">primary_knee_npv_clip</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="check-empirical-dist-used-in-model">
-<h2>check empirical dist used in model<a class="headerlink" href="#check-empirical-dist-used-in-model" title="Permalink to this headline">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">random_number_set</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">rng_streams</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_number_set</span><span class="p">)</span>
-<span class="n">seeds</span> <span class="o">=</span> <span class="n">rng_streams</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">99999999999</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
-
-
-
-<span class="k">def</span> <span class="nf">dist</span><span class="p">(</span><span class="n">los_data</span><span class="p">,</span> <span class="n">random_seed</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span> <span class="o">=</span> <span class="n">random_seed</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">los_data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">delay_los_npv</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="n">seeds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">delay_los_npv</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="n">seeds</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>67
-67
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 
@@ -1699,24 +1622,23 @@ dtype: float64
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Fitting LoS distributions for HEP</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-hips-and-knees">Calculate proportions of surgical types within Hips and Knees</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision">Calculate proportions of surgical types within classes: Primary and Revision</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportion-delayed">Calculate proportion delayed</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectors-for-fitting-no-delay-los">Vectors for fitting no delay LoS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-vector-for-delayed-discharge-all-surgical-types">Los vector for delayed discharge (all surgical types)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-los-distributions">Plot LoS distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">1. Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length-of-stay-categories">2. Length-of-stay categories</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-in-data">3. Read in data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-hips-and-knees">4. Calculate proportions of surgical types within Hips and Knees</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportions-of-surgical-types-within-classes-primary-and-revision">5. Calculate proportions of surgical types within classes: Primary and Revision</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-proportion-delayed">6. Calculate proportion delayed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectors-for-fitting-no-delay-los">7. Vectors for fitting no delay LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#los-vector-for-delayed-discharge-all-surgical-types">8. Los vector for delayed discharge (all surgical types)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualise-los-distributions">9. Visualise LoS distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-to-numpy-arrays-for-use-in-fitter">10. Convert to NumPy arrays for use in Fitter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-distributions">11. Fit distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip-arrays-optional-truncation-of-los-data">12. Clip arrays - optional truncation of los data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-clipped-data">12.1  Fit clipped data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summarise-clipped-data">12.2 Summarise clipped data</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-to-numpy-arrays-for-use-in-fitter">Convert to NumPy arrays for use in Fitter</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip-arrays">Clip arrays</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-clipped-data">Fit clipped data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarise-clipped-data">Summarise clipped data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-empirical-dist-used-in-model">check empirical dist used in model</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>

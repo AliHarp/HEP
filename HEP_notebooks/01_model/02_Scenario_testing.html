@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Scenario analysis for BMJ Open paper" href="03_Scenarios_paper.html" />
-    <link rel="prev" title="Model" href="01_HEP_main.html" />
+    <link rel="prev" title="SimPy Model for elective orthopaedic theatre and ward planning" href="01_HEP_main.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="None"/>
   </head>
@@ -157,15 +157,10 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">RUNNING THE MODEL</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01_HEP_main.html">Model</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="01_HEP_main.html">SimPy Model for elective orthopaedic theatre and ward planning</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Scenario Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03_Scenarios_paper.html">Scenario analysis for BMJ Open paper</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="04_HEP_fit_dists.html">Fitting LoS distributions for HEP</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">REPORTING GUIDELINES</span></p>
 <ul class="nav bd-sidenav">
@@ -394,11 +389,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-extreme-scenarios">MODEL TEST RUNS: Extreme Scenarios:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-bed-parameters">MODEL TEST RUNS: Changing bed parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-variance-on-los-of-revision-patients">MODEL TEST RUNS: Variance on LoS of revision patients</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-revision-los">MODEL TEST RUNS: Changing Revision LoS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-all-los">MODEL TEST RUNS: Changing all LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-extreme-scenarios">1. MODEL TEST RUNS: Extreme Scenarios:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-bed-parameters">2. MODEL TEST RUNS: Changing bed parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-variance-on-los-of-revision-patients">3. MODEL TEST RUNS: Variance on LoS of revision patients</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-revision-los">4. MODEL TEST RUNS: Changing Revision LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-all-los">5. MODEL TEST RUNS: Changing all LoS</a></li>
 </ul>
             </nav>
         </div>
@@ -412,8 +407,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="scenario-testing">
 <h1>Scenario Testing<a class="headerlink" href="#scenario-testing" title="Permalink to this headline">#</a></h1>
+<ul class="simple">
+<li><p>A set of scenarios with extreme parameters is created to test model outputs</p></li>
+<li><p>Varying the ranges of beds, all other parameters unchanged</p></li>
+<li><p>Varying the sd  los on revision patients only, all other parameters unchanged</p></li>
+<li><p>Varying the mean los on revision patients only, all other parameters unchanged</p></li>
+<li><p>Varying the mean los on all procedures, all other parameters unchanged</p></li>
+</ul>
 <section id="model-test-runs-extreme-scenarios">
-<h2>MODEL TEST RUNS: Extreme Scenarios:<a class="headerlink" href="#model-test-runs-extreme-scenarios" title="Permalink to this headline">#</a></h2>
+<h2>1. MODEL TEST RUNS: Extreme Scenarios:<a class="headerlink" href="#model-test-runs-extreme-scenarios" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span>
@@ -652,7 +654,7 @@ Scenario analysis complete.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/69dfb9440d7ec12cb15de41420f5eeb09ca8a2861a81f892173ca692c15ef63b.png" src="../../_images/69dfb9440d7ec12cb15de41420f5eeb09ca8a2861a81f892173ca692c15ef63b.png" />
+<img alt="../../_images/7ce3f79fb2169aa42d10cec5f09e9367d73e7dec811b1e692a3f30d6664471b3.png" src="../../_images/7ce3f79fb2169aa42d10cec5f09e9367d73e7dec811b1e692a3f30d6664471b3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -684,7 +686,7 @@ Scenario analysis complete.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/2053a89511988fac2e63891b1a4aa6a5038b9679da214ce3ab87154d78ac5cd9.png" src="../../_images/2053a89511988fac2e63891b1a4aa6a5038b9679da214ce3ab87154d78ac5cd9.png" />
+<img alt="../../_images/f4c2752fe81bafd748e6e2a003c992209e9881d42ca61af9a1a52cfd15491f22.png" src="../../_images/f4c2752fe81bafd748e6e2a003c992209e9881d42ca61af9a1a52cfd15491f22.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -721,7 +723,7 @@ Scenario analysis complete.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/b678e6213485add7ec7e6ab54bb70e72744927c93d6cac1c6a4c8f73cae8dfd5.png" src="../../_images/b678e6213485add7ec7e6ab54bb70e72744927c93d6cac1c6a4c8f73cae8dfd5.png" />
+<img alt="../../_images/8200f9f0617c40c9b20d8adec6a598e8894bfe488fa9c5497da8738c580b9a5a.png" src="../../_images/8200f9f0617c40c9b20d8adec6a598e8894bfe488fa9c5497da8738c580b9a5a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -792,7 +794,7 @@ Scenario analysis complete.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a6445b34fc19b82e728854e9080a0ffe9ad964f2aea5fbef3ba3a8b2385a54ea.png" src="../../_images/a6445b34fc19b82e728854e9080a0ffe9ad964f2aea5fbef3ba3a8b2385a54ea.png" />
+<img alt="../../_images/8384216979c96fa69228173cac0f42ae16487399eb1d5b1b1951de1019813c93.png" src="../../_images/8384216979c96fa69228173cac0f42ae16487399eb1d5b1b1951de1019813c93.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -925,24 +927,24 @@ Scenario analysis complete.
   <tbody>
     <tr>
       <th>0</th>
-      <td>467.72</td>
-      <td>245.04</td>
-      <td>657.64</td>
-      <td>650.96</td>
-      <td>111.66</td>
-      <td>196.08</td>
-      <td>530.92</td>
-      <td>532.86</td>
+      <td>456.82</td>
+      <td>238.24</td>
+      <td>654.58</td>
+      <td>640.76</td>
+      <td>110.74</td>
+      <td>190.64</td>
+      <td>525.7</td>
+      <td>519.88</td>
       <td>70</td>
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../../_images/7b7542e36bc27337c4cd0d01afe3d6792048a9b227de1627c8c8b55915ce22a7.png" src="../../_images/7b7542e36bc27337c4cd0d01afe3d6792048a9b227de1627c8c8b55915ce22a7.png" />
+</div></div><img alt="../../_images/3214f06abd2e26612b4792980e43f97f83eeccc463b15473e36cb5eea316351b.png" src="../../_images/3214f06abd2e26612b4792980e43f97f83eeccc463b15473e36cb5eea316351b.png" />
 </div>
 </div>
 </section>
 <section id="model-test-runs-changing-bed-parameters">
-<h2>MODEL TEST RUNS: Changing bed parameters<a class="headerlink" href="#model-test-runs-changing-bed-parameters" title="Permalink to this headline">#</a></h2>
+<h2>2. MODEL TEST RUNS: Changing bed parameters<a class="headerlink" href="#model-test-runs-changing-bed-parameters" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_beds</span><span class="p">():</span>
@@ -1081,7 +1083,7 @@ Scenario analysis complete.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/6ae3a05aa348d88b523d39d0c14693473440b14b35d2535c5ada6a12a69e18bb.png" src="../../_images/6ae3a05aa348d88b523d39d0c14693473440b14b35d2535c5ada6a12a69e18bb.png" />
+<img alt="../../_images/4f8341205978e0569ed588c1d59344a2dff19266fac16b258fafba7880779a73.png" src="../../_images/4f8341205978e0569ed588c1d59344a2dff19266fac16b258fafba7880779a73.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1130,24 +1132,24 @@ Scenario analysis complete.
   <tbody>
     <tr>
       <th>0</th>
-      <td>240.48</td>
-      <td>304.12</td>
-      <td>360.58</td>
-      <td>410.78</td>
-      <td>468.18</td>
-      <td>522.36</td>
-      <td>566.4</td>
-      <td>615.14</td>
-      <td>665.82</td>
-      <td>706.46</td>
-      <td>740.1</td>
-      <td>776.84</td>
-      <td>782.04</td>
+      <td>239.2</td>
+      <td>293.36</td>
+      <td>345.42</td>
+      <td>400.92</td>
+      <td>453.62</td>
+      <td>512.08</td>
+      <td>558.32</td>
+      <td>604.5</td>
+      <td>652.28</td>
+      <td>701.38</td>
+      <td>727.34</td>
+      <td>764.1</td>
+      <td>785.46</td>
       <td>70</td>
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../../_images/5cc1d8b15300cda9b19d157a7d71d43dbdb9ae84863face7f5264275c18c64af.png" src="../../_images/5cc1d8b15300cda9b19d157a7d71d43dbdb9ae84863face7f5264275c18c64af.png" />
+</div></div><img alt="../../_images/63c21206e5ecdac60834239568d8efdcbdd830dcc89a2e6c0dd070e2d0c865d4.png" src="../../_images/63c21206e5ecdac60834239568d8efdcbdd830dcc89a2e6c0dd070e2d0c865d4.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1162,12 +1164,12 @@ Scenario analysis complete.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/home/alison/anaconda3/envs/hep_env/lib/python3.8/site-packages/matplotlib/pyplot.py&#39;&gt;
 </pre></div>
 </div>
-<img alt="../../_images/40eaab6a88c81b237e64c0b983daee0c2bd7f5fcf3245e694d46ce4c0f537f5c.png" src="../../_images/40eaab6a88c81b237e64c0b983daee0c2bd7f5fcf3245e694d46ce4c0f537f5c.png" />
+<img alt="../../_images/218c3104f8b23247eecec2e7310c97bb8c28b5cab31038c682c8f01398ec4770.png" src="../../_images/218c3104f8b23247eecec2e7310c97bb8c28b5cab31038c682c8f01398ec4770.png" />
 </div>
 </div>
 </section>
 <section id="model-test-runs-variance-on-los-of-revision-patients">
-<h2>MODEL TEST RUNS: Variance on LoS of revision patients<a class="headerlink" href="#model-test-runs-variance-on-los-of-revision-patients" title="Permalink to this headline">#</a></h2>
+<h2>3. MODEL TEST RUNS: Variance on LoS of revision patients<a class="headerlink" href="#model-test-runs-variance-on-los-of-revision-patients" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_variance</span><span class="p">():</span>
@@ -1189,7 +1191,7 @@ Scenario analysis complete.
     <span class="c1"># define scenarios       </span>
     <span class="k">for</span> <span class="n">revision_hip_sd_los</span><span class="p">,</span> <span class="n">revision_knee_sd_los</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
         <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;hip</span><span class="si">{</span><span class="n">revision_hip_sd_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_knee</span><span class="si">{</span><span class="n">revision_knee_sd_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># Create a key for each scenario</span>
-        <span class="n">scenarios</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span> <span class="o">=</span> <span class="mi">65</span><span class="p">,</span> <span class="n">revision_hip_sd_los</span><span class="o">=</span><span class="n">revision_hip_sd_los</span><span class="p">,</span> <span class="n">revision_knee_sd_los</span><span class="o">=</span><span class="n">revision_knee_sd_los</span><span class="p">)</span>
+        <span class="n">scenarios</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span> <span class="o">=</span> <span class="mi">75</span><span class="p">,</span> <span class="n">revision_hip_sd_los</span><span class="o">=</span><span class="n">revision_hip_sd_los</span><span class="p">,</span> <span class="n">revision_knee_sd_los</span><span class="o">=</span><span class="n">revision_knee_sd_los</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">scenarios</span>
 
@@ -1300,7 +1302,7 @@ Scenario analysis complete.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/61fccfd99092f3b7a0829cb23aca10edc2b235aeb70d0f85777a34960cf73d04.png" src="../../_images/61fccfd99092f3b7a0829cb23aca10edc2b235aeb70d0f85777a34960cf73d04.png" />
+<img alt="../../_images/58ba3e53e23c059c054037ce38f506c4af9f822cc91f3e45cec5a03ebe50bf6f.png" src="../../_images/58ba3e53e23c059c054037ce38f506c4af9f822cc91f3e45cec5a03ebe50bf6f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1346,21 +1348,21 @@ Scenario analysis complete.
   <tbody>
     <tr>
       <th>0</th>
-      <td>705.42</td>
-      <td>715.42</td>
-      <td>715.06</td>
-      <td>697.4</td>
-      <td>702.76</td>
-      <td>702.16</td>
-      <td>706.5</td>
-      <td>699.66</td>
-      <td>704.46</td>
-      <td>710.1</td>
+      <td>706.22</td>
+      <td>697.3</td>
+      <td>702.86</td>
+      <td>695.52</td>
+      <td>700.08</td>
+      <td>691.16</td>
+      <td>691.86</td>
+      <td>707.68</td>
+      <td>699.16</td>
+      <td>702.04</td>
       <td>70</td>
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../../_images/0f3ba3f7bb85057c5dd0796b349f9e701daf5783b2d469d1fd94b7aefda2cebd.png" src="../../_images/0f3ba3f7bb85057c5dd0796b349f9e701daf5783b2d469d1fd94b7aefda2cebd.png" />
+</div></div><img alt="../../_images/65dc417e7acd7b2776b814095bc8a75ccd50feee398f8b6d1ee0892da6049ec7.png" src="../../_images/65dc417e7acd7b2776b814095bc8a75ccd50feee398f8b6d1ee0892da6049ec7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1374,12 +1376,12 @@ Scenario analysis complete.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/home/alison/anaconda3/envs/hep_env/lib/python3.8/site-packages/matplotlib/pyplot.py&#39;&gt;
 </pre></div>
 </div>
-<img alt="../../_images/020833e891a234e40ca481200a691e57ea9034c0aa8f24ee179734f1d5ef1cf1.png" src="../../_images/020833e891a234e40ca481200a691e57ea9034c0aa8f24ee179734f1d5ef1cf1.png" />
+<img alt="../../_images/583bc1b94c975b2d9a32d5959930a11566e8520f2e87031d8ef350a412e8b72d.png" src="../../_images/583bc1b94c975b2d9a32d5959930a11566e8520f2e87031d8ef350a412e8b72d.png" />
 </div>
 </div>
 </section>
 <section id="model-test-runs-changing-revision-los">
-<h2>MODEL TEST RUNS: Changing Revision LoS<a class="headerlink" href="#model-test-runs-changing-revision-los" title="Permalink to this headline">#</a></h2>
+<h2>4. MODEL TEST RUNS: Changing Revision LoS<a class="headerlink" href="#model-test-runs-changing-revision-los" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_revision_los</span><span class="p">():</span>
@@ -1506,7 +1508,7 @@ Scenario analysis complete.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/c903ab2741148ee9bb239f2c36d03df3d8dd8e31c9ef76ad8ead619e03df1bdb.png" src="../../_images/c903ab2741148ee9bb239f2c36d03df3d8dd8e31c9ef76ad8ead619e03df1bdb.png" />
+<img alt="../../_images/da44c0eeb0499886bd5112f86244e6932abb4631d8ac7deece247df691393e54.png" src="../../_images/da44c0eeb0499886bd5112f86244e6932abb4631d8ac7deece247df691393e54.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1549,18 +1551,18 @@ Scenario analysis complete.
   <tbody>
     <tr>
       <th>0</th>
-      <td>552.7</td>
-      <td>524.22</td>
-      <td>510.2</td>
-      <td>496.6</td>
-      <td>488.44</td>
-      <td>472.56</td>
-      <td>464.32</td>
+      <td>522.56</td>
+      <td>519.78</td>
+      <td>502.16</td>
+      <td>486.78</td>
+      <td>476.6</td>
+      <td>466.06</td>
+      <td>464.54</td>
       <td>70</td>
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../../_images/f25aa51359310393a6a9f67f4be2a11e7880b657ec13638a7eca904bb2298a6e.png" src="../../_images/f25aa51359310393a6a9f67f4be2a11e7880b657ec13638a7eca904bb2298a6e.png" />
+</div></div><img alt="../../_images/2a5fa59c668ab5f5ea61c69de369a3dbd2dd17632db3a9fe7b87db99f78f1b9b.png" src="../../_images/2a5fa59c668ab5f5ea61c69de369a3dbd2dd17632db3a9fe7b87db99f78f1b9b.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1574,12 +1576,12 @@ Scenario analysis complete.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/home/alison/anaconda3/envs/hep_env/lib/python3.8/site-packages/matplotlib/pyplot.py&#39;&gt;
 </pre></div>
 </div>
-<img alt="../../_images/8b949f038089527a30795a883f1bfc93fe66d59eab7e0839413f070dcf1963d4.png" src="../../_images/8b949f038089527a30795a883f1bfc93fe66d59eab7e0839413f070dcf1963d4.png" />
+<img alt="../../_images/766cf57f8c80d9716c305b0121031b752e6a0c7a3ebdf278690dab1bef549d32.png" src="../../_images/766cf57f8c80d9716c305b0121031b752e6a0c7a3ebdf278690dab1bef549d32.png" />
 </div>
 </div>
 </section>
 <section id="model-test-runs-changing-all-los">
-<h2>MODEL TEST RUNS: Changing all LoS<a class="headerlink" href="#model-test-runs-changing-all-los" title="Permalink to this headline">#</a></h2>
+<h2>5. MODEL TEST RUNS: Changing all LoS<a class="headerlink" href="#model-test-runs-changing-all-los" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_all_los</span><span class="p">():</span>
@@ -1603,7 +1605,9 @@ Scenario analysis complete.
                                                            <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
                                                            <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
         <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;r-THR</span><span class="si">{</span><span class="n">revision_hip_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_r-TKR</span><span class="si">{</span><span class="n">revision_knee_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_p-THR</span><span class="si">{</span><span class="n">primary_hip_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_p-TKR</span><span class="si">{</span><span class="n">primary_knee_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">_p-UKR</span><span class="si">{</span><span class="n">unicompart_knee_mean_los</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># Create a key for each scenario</span>
-        <span class="n">scenarios</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">n_beds</span> <span class="o">=</span> <span class="mi">65</span><span class="p">)</span>
+        <span class="n">scenarios</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Scenario</span><span class="p">(</span><span class="n">schedule</span><span class="p">,</span> <span class="n">revision_hip_mean_los</span><span class="o">=</span><span class="n">revision_hip_mean_los</span><span class="p">,</span> <span class="n">revision_knee_mean_los</span><span class="o">=</span><span class="n">revision_knee_mean_los</span><span class="p">,</span>
+                                     <span class="n">primary_hip_mean_los</span> <span class="o">=</span> <span class="n">primary_hip_mean_los</span><span class="p">,</span> <span class="n">primary_knee_mean_los</span><span class="o">=</span><span class="n">primary_knee_mean_los</span><span class="p">,</span> 
+                                     <span class="n">unicompart_knee_mean_los</span><span class="o">=</span><span class="n">unicompart_knee_mean_los</span><span class="p">,</span> <span class="n">n_beds</span> <span class="o">=</span> <span class="mi">65</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">scenarios</span>
 
@@ -1704,7 +1708,7 @@ Scenario analysis complete.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a481d61fc3644efa88f2aa3efeda50fffa3a31ec9a63c918568b87e4ce91cefc.png" src="../../_images/a481d61fc3644efa88f2aa3efeda50fffa3a31ec9a63c918568b87e4ce91cefc.png" />
+<img alt="../../_images/ac196c88bc9851b38b4a729e17a288c4878083acc7b7839c333eaf6f876109de.png" src="../../_images/ac196c88bc9851b38b4a729e17a288c4878083acc7b7839c333eaf6f876109de.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1745,16 +1749,16 @@ Scenario analysis complete.
   <tbody>
     <tr>
       <th>0</th>
-      <td>700.06</td>
-      <td>698.58</td>
-      <td>700.72</td>
-      <td>695.98</td>
-      <td>694.58</td>
+      <td>772.0</td>
+      <td>774.0</td>
+      <td>766.12</td>
+      <td>733.52</td>
+      <td>650.98</td>
       <td>70</td>
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../../_images/1d78693bdfd5ee521db6a9dd5ddc339af351e372d891ee7d56b8b60051a309ec.png" src="../../_images/1d78693bdfd5ee521db6a9dd5ddc339af351e372d891ee7d56b8b60051a309ec.png" />
+</div></div><img alt="../../_images/56f14eb201489ba58c9282517a4d24b094b9166592ca242e2c380fe338da7042.png" src="../../_images/56f14eb201489ba58c9282517a4d24b094b9166592ca242e2c380fe338da7042.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1768,7 +1772,7 @@ Scenario analysis complete.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;module &#39;matplotlib.pyplot&#39; from &#39;/home/alison/anaconda3/envs/hep_env/lib/python3.8/site-packages/matplotlib/pyplot.py&#39;&gt;
 </pre></div>
 </div>
-<img alt="../../_images/8e1b0cc5c41b4a0511846a676d0f1ed1303cf71f7c46af9b0cc9925945861bd7.png" src="../../_images/8e1b0cc5c41b4a0511846a676d0f1ed1303cf71f7c46af9b0cc9925945861bd7.png" />
+<img alt="../../_images/90129fd5f02d86a844c4758639273b63134b1b56fbaeb2b142d9f10a059d66f9.png" src="../../_images/90129fd5f02d86a844c4758639273b63134b1b56fbaeb2b142d9f10a059d66f9.png" />
 </div>
 </div>
 </section>
@@ -1811,7 +1815,7 @@ Scenario analysis complete.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Model</p>
+        <p class="prev-next-title">SimPy Model for elective orthopaedic theatre and ward planning</p>
       </div>
     </a>
     <a class="right-next"
@@ -1841,11 +1845,11 @@ Scenario analysis complete.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-extreme-scenarios">MODEL TEST RUNS: Extreme Scenarios:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-bed-parameters">MODEL TEST RUNS: Changing bed parameters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-variance-on-los-of-revision-patients">MODEL TEST RUNS: Variance on LoS of revision patients</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-revision-los">MODEL TEST RUNS: Changing Revision LoS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-all-los">MODEL TEST RUNS: Changing all LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-extreme-scenarios">1. MODEL TEST RUNS: Extreme Scenarios:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-bed-parameters">2. MODEL TEST RUNS: Changing bed parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-variance-on-los-of-revision-patients">3. MODEL TEST RUNS: Variance on LoS of revision patients</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-revision-los">4. MODEL TEST RUNS: Changing Revision LoS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-test-runs-changing-all-los">5. MODEL TEST RUNS: Changing all LoS</a></li>
 </ul>
   </nav></div>
 

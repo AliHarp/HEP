@@ -157,15 +157,10 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">RUNNING THE MODEL</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01_HEP_main.html">Model</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="01_HEP_main.html">SimPy Model for elective orthopaedic theatre and ward planning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02_Scenario_testing.html">Scenario Testing</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Scenario analysis for BMJ Open paper</a></li>
-
 <li class="toctree-l1"><a class="reference internal" href="04_HEP_fit_dists.html">Fitting LoS distributions for HEP</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">REPORTING GUIDELINES</span></p>
 <ul class="nav bd-sidenav">
@@ -394,20 +389,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Scenario analysis for BMJ Open paper</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenarios">Scenarios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-schedule-with-weekend-activity-for-scenarios">Create schedule with weekend activity for scenarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">1. Import packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-design">2. Scenario design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-schedule-with-weekend-activity-for-scenarios">3. Create schedule with weekend activity for scenarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionary-of-scenario-definitions">4. Dictionary of scenario definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-scenarios-dictionary">5. Create scenarios dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-scenario-table">6. Save scenario table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-output-description">7. Scenario output description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#throughput">7.1 Throughput</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilisation">7.2 Utilisation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lost-slots">7.3 Lost slots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenate-datasets-for-each-measure">7.4 Concatenate datasets for each measure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">7.5 Plot</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#save-results">SAVE RESULTS</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-output-description">Scenario output description</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#throughput">Throughput</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utilisation">Utilisation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lost-slots">Lost slots</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -421,20 +417,8 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="scenario-analysis-for-bmj-open-paper">
 <h1>Scenario analysis for BMJ Open paper<a class="headerlink" href="#scenario-analysis-for-bmj-open-paper" title="Permalink to this headline">#</a></h1>
 <p>Multiway sensitivity analyses to test the impact of varying parameters on the key performance measures (bed utilisation, lost slots, and total surgical throughput).</p>
-<section id="scenarios">
-<h2>Scenarios<a class="headerlink" href="#scenarios" title="Permalink to this headline">#</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for beds 30 : 80 (5):
-    for schedule (baseline : baseline+weekend):
-
-        baseline los ; baseline prop delay  
-
-        baseline los ; 0.25* prop delay  
-
-        0.25* los ; baseline prop delay  
-
-        0.25* los ; 0.25* prop delay  
-</pre></div>
-</div>
+<section id="import-packages">
+<h2>1. Import packages<a class="headerlink" href="#import-packages" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span>
@@ -453,8 +437,28 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="scenario-design">
+<h2>2. Scenario design<a class="headerlink" href="#scenario-design" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="n">beds</span> <span class="mi">30</span> <span class="p">:</span> <span class="mi">80</span> <span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">schedule</span> <span class="p">(</span><span class="n">baseline</span> <span class="p">:</span> <span class="n">baseline</span><span class="o">+</span><span class="n">weekend</span><span class="p">):</span>
+
+            <span class="n">baseline</span> <span class="n">los</span> <span class="p">;</span> <span class="n">baseline</span> <span class="n">prop</span> <span class="n">delay</span>  
+
+            <span class="n">baseline</span> <span class="n">los</span> <span class="p">;</span> <span class="mf">0.25</span><span class="o">*</span> <span class="n">prop</span> <span class="n">delay</span>  
+
+            <span class="mf">0.25</span><span class="o">*</span> <span class="n">los</span> <span class="p">;</span> <span class="n">baseline</span> <span class="n">prop</span> <span class="n">delay</span>  
+
+            <span class="mf">0.25</span><span class="o">*</span> <span class="n">los</span> <span class="p">;</span> <span class="mf">0.25</span><span class="o">*</span> <span class="n">prop</span> <span class="n">delay</span>  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="create-schedule-with-weekend-activity-for-scenarios">
-<h2>Create schedule with weekend activity for scenarios<a class="headerlink" href="#create-schedule-with-weekend-activity-for-scenarios" title="Permalink to this headline">#</a></h2>
+<h2>3. Create schedule with weekend activity for scenarios<a class="headerlink" href="#create-schedule-with-weekend-activity-for-scenarios" title="Permalink to this headline">#</a></h2>
+<p>Saved in csv - this only needs to be done once.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DEFAULT_PRIMARY_DICT = {1: &#39;p_hip&#39;, 2: &#39;p_knee&#39;, 3: &#39;uni_knee&#39;}</span>
@@ -588,6 +592,10 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="dictionary-of-scenario-definitions">
+<h2>4. Dictionary of scenario definitions<a class="headerlink" href="#dictionary-of-scenario-definitions" title="Permalink to this headline">#</a></h2>
+<p>Pre-defined scenarios as a dictionary and dataframe</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenario_dict</span><span class="p">():</span>
@@ -646,12 +654,18 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="create-scenarios-dictionary">
+<h2>5. Create scenarios dictionary<a class="headerlink" href="#create-scenarios-dictionary" title="Permalink to this headline">#</a></h2>
+<p>Creates a set of <code class="docutils literal notranslate"><span class="pre">scenarios</span></code> objects using dictionary of scenario definitions and both schedules
+Uses <code class="docutils literal notranslate"><span class="pre">multiple_reps</span></code> function in main model class to run model and generate results</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_scenarios_2k</span><span class="p">(</span><span class="n">dict_s</span><span class="p">,</span> <span class="n">new_schedule</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create dictionary of scenario objects using attribute dictionary</span>
+<span class="sd">    dict_s = scenario_dict returned from get_scenario_dict() function</span>
 <span class="sd">    A set of baseline schedule</span>
 <span class="sd">    A set of new_schedule</span>
 <span class="sd">    </span>
@@ -661,7 +675,6 @@ document.write(`
 <span class="sd">    Contains the scenarios for the model</span>
 <span class="sd">  </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1">#schedule = md.Schedule()</span>
     <span class="n">scenarios</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">schedule</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Schedule</span><span class="p">()</span>
     
@@ -907,6 +920,11 @@ Scenario analysis complete.
 </div>
 </div>
 </div>
+</section>
+<section id="save-scenario-table">
+<h2>6. Save scenario table<a class="headerlink" href="#save-scenario-table" title="Permalink to this headline">#</a></h2>
+<p>Scenario definitions dataframe from function <code class="docutils literal notranslate"><span class="pre">get_scenario_dict</span></code></p>
+<p>Save scenario table (72 scenarios = range of capacity *9, los *2, delays *2, schedule *2)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># save table of scenarios</span>
@@ -917,14 +935,8 @@ Scenario analysis complete.
 </div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="save-results">
-<h1>SAVE RESULTS<a class="headerlink" href="#save-results" title="Permalink to this headline">#</a></h1>
-<ul class="simple">
-<li><p>Save scenario table (72 scenarios = range of capacity *9, los *2, delays *2, schedule *2)</p></li>
-</ul>
 <section id="scenario-output-description">
-<h2>Scenario output description<a class="headerlink" href="#scenario-output-description" title="Permalink to this headline">#</a></h2>
+<h2>7. Scenario output description<a class="headerlink" href="#scenario-output-description" title="Permalink to this headline">#</a></h2>
 <p>Each capacity on the x-axis
 With schedule and schedule_new in separate columns</p>
 <p>Each los and delay scenario (4) for each capacity (and sched) with:</p>
@@ -933,9 +945,8 @@ With schedule and schedule_new in separate columns</p>
 <li><p>mean total thruput</p></li>
 <li><p>mean total lost slots</p></li>
 </ul>
-</section>
 <section id="throughput">
-<h2>Throughput<a class="headerlink" href="#throughput" title="Permalink to this headline">#</a></h2>
+<h3>7.1 Throughput<a class="headerlink" href="#throughput" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># scenario_results_patients_2k: patient-level results </span>
@@ -988,7 +999,9 @@ With schedule and schedule_new in separate columns</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># put in long format for plotting</span>
 <span class="k">def</span> <span class="nf">long_data</span><span class="p">(</span><span class="n">weekly_thru_procedure</span><span class="p">,</span> <span class="n">measure</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Take outputs of weekly and summarise per day into long format</span>
+<span class="sd">    A function to take outputs of weekly and summarise per day into long format</span>
+<span class="sd">    weekly_thru_procedure = weekly data</span>
+<span class="sd">    measure = create measure name for plotting outputs</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="c1"># create df of means and remove weekday</span>
     <span class="n">means</span> <span class="o">=</span> <span class="n">weekly_thru_procedure</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
@@ -1031,14 +1044,26 @@ With schedule and schedule_new in separate columns</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long_thru_data</span> <span class="o">=</span> <span class="n">long_data</span><span class="p">(</span><span class="n">weekly_thru_procedure</span><span class="p">,</span> <span class="s1">&#39; Throughput&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># put throughput data into long format</span>
+<span class="n">long_thru_data</span> <span class="o">=</span> <span class="n">long_data</span><span class="p">(</span><span class="n">weekly_thru_procedure</span><span class="p">,</span> <span class="s1">&#39; Throughput&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># put throughput data into long format</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">long_thru_data</span> <span class="o">=</span> <span class="n">long_data</span><span class="p">(</span><span class="n">weekly_thru_procedure</span><span class="p">,</span> <span class="s1">&#39; Throughput&#39;</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;weekly_thru_procedure&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="utilisation">
-<h2>Utilisation<a class="headerlink" href="#utilisation" title="Permalink to this headline">#</a></h2>
+<h3>7.2 Utilisation<a class="headerlink" href="#utilisation" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">daily_utilisation</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span>
@@ -1066,7 +1091,8 @@ With schedule and schedule_new in separate columns</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long_util_data</span> <span class="o">=</span> <span class="n">long_data</span><span class="p">(</span><span class="n">weekly_util</span><span class="p">,</span> <span class="s1">&#39; Utilisation&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># put utilisation data into long format</span>
+<span class="n">long_util_data</span> <span class="o">=</span> <span class="n">long_data</span><span class="p">(</span><span class="n">weekly_util</span><span class="p">,</span> <span class="s1">&#39; Utilisation&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1175,7 +1201,7 @@ With schedule and schedule_new in separate columns</p>
 </div>
 </section>
 <section id="lost-slots">
-<h2>Lost slots<a class="headerlink" href="#lost-slots" title="Permalink to this headline">#</a></h2>
+<h3>7.3 Lost slots<a class="headerlink" href="#lost-slots" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">patient_scenarios</span><span class="p">(</span><span class="n">scenario_results</span><span class="p">):</span>
@@ -1244,11 +1270,15 @@ With schedule and schedule_new in separate columns</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long_lostslots_data</span> <span class="o">=</span> <span class="n">long_data</span><span class="p">(</span><span class="n">lost_slots</span><span class="p">,</span> <span class="s1">&#39; Lost slots&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Put lost slots data into long format</span>
+<span class="n">long_lostslots_data</span> <span class="o">=</span> <span class="n">long_data</span><span class="p">(</span><span class="n">lost_slots</span><span class="p">,</span> <span class="s1">&#39; Lost slots&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="concatenate-datasets-for-each-measure">
+<h3>7.4 Concatenate datasets for each measure<a class="headerlink" href="#concatenate-datasets-for-each-measure" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">means_output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">long_thru_data</span><span class="p">,</span> <span class="n">long_util_data</span><span class="p">,</span> <span class="n">long_lostslots_data</span><span class="p">])</span>
@@ -1257,6 +1287,9 @@ With schedule and schedule_new in separate columns</p>
 </div>
 </div>
 </div>
+</section>
+<section id="plot">
+<h3>7.5 Plot<a class="headerlink" href="#plot" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">means_output</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">means_output</span><span class="o">.</span><span class="n">Beds</span><span class="p">,</span> 
@@ -1305,6 +1338,7 @@ if (outputEl) {{
 
                         })                };                });            </script>        </div></div></div>
 </div>
+</section>
 </section>
 </section>
 
@@ -1375,20 +1409,21 @@ if (outputEl) {{
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Scenario analysis for BMJ Open paper</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenarios">Scenarios</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-schedule-with-weekend-activity-for-scenarios">Create schedule with weekend activity for scenarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">1. Import packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-design">2. Scenario design</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-schedule-with-weekend-activity-for-scenarios">3. Create schedule with weekend activity for scenarios</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionary-of-scenario-definitions">4. Dictionary of scenario definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-scenarios-dictionary">5. Create scenarios dictionary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#save-scenario-table">6. Save scenario table</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-output-description">7. Scenario output description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#throughput">7.1 Throughput</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utilisation">7.2 Utilisation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lost-slots">7.3 Lost slots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenate-datasets-for-each-measure">7.4 Concatenate datasets for each measure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">7.5 Plot</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#save-results">SAVE RESULTS</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-output-description">Scenario output description</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#throughput">Throughput</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utilisation">Utilisation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lost-slots">Lost slots</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
