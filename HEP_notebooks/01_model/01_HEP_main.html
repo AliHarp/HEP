@@ -435,7 +435,7 @@ measures on capacity requirements. It is applicable beyond the study site and ca
 specialties.</p>
 <section id="packages">
 <h2>1. Packages<a class="headerlink" href="#packages" title="Permalink to this headline">#</a></h2>
-<p>The model is provided with a conda virtual environment <code class="docutils literal notranslate"><span class="pre">hep_env</span></code>.</p>
+<p>The model is provided with a conda virtual environment <code class="docutils literal notranslate"><span class="pre">hep_env</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">simpy</span>
@@ -584,7 +584,6 @@ This allows monitoring of weekdays</p>
 
 <span class="c1"># extreme schedule generated for testing</span>
 <span class="n">new_schedule</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Test_data/new_schedule.csv&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">new_schedule</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
 
 <span class="c1"># empirical los distributions for patients not delayed</span>
 <span class="n">los_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Test_data/los_spells_no_zero.csv&#39;</span><span class="p">)</span>
@@ -595,24 +594,8 @@ This allows monitoring of weekdays</p>
 <span class="n">primary_hip_los_data</span> <span class="o">=</span> <span class="n">los_data</span><span class="p">[</span><span class="s1">&#39;Primary Hip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">revision_hip_los_data</span> <span class="o">=</span> <span class="n">los_data</span><span class="p">[</span><span class="s1">&#39;Revision Hip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
+<span class="c1">#optional use of empirical data to sample los distributions</span>
 <span class="n">use_empirical_data</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="n">primary_knee_los_data</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Unnamed: 0  index        Day  Primary_slots  Revision_slots
-0           0      0     Monday             24               8
-1           1      1    Tuesday             28               6
-2           2      2  Wednesday             24               8
-3           3      3   Thursday             22               9
-4           4      4     Friday             22               9
-5           5      5   Saturday             34               7
-6           6      6     Sunday             32               8
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 4.,  8.,  3., ..., 11.,  2.,  2.])
 </pre></div>
 </div>
 </div>
@@ -644,7 +627,7 @@ This allows monitoring of weekdays</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Used for debugging</span>
 <span class="sd">    If TRUE will return all patient level message output</span>
-<span class="sd">    Default = False</span>
+<span class="sd">    Default = FALSE</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">TRACE</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
