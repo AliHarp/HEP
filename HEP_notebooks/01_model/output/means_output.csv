@@ -1,217 +1,217 @@
 ,index,Means per day,Schedule ,Beds,index_int,scenarios,Measure 
-0,1.0,5.1875873015873015, Baseline,30,1.0,"high_los, prop_high", Throughput
-1,1.0_new_schedule,5.142, Baseline + weekends,30,1.0,"high_los, prop_high", Throughput
-2,2.0,11.350793650793651, Baseline,35,2.0,"low_los, prop_low", Throughput
-3,2.0_new_schedule,14.741873015873017, Baseline + weekends,35,2.0,"low_los, prop_low", Throughput
-4,3.0,6.800317460317459, Baseline,40,3.0,"high_los, prop_high", Throughput
-5,3.0_new_schedule,6.83311111111111, Baseline + weekends,40,3.0,"high_los, prop_high", Throughput
-6,4.0,11.092063492063492, Baseline,45,4.0,"low_los, prop_low", Throughput
+0,1.0,5.109238095238095, Baseline,30,1.0,"high_los, prop_high", Throughput
+1,1.0_new_schedule,5.14895238095238, Baseline + weekends,30,1.0,"high_los, prop_high", Throughput
+2,2.0,11.544444444444446, Baseline,35,2.0,"low_los, prop_low", Throughput
+3,2.0_new_schedule,14.74209523809524, Baseline + weekends,35,2.0,"low_los, prop_low", Throughput
+4,3.0,6.768000000000001, Baseline,40,3.0,"high_los, prop_high", Throughput
+5,3.0_new_schedule,6.811238095238095, Baseline + weekends,40,3.0,"high_los, prop_high", Throughput
+6,4.0,11.46984126984127, Baseline,45,4.0,"low_los, prop_low", Throughput
 7,4.0_new_schedule,14.75079365079365, Baseline + weekends,45,4.0,"low_los, prop_low", Throughput
-8,5.0,8.177873015873017, Baseline,50,5.0,"high_los, prop_high", Throughput
-9,5.0_new_schedule,8.434984126984126, Baseline + weekends,50,5.0,"high_los, prop_high", Throughput
-10,6.0,11.43968253968254, Baseline,55,6.0,"low_los, prop_low", Throughput
+8,5.0,8.065396825396826, Baseline,50,5.0,"high_los, prop_high", Throughput
+9,5.0_new_schedule,8.3624126984127, Baseline + weekends,50,5.0,"high_los, prop_high", Throughput
+10,6.0,11.412698412698413, Baseline,55,6.0,"low_los, prop_low", Throughput
 11,6.0_new_schedule,14.75079365079365, Baseline + weekends,55,6.0,"low_los, prop_low", Throughput
-12,7.0,9.521777777777777, Baseline,60,7.0,"high_los, prop_high", Throughput
-13,7.0_new_schedule,9.974634920634921, Baseline + weekends,60,7.0,"high_los, prop_high", Throughput
-14,8.0,11.195238095238095, Baseline,65,8.0,"low_los, prop_low", Throughput
+12,7.0,9.547269841269841, Baseline,60,7.0,"high_los, prop_high", Throughput
+13,7.0_new_schedule,9.925079365079364, Baseline + weekends,60,7.0,"high_los, prop_high", Throughput
+14,8.0,11.441269841269841, Baseline,65,8.0,"low_los, prop_low", Throughput
 15,8.0_new_schedule,14.75079365079365, Baseline + weekends,65,8.0,"low_los, prop_low", Throughput
-16,9.0,10.776984126984129, Baseline,70,9.0,"high_los, prop_high", Throughput
-17,9.0_new_schedule,11.377999999999998, Baseline + weekends,70,9.0,"high_los, prop_high", Throughput
-18,10.0,11.375650793650793, Baseline,30,10.0,"low_los, prop_low", Throughput
-19,10.0_new_schedule,14.64679365079365, Baseline + weekends,30,10.0,"low_los, prop_low", Throughput
-20,11.0,6.030571428571429, Baseline,35,11.0,"high_los, prop_high", Throughput
-21,11.0_new_schedule,5.998507936507936, Baseline + weekends,35,11.0,"high_los, prop_high", Throughput
-22,12.0,11.314285714285715, Baseline,40,12.0,"low_los, prop_low", Throughput
+16,9.0,10.546571428571427, Baseline,70,9.0,"high_los, prop_high", Throughput
+17,9.0_new_schedule,11.344190476190477, Baseline + weekends,70,9.0,"high_los, prop_high", Throughput
+18,10.0,11.648507936507938, Baseline,30,10.0,"low_los, prop_low", Throughput
+19,10.0_new_schedule,14.64285714285714, Baseline + weekends,30,10.0,"low_los, prop_low", Throughput
+20,11.0,6.023968253968254, Baseline,35,11.0,"high_los, prop_high", Throughput
+21,11.0_new_schedule,5.999238095238096, Baseline + weekends,35,11.0,"high_los, prop_high", Throughput
+22,12.0,11.60793650793651, Baseline,40,12.0,"low_los, prop_low", Throughput
 23,12.0_new_schedule,14.75079365079365, Baseline + weekends,40,12.0,"low_los, prop_low", Throughput
-24,13.0,7.548984126984126, Baseline,45,13.0,"high_los, prop_high", Throughput
-25,13.0_new_schedule,7.604285714285714, Baseline + weekends,45,13.0,"high_los, prop_high", Throughput
-26,14.0,11.711111111111112, Baseline,50,14.0,"low_los, prop_low", Throughput
+24,13.0,7.502952380952381, Baseline,45,13.0,"high_los, prop_high", Throughput
+25,13.0_new_schedule,7.6220317460317455, Baseline + weekends,45,13.0,"high_los, prop_high", Throughput
+26,14.0,11.466666666666667, Baseline,50,14.0,"low_los, prop_low", Throughput
 27,14.0_new_schedule,14.75079365079365, Baseline + weekends,50,14.0,"low_los, prop_low", Throughput
-28,15.0,8.852031746031747, Baseline,55,15.0,"high_los, prop_high", Throughput
-29,15.0_new_schedule,9.107714285714286, Baseline + weekends,55,15.0,"high_los, prop_high", Throughput
-30,16.0,11.212698412698414, Baseline,60,16.0,"low_los, prop_low", Throughput
+28,15.0,8.774857142857144, Baseline,55,15.0,"high_los, prop_high", Throughput
+29,15.0_new_schedule,9.21974603174603, Baseline + weekends,55,15.0,"high_los, prop_high", Throughput
+30,16.0,11.38888888888889, Baseline,60,16.0,"low_los, prop_low", Throughput
 31,16.0_new_schedule,14.75079365079365, Baseline + weekends,60,16.0,"low_los, prop_low", Throughput
-32,17.0,10.151809523809524, Baseline,65,17.0,"high_los, prop_high", Throughput
-33,17.0_new_schedule,10.676888888888888, Baseline + weekends,65,17.0,"high_los, prop_high", Throughput
-34,18.0,11.657142857142858, Baseline,70,18.0,"low_los, prop_low", Throughput
+32,17.0,10.131079365079367, Baseline,65,17.0,"high_los, prop_high", Throughput
+33,17.0_new_schedule,10.699904761904762, Baseline + weekends,65,17.0,"high_los, prop_high", Throughput
+34,18.0,11.34920634920635, Baseline,70,18.0,"low_los, prop_low", Throughput
 35,18.0_new_schedule,14.75079365079365, Baseline + weekends,70,18.0,"low_los, prop_low", Throughput
-36,19.0,5.806920634920636, Baseline,30,19.0,"high_los, prop_low", Throughput
-37,19.0_new_schedule,5.924317460317461, Baseline + weekends,30,19.0,"high_los, prop_low", Throughput
-38,20.0,11.170126984126984, Baseline,35,20.0,"low_los, prop_high", Throughput
-39,20.0_new_schedule,13.134539682539682, Baseline + weekends,35,20.0,"low_los, prop_high", Throughput
-40,21.0,7.450507936507937, Baseline,40,21.0,"high_los, prop_low", Throughput
-41,21.0_new_schedule,7.702126984126984, Baseline + weekends,40,21.0,"high_los, prop_low", Throughput
-42,22.0,11.355269841269841, Baseline,45,22.0,"low_los, prop_high", Throughput
-43,22.0_new_schedule,14.634857142857143, Baseline + weekends,45,22.0,"low_los, prop_high", Throughput
-44,23.0,8.856984126984127, Baseline,50,23.0,"high_los, prop_low", Throughput
-45,23.0_new_schedule,9.430444444444445, Baseline + weekends,50,23.0,"high_los, prop_low", Throughput
-46,24.0,11.250793650793652, Baseline,55,24.0,"low_los, prop_high", Throughput
-47,24.0_new_schedule,14.74831746031746, Baseline + weekends,55,24.0,"low_los, prop_high", Throughput
-48,25.0,10.280285714285714, Baseline,60,25.0,"high_los, prop_low", Throughput
-49,25.0_new_schedule,11.06622222222222, Baseline + weekends,60,25.0,"high_los, prop_low", Throughput
-50,26.0,11.312698412698413, Baseline,65,26.0,"low_los, prop_high", Throughput
+36,19.0,5.719777777777779, Baseline,30,19.0,"high_los, prop_low", Throughput
+37,19.0_new_schedule,5.877746031746033, Baseline + weekends,30,19.0,"high_los, prop_low", Throughput
+38,20.0,11.171714285714286, Baseline,35,20.0,"low_los, prop_high", Throughput
+39,20.0_new_schedule,13.153142857142857, Baseline + weekends,35,20.0,"low_los, prop_high", Throughput
+40,21.0,7.42647619047619, Baseline,40,21.0,"high_los, prop_low", Throughput
+41,21.0_new_schedule,7.686571428571429, Baseline + weekends,40,21.0,"high_los, prop_low", Throughput
+42,22.0,11.221650793650793, Baseline,45,22.0,"low_los, prop_high", Throughput
+43,22.0_new_schedule,14.62447619047619, Baseline + weekends,45,22.0,"low_los, prop_high", Throughput
+44,23.0,9.108761904761904, Baseline,50,23.0,"high_los, prop_low", Throughput
+45,23.0_new_schedule,9.477142857142857, Baseline + weekends,50,23.0,"high_los, prop_low", Throughput
+46,24.0,11.315873015873015, Baseline,55,24.0,"low_los, prop_high", Throughput
+47,24.0_new_schedule,14.749301587301588, Baseline + weekends,55,24.0,"low_los, prop_high", Throughput
+48,25.0,10.110126984126984, Baseline,60,25.0,"high_los, prop_low", Throughput
+49,25.0_new_schedule,11.122285714285713, Baseline + weekends,60,25.0,"high_los, prop_low", Throughput
+50,26.0,11.4015873015873, Baseline,65,26.0,"low_los, prop_high", Throughput
 51,26.0_new_schedule,14.75079365079365, Baseline + weekends,65,26.0,"low_los, prop_high", Throughput
-52,27.0,11.234666666666667, Baseline,70,27.0,"high_los, prop_low", Throughput
-53,27.0_new_schedule,12.585555555555556, Baseline + weekends,70,27.0,"high_los, prop_low", Throughput
-54,28.0,10.577238095238096, Baseline,30,28.0,"low_los, prop_high", Throughput
-55,28.0_new_schedule,11.718793650793653, Baseline + weekends,30,28.0,"low_los, prop_high", Throughput
-56,29.0,6.661714285714284, Baseline,35,29.0,"high_los, prop_low", Throughput
-57,29.0_new_schedule,6.81526984126984, Baseline + weekends,35,29.0,"high_los, prop_low", Throughput
-58,30.0,11.443809523809524, Baseline,40,30.0,"low_los, prop_high", Throughput
-59,30.0_new_schedule,14.169492063492061, Baseline + weekends,40,30.0,"low_los, prop_high", Throughput
-60,31.0,8.302349206349207, Baseline,45,31.0,"high_los, prop_low", Throughput
-61,31.0_new_schedule,8.618571428571427, Baseline + weekends,45,31.0,"high_los, prop_low", Throughput
-62,32.0,11.238095238095239, Baseline,50,32.0,"low_los, prop_high", Throughput
-63,32.0_new_schedule,14.738984126984127, Baseline + weekends,50,32.0,"low_los, prop_high", Throughput
-64,33.0,9.775238095238095, Baseline,55,33.0,"high_los, prop_low", Throughput
-65,33.0_new_schedule,10.263174603174603, Baseline + weekends,55,33.0,"high_los, prop_low", Throughput
-66,34.0,11.412698412698413, Baseline,60,34.0,"low_los, prop_high", Throughput
-67,34.0_new_schedule,14.75047619047619, Baseline + weekends,60,34.0,"low_los, prop_high", Throughput
-68,35.0,10.96136507936508, Baseline,65,35.0,"high_los, prop_low", Throughput
-69,35.0_new_schedule,11.871936507936509, Baseline + weekends,65,35.0,"high_los, prop_low", Throughput
-70,36.0,11.517460317460317, Baseline,70,36.0,"low_los, prop_high", Throughput
+52,27.0,11.110285714285714, Baseline,70,27.0,"high_los, prop_low", Throughput
+53,27.0_new_schedule,12.617873015873016, Baseline + weekends,70,27.0,"high_los, prop_low", Throughput
+54,28.0,10.64593650793651, Baseline,30,28.0,"low_los, prop_high", Throughput
+55,28.0_new_schedule,11.793142857142858, Baseline + weekends,30,28.0,"low_los, prop_high", Throughput
+56,29.0,6.695746031746032, Baseline,35,29.0,"high_los, prop_low", Throughput
+57,29.0_new_schedule,6.832666666666666, Baseline + weekends,35,29.0,"high_los, prop_low", Throughput
+58,30.0,11.3055873015873, Baseline,40,30.0,"low_los, prop_high", Throughput
+59,30.0_new_schedule,14.210000000000003, Baseline + weekends,40,30.0,"low_los, prop_high", Throughput
+60,31.0,8.367301587301586, Baseline,45,31.0,"high_los, prop_low", Throughput
+61,31.0_new_schedule,8.573142857142859, Baseline + weekends,45,31.0,"high_los, prop_low", Throughput
+62,32.0,11.55873015873016, Baseline,50,32.0,"low_los, prop_high", Throughput
+63,32.0_new_schedule,14.731650793650795, Baseline + weekends,50,32.0,"low_los, prop_high", Throughput
+64,33.0,9.668698412698413, Baseline,55,33.0,"high_los, prop_low", Throughput
+65,33.0_new_schedule,10.288984126984127, Baseline + weekends,55,33.0,"high_los, prop_low", Throughput
+66,34.0,11.338095238095237, Baseline,60,34.0,"low_los, prop_high", Throughput
+67,34.0_new_schedule,14.75079365079365, Baseline + weekends,60,34.0,"low_los, prop_high", Throughput
+68,35.0,10.703492063492064, Baseline,65,35.0,"high_los, prop_low", Throughput
+69,35.0_new_schedule,11.861777777777776, Baseline + weekends,65,35.0,"high_los, prop_low", Throughput
+70,36.0,11.253968253968253, Baseline,70,36.0,"low_los, prop_high", Throughput
 71,36.0_new_schedule,14.75079365079365, Baseline + weekends,70,36.0,"low_los, prop_high", Throughput
-0,1.0,0.9046666666666667, Baseline,30,1.0,"high_los, prop_high", Utilisation
-1,1.0_new_schedule,0.9445809523809525, Baseline + weekends,30,1.0,"high_los, prop_high", Utilisation
-2,2.0,0.3685877551020408, Baseline,35,2.0,"low_los, prop_low", Utilisation
-3,2.0_new_schedule,0.49866938775510206, Baseline + weekends,35,2.0,"low_los, prop_low", Utilisation
-4,3.0,0.8957071428571429, Baseline,40,3.0,"high_los, prop_high", Utilisation
-5,3.0_new_schedule,0.9412357142857143, Baseline + weekends,40,3.0,"high_los, prop_high", Utilisation
-6,4.0,0.2848126984126984, Baseline,45,4.0,"low_los, prop_low", Utilisation
-7,4.0_new_schedule,0.3852190476190476, Baseline + weekends,45,4.0,"low_los, prop_low", Utilisation
-8,5.0,0.87652, Baseline,50,5.0,"high_los, prop_high", Utilisation
-9,5.0_new_schedule,0.9373885714285715, Baseline + weekends,50,5.0,"high_los, prop_high", Utilisation
-10,6.0,0.23588571428571425, Baseline,55,6.0,"low_los, prop_low", Utilisation
-11,6.0_new_schedule,0.3149662337662338, Baseline + weekends,55,6.0,"low_los, prop_low", Utilisation
-12,7.0,0.8509619047619048, Baseline,60,7.0,"high_los, prop_high", Utilisation
-13,7.0_new_schedule,0.9315761904761904, Baseline + weekends,60,7.0,"high_los, prop_high", Utilisation
-14,8.0,0.1994901098901099, Baseline,65,8.0,"low_los, prop_low", Utilisation
-15,8.0_new_schedule,0.26454065934065935, Baseline + weekends,65,8.0,"low_los, prop_low", Utilisation
-16,9.0,0.824342857142857, Baseline,70,9.0,"high_los, prop_high", Utilisation
-17,9.0_new_schedule,0.9236489795918369, Baseline + weekends,70,9.0,"high_los, prop_high", Utilisation
-18,10.0,0.4332285714285714, Baseline,30,10.0,"low_los, prop_low", Utilisation
-19,10.0_new_schedule,0.5782476190476191, Baseline + weekends,30,10.0,"low_los, prop_low", Utilisation
-20,11.0,0.9010857142857144, Baseline,35,11.0,"high_los, prop_high", Utilisation
-21,11.0_new_schedule,0.9428244897959184, Baseline + weekends,35,11.0,"high_los, prop_high", Utilisation
-22,12.0,0.32680000000000003, Baseline,40,12.0,"low_los, prop_low", Utilisation
-23,12.0_new_schedule,0.43409285714285717, Baseline + weekends,40,12.0,"low_los, prop_low", Utilisation
-24,13.0,0.888431746031746, Baseline,45,13.0,"high_los, prop_high", Utilisation
-25,13.0_new_schedule,0.9400571428571429, Baseline + weekends,45,13.0,"high_los, prop_high", Utilisation
-26,14.0,0.26074285714285717, Baseline,50,14.0,"low_los, prop_low", Utilisation
-27,14.0_new_schedule,0.34452000000000005, Baseline + weekends,50,14.0,"low_los, prop_low", Utilisation
-28,15.0,0.8669090909090909, Baseline,55,15.0,"high_los, prop_high", Utilisation
-29,15.0_new_schedule,0.933412987012987, Baseline + weekends,55,15.0,"high_los, prop_high", Utilisation
-30,16.0,0.21206190476190476, Baseline,60,16.0,"low_los, prop_low", Utilisation
-31,16.0_new_schedule,0.29048095238095234, Baseline + weekends,60,16.0,"low_los, prop_low", Utilisation
-32,17.0,0.8437538461538461, Baseline,65,17.0,"high_los, prop_high", Utilisation
-33,17.0_new_schedule,0.9274241758241759, Baseline + weekends,65,17.0,"high_los, prop_high", Utilisation
-34,18.0,0.1866204081632653, Baseline,70,18.0,"low_los, prop_low", Utilisation
-35,18.0_new_schedule,0.25, Baseline + weekends,70,18.0,"low_los, prop_low", Utilisation
-36,19.0,0.8933809523809524, Baseline,30,19.0,"high_los, prop_low", Utilisation
-37,19.0_new_schedule,0.9382476190476191, Baseline + weekends,30,19.0,"high_los, prop_low", Utilisation
-38,20.0,0.6454530612244898, Baseline,35,20.0,"low_los, prop_high", Utilisation
-39,20.0_new_schedule,0.8152163265306123, Baseline + weekends,35,20.0,"low_los, prop_high", Utilisation
-40,21.0,0.8738071428571428, Baseline,40,21.0,"high_los, prop_low", Utilisation
-41,21.0_new_schedule,0.9317571428571428, Baseline + weekends,40,21.0,"high_los, prop_low", Utilisation
-42,22.0,0.4922412698412698, Baseline,45,22.0,"low_los, prop_high", Utilisation
-43,22.0_new_schedule,0.6735555555555556, Baseline + weekends,45,22.0,"low_los, prop_high", Utilisation
-44,23.0,0.8484914285714287, Baseline,50,23.0,"high_los, prop_low", Utilisation
-45,23.0_new_schedule,0.9255542857142858, Baseline + weekends,50,23.0,"high_los, prop_low", Utilisation
-46,24.0,0.4067792207792208, Baseline,55,24.0,"low_los, prop_high", Utilisation
-47,24.0_new_schedule,0.557812987012987, Baseline + weekends,55,24.0,"low_los, prop_high", Utilisation
-48,25.0,0.8154666666666667, Baseline,60,25.0,"high_los, prop_low", Utilisation
-49,25.0_new_schedule,0.9161714285714284, Baseline + weekends,60,25.0,"high_los, prop_low", Utilisation
-50,26.0,0.3427736263736264, Baseline,65,26.0,"low_los, prop_high", Utilisation
-51,26.0_new_schedule,0.4588395604395604, Baseline + weekends,65,26.0,"low_los, prop_high", Utilisation
-52,27.0,0.7593836734693877, Baseline,70,27.0,"high_los, prop_low", Utilisation
-53,27.0_new_schedule,0.9014448979591837, Baseline + weekends,70,27.0,"high_los, prop_low", Utilisation
-54,28.0,0.7200285714285714, Baseline,30,28.0,"low_los, prop_high", Utilisation
-55,28.0_new_schedule,0.8585238095238096, Baseline + weekends,30,28.0,"low_los, prop_high", Utilisation
-56,29.0,0.880791836734694, Baseline,35,29.0,"high_los, prop_low", Utilisation
-57,29.0_new_schedule,0.9336081632653062, Baseline + weekends,35,29.0,"high_los, prop_low", Utilisation
-58,30.0,0.5552142857142857, Baseline,40,30.0,"low_los, prop_high", Utilisation
-59,30.0_new_schedule,0.7502571428571427, Baseline + weekends,40,30.0,"low_los, prop_high", Utilisation
-60,31.0,0.8618793650793651, Baseline,45,31.0,"high_los, prop_low", Utilisation
-61,31.0_new_schedule,0.9291619047619049, Baseline + weekends,45,31.0,"high_los, prop_low", Utilisation
-62,32.0,0.4457428571428571, Baseline,50,32.0,"low_los, prop_high", Utilisation
-63,32.0_new_schedule,0.5987485714285714, Baseline + weekends,50,32.0,"low_los, prop_high", Utilisation
-64,33.0,0.8383220779220779, Baseline,55,33.0,"high_los, prop_low", Utilisation
-65,33.0_new_schedule,0.9202701298701299, Baseline + weekends,55,33.0,"high_los, prop_low", Utilisation
-66,34.0,0.3727095238095238, Baseline,60,34.0,"low_los, prop_high", Utilisation
-67,34.0_new_schedule,0.4986761904761905, Baseline + weekends,60,34.0,"low_los, prop_high", Utilisation
-68,35.0,0.7968747252747254, Baseline,65,35.0,"high_los, prop_low", Utilisation
-69,35.0_new_schedule,0.90829010989011, Baseline + weekends,65,35.0,"high_los, prop_low", Utilisation
-70,36.0,0.3213061224489796, Baseline,70,36.0,"low_los, prop_high", Utilisation
-71,36.0_new_schedule,0.43281224489795916, Baseline + weekends,70,36.0,"low_los, prop_high", Utilisation
-0,1.0,6.163174603174603, Baseline,30,1.0,"high_los, prop_high", Lost slots
-1,1.0_new_schedule,10.35531746031746, Baseline + weekends,30,1.0,"high_los, prop_high", Lost slots
+0,1.0,0.9078, Baseline,30,1.0,"high_los, prop_high", Utilisation
+1,1.0_new_schedule,0.9441619047619048, Baseline + weekends,30,1.0,"high_los, prop_high", Utilisation
+2,2.0,0.3727918367346939, Baseline,35,2.0,"low_los, prop_low", Utilisation
+3,2.0_new_schedule,0.5000489795918367, Baseline + weekends,35,2.0,"low_los, prop_low", Utilisation
+4,3.0,0.8940285714285714, Baseline,40,3.0,"high_los, prop_high", Utilisation
+5,3.0_new_schedule,0.9430214285714286, Baseline + weekends,40,3.0,"high_los, prop_high", Utilisation
+6,4.0,0.28749206349206347, Baseline,45,4.0,"low_los, prop_low", Utilisation
+7,4.0_new_schedule,0.38662222222222226, Baseline + weekends,45,4.0,"low_los, prop_low", Utilisation
+8,5.0,0.8753942857142858, Baseline,50,5.0,"high_los, prop_high", Utilisation
+9,5.0_new_schedule,0.9377657142857142, Baseline + weekends,50,5.0,"high_los, prop_high", Utilisation
+10,6.0,0.23723116883116882, Baseline,55,6.0,"low_los, prop_low", Utilisation
+11,6.0_new_schedule,0.319651948051948, Baseline + weekends,55,6.0,"low_los, prop_low", Utilisation
+12,7.0,0.8556999999999999, Baseline,60,7.0,"high_los, prop_high", Utilisation
+13,7.0_new_schedule,0.931347619047619, Baseline + weekends,60,7.0,"high_los, prop_high", Utilisation
+14,8.0,0.2015164835164835, Baseline,65,8.0,"low_los, prop_low", Utilisation
+15,8.0_new_schedule,0.26554285714285714, Baseline + weekends,65,8.0,"low_los, prop_low", Utilisation
+16,9.0,0.8187020408163266, Baseline,70,9.0,"high_los, prop_high", Utilisation
+17,9.0_new_schedule,0.9222408163265308, Baseline + weekends,70,9.0,"high_los, prop_high", Utilisation
+18,10.0,0.4352761904761905, Baseline,30,10.0,"low_los, prop_low", Utilisation
+19,10.0_new_schedule,0.5877428571428571, Baseline + weekends,30,10.0,"low_los, prop_low", Utilisation
+20,11.0,0.9056163265306122, Baseline,35,11.0,"high_los, prop_high", Utilisation
+21,11.0_new_schedule,0.9418938775510204, Baseline + weekends,35,11.0,"high_los, prop_high", Utilisation
+22,12.0,0.32292857142857145, Baseline,40,12.0,"low_los, prop_low", Utilisation
+23,12.0_new_schedule,0.4379142857142857, Baseline + weekends,40,12.0,"low_los, prop_low", Utilisation
+24,13.0,0.8893396825396825, Baseline,45,13.0,"high_los, prop_high", Utilisation
+25,13.0_new_schedule,0.9395301587301588, Baseline + weekends,45,13.0,"high_los, prop_high", Utilisation
+26,14.0,0.2613542857142857, Baseline,50,14.0,"low_los, prop_low", Utilisation
+27,14.0_new_schedule,0.3464742857142857, Baseline + weekends,50,14.0,"low_los, prop_low", Utilisation
+28,15.0,0.8685766233766233, Baseline,55,15.0,"high_los, prop_high", Utilisation
+29,15.0_new_schedule,0.9336103896103897, Baseline + weekends,55,15.0,"high_los, prop_high", Utilisation
+30,16.0,0.21557619047619048, Baseline,60,16.0,"low_los, prop_low", Utilisation
+31,16.0_new_schedule,0.29120476190476186, Baseline + weekends,60,16.0,"low_los, prop_low", Utilisation
+32,17.0,0.8382945054945057, Baseline,65,17.0,"high_los, prop_high", Utilisation
+33,17.0_new_schedule,0.9270109890109891, Baseline + weekends,65,17.0,"high_los, prop_high", Utilisation
+34,18.0,0.1854326530612245, Baseline,70,18.0,"low_los, prop_low", Utilisation
+35,18.0_new_schedule,0.24573877551020404, Baseline + weekends,70,18.0,"low_los, prop_low", Utilisation
+36,19.0,0.8939047619047619, Baseline,30,19.0,"high_los, prop_low", Utilisation
+37,19.0_new_schedule,0.9367904761904763, Baseline + weekends,30,19.0,"high_los, prop_low", Utilisation
+38,20.0,0.6477061224489796, Baseline,35,20.0,"low_los, prop_high", Utilisation
+39,20.0_new_schedule,0.8159673469387756, Baseline + weekends,35,20.0,"low_los, prop_high", Utilisation
+40,21.0,0.8736499999999999, Baseline,40,21.0,"high_los, prop_low", Utilisation
+41,21.0_new_schedule,0.9311785714285714, Baseline + weekends,40,21.0,"high_los, prop_low", Utilisation
+42,22.0,0.49579047619047617, Baseline,45,22.0,"low_los, prop_high", Utilisation
+43,22.0_new_schedule,0.6712507936507937, Baseline + weekends,45,22.0,"low_los, prop_high", Utilisation
+44,23.0,0.8544800000000001, Baseline,50,23.0,"high_los, prop_low", Utilisation
+45,23.0_new_schedule,0.9258114285714286, Baseline + weekends,50,23.0,"high_los, prop_low", Utilisation
+46,24.0,0.40685714285714286, Baseline,55,24.0,"low_los, prop_high", Utilisation
+47,24.0_new_schedule,0.5532467532467532, Baseline + weekends,55,24.0,"low_los, prop_high", Utilisation
+48,25.0,0.8157619047619048, Baseline,60,25.0,"high_los, prop_low", Utilisation
+49,25.0_new_schedule,0.9169142857142857, Baseline + weekends,60,25.0,"high_los, prop_low", Utilisation
+50,26.0,0.3436703296703297, Baseline,65,26.0,"low_los, prop_high", Utilisation
+51,26.0_new_schedule,0.4655252747252748, Baseline + weekends,65,26.0,"low_los, prop_high", Utilisation
+52,27.0,0.7610367346938776, Baseline,70,27.0,"high_los, prop_low", Utilisation
+53,27.0_new_schedule,0.9008, Baseline + weekends,70,27.0,"high_los, prop_low", Utilisation
+54,28.0,0.728152380952381, Baseline,30,28.0,"low_los, prop_high", Utilisation
+55,28.0_new_schedule,0.8663333333333334, Baseline + weekends,30,28.0,"low_los, prop_high", Utilisation
+56,29.0,0.8803102040816327, Baseline,35,29.0,"high_los, prop_low", Utilisation
+57,29.0_new_schedule,0.9321632653061226, Baseline + weekends,35,29.0,"high_los, prop_low", Utilisation
+58,30.0,0.5610071428571428, Baseline,40,30.0,"low_los, prop_high", Utilisation
+59,30.0_new_schedule,0.7514857142857143, Baseline + weekends,40,30.0,"low_los, prop_high", Utilisation
+60,31.0,0.8645079365079364, Baseline,45,31.0,"high_los, prop_low", Utilisation
+61,31.0_new_schedule,0.9272190476190477, Baseline + weekends,45,31.0,"high_los, prop_low", Utilisation
+62,32.0,0.4532228571428572, Baseline,50,32.0,"low_los, prop_high", Utilisation
+63,32.0_new_schedule,0.6061771428571429, Baseline + weekends,50,32.0,"low_los, prop_high", Utilisation
+64,33.0,0.8342753246753247, Baseline,55,33.0,"high_los, prop_low", Utilisation
+65,33.0_new_schedule,0.919225974025974, Baseline + weekends,55,33.0,"high_los, prop_low", Utilisation
+66,34.0,0.3676238095238095, Baseline,60,34.0,"low_los, prop_high", Utilisation
+67,34.0_new_schedule,0.5033619047619048, Baseline + weekends,60,34.0,"low_los, prop_high", Utilisation
+68,35.0,0.7923516483516484, Baseline,65,35.0,"high_los, prop_low", Utilisation
+69,35.0_new_schedule,0.9080571428571429, Baseline + weekends,65,35.0,"high_los, prop_low", Utilisation
+70,36.0,0.32131428571428566, Baseline,70,36.0,"low_los, prop_high", Utilisation
+71,36.0_new_schedule,0.4379469387755103, Baseline + weekends,70,36.0,"low_los, prop_high", Utilisation
+0,1.0,6.182380952380952, Baseline,30,1.0,"high_los, prop_high", Lost slots
+1,1.0_new_schedule,10.347619047619048, Baseline + weekends,30,1.0,"high_los, prop_high", Lost slots
 2,2.0,0.0, Baseline,35,2.0,"low_los, prop_low", Lost slots
-3,2.0_new_schedule,0.009523809523809523, Baseline + weekends,35,2.0,"low_los, prop_low", Lost slots
-4,3.0,4.69670634920635, Baseline,40,3.0,"high_los, prop_high", Lost slots
-5,3.0_new_schedule,8.530515873015872, Baseline + weekends,40,3.0,"high_los, prop_high", Lost slots
+3,2.0_new_schedule,0.009404761904761905, Baseline + weekends,35,2.0,"low_los, prop_low", Lost slots
+4,3.0,4.822063492063492, Baseline,40,3.0,"high_los, prop_high", Lost slots
+5,3.0_new_schedule,8.55595238095238, Baseline + weekends,40,3.0,"high_los, prop_high", Lost slots
 6,4.0,0.0, Baseline,45,4.0,"low_los, prop_low", Lost slots
 7,4.0_new_schedule,0.0, Baseline + weekends,45,4.0,"low_los, prop_low", Lost slots
-8,5.0,3.227738095238095, Baseline,50,5.0,"high_los, prop_high", Lost slots
-9,5.0_new_schedule,6.806468253968254, Baseline + weekends,50,5.0,"high_los, prop_high", Lost slots
+8,5.0,2.948968253968254, Baseline,50,5.0,"high_los, prop_high", Lost slots
+9,5.0_new_schedule,6.880079365079365, Baseline + weekends,50,5.0,"high_los, prop_high", Lost slots
 10,6.0,0.0, Baseline,55,6.0,"low_los, prop_low", Lost slots
 11,6.0_new_schedule,0.0, Baseline + weekends,55,6.0,"low_los, prop_low", Lost slots
-12,7.0,1.9285714285714286, Baseline,60,7.0,"high_los, prop_high", Lost slots
-13,7.0_new_schedule,5.146428571428571, Baseline + weekends,60,7.0,"high_los, prop_high", Lost slots
+12,7.0,1.9412698412698413, Baseline,60,7.0,"high_los, prop_high", Lost slots
+13,7.0_new_schedule,5.195277777777778, Baseline + weekends,60,7.0,"high_los, prop_high", Lost slots
 14,8.0,0.0, Baseline,65,8.0,"low_los, prop_low", Lost slots
 15,8.0_new_schedule,0.0, Baseline + weekends,65,8.0,"low_los, prop_low", Lost slots
-16,9.0,0.8073015873015874, Baseline,70,9.0,"high_los, prop_high", Lost slots
-17,9.0_new_schedule,3.6282539682539685, Baseline + weekends,70,9.0,"high_los, prop_high", Lost slots
-18,10.0,0.0034920634920634916, Baseline,30,10.0,"low_los, prop_low", Lost slots
-19,10.0_new_schedule,0.11210317460317461, Baseline + weekends,30,10.0,"low_los, prop_low", Lost slots
-20,11.0,5.378452380952381, Baseline,35,11.0,"high_los, prop_high", Lost slots
-21,11.0_new_schedule,9.432976190476191, Baseline + weekends,35,11.0,"high_los, prop_high", Lost slots
+16,9.0,0.8006349206349207, Baseline,70,9.0,"high_los, prop_high", Lost slots
+17,9.0_new_schedule,3.6690476190476184, Baseline + weekends,70,9.0,"high_los, prop_high", Lost slots
+18,10.0,0.0025396825396825397, Baseline,30,10.0,"low_los, prop_low", Lost slots
+19,10.0_new_schedule,0.1153968253968254, Baseline + weekends,30,10.0,"low_los, prop_low", Lost slots
+20,11.0,5.642023809523809, Baseline,35,11.0,"high_los, prop_high", Lost slots
+21,11.0_new_schedule,9.430992063492065, Baseline + weekends,35,11.0,"high_los, prop_high", Lost slots
 22,12.0,0.0, Baseline,40,12.0,"low_los, prop_low", Lost slots
 23,12.0_new_schedule,0.0, Baseline + weekends,40,12.0,"low_los, prop_low", Lost slots
-24,13.0,3.946904761904762, Baseline,45,13.0,"high_los, prop_high", Lost slots
-25,13.0_new_schedule,7.699761904761906, Baseline + weekends,45,13.0,"high_los, prop_high", Lost slots
+24,13.0,3.9747222222222223, Baseline,45,13.0,"high_los, prop_high", Lost slots
+25,13.0_new_schedule,7.678849206349207, Baseline + weekends,45,13.0,"high_los, prop_high", Lost slots
 26,14.0,0.0, Baseline,50,14.0,"low_los, prop_low", Lost slots
 27,14.0_new_schedule,0.0, Baseline + weekends,50,14.0,"low_los, prop_low", Lost slots
-28,15.0,2.539484126984127, Baseline,55,15.0,"high_los, prop_high", Lost slots
-29,15.0_new_schedule,6.079722222222222, Baseline + weekends,55,15.0,"high_los, prop_high", Lost slots
+28,15.0,2.4676984126984123, Baseline,55,15.0,"high_los, prop_high", Lost slots
+29,15.0_new_schedule,5.958730158730158, Baseline + weekends,55,15.0,"high_los, prop_high", Lost slots
 30,16.0,0.0, Baseline,60,16.0,"low_los, prop_low", Lost slots
 31,16.0_new_schedule,0.0, Baseline + weekends,60,16.0,"low_los, prop_low", Lost slots
-32,17.0,1.2460317460317463, Baseline,65,17.0,"high_los, prop_high", Lost slots
-33,17.0_new_schedule,4.385555555555556, Baseline + weekends,65,17.0,"high_los, prop_high", Lost slots
+32,17.0,1.2768253968253969, Baseline,65,17.0,"high_los, prop_high", Lost slots
+33,17.0_new_schedule,4.362063492063492, Baseline + weekends,65,17.0,"high_los, prop_high", Lost slots
 34,18.0,0.0, Baseline,70,18.0,"low_los, prop_low", Lost slots
 35,18.0_new_schedule,0.0, Baseline + weekends,70,18.0,"low_los, prop_low", Lost slots
-36,19.0,5.856507936507937, Baseline,30,19.0,"high_los, prop_low", Lost slots
-37,19.0_new_schedule,9.513769841269843, Baseline + weekends,30,19.0,"high_los, prop_low", Lost slots
-38,20.0,0.15785714285714286, Baseline,35,20.0,"low_los, prop_high", Lost slots
-39,20.0_new_schedule,1.741468253968254, Baseline + weekends,35,20.0,"low_los, prop_high", Lost slots
-40,21.0,3.9692460317460316, Baseline,40,21.0,"high_los, prop_low", Lost slots
-41,21.0_new_schedule,7.5928571428571425, Baseline + weekends,40,21.0,"high_los, prop_low", Lost slots
-42,22.0,0.00031746031746031746, Baseline,45,22.0,"low_los, prop_high", Lost slots
-43,22.0_new_schedule,0.12499999999999999, Baseline + weekends,45,22.0,"low_los, prop_high", Lost slots
-44,23.0,2.441904761904762, Baseline,50,23.0,"high_los, prop_low", Lost slots
-45,23.0_new_schedule,5.728849206349206, Baseline + weekends,50,23.0,"high_los, prop_low", Lost slots
+36,19.0,5.583214285714286, Baseline,30,19.0,"high_los, prop_low", Lost slots
+37,19.0_new_schedule,9.560595238095237, Baseline + weekends,30,19.0,"high_los, prop_low", Lost slots
+38,20.0,0.1891269841269841, Baseline,35,20.0,"low_los, prop_high", Lost slots
+39,20.0_new_schedule,1.7198412698412702, Baseline + weekends,35,20.0,"low_los, prop_high", Lost slots
+40,21.0,3.974960317460318, Baseline,40,21.0,"high_los, prop_low", Lost slots
+41,21.0_new_schedule,7.612380952380953, Baseline + weekends,40,21.0,"high_los, prop_low", Lost slots
+42,22.0,0.0006349206349206349, Baseline,45,22.0,"low_los, prop_high", Lost slots
+43,22.0_new_schedule,0.1353968253968254, Baseline + weekends,45,22.0,"low_los, prop_high", Lost slots
+44,23.0,2.529642857142857, Baseline,50,23.0,"high_los, prop_low", Lost slots
+45,23.0_new_schedule,5.68, Baseline + weekends,50,23.0,"high_los, prop_low", Lost slots
 46,24.0,0.0, Baseline,55,24.0,"low_los, prop_high", Lost slots
-47,24.0_new_schedule,0.0025396825396825397, Baseline + weekends,55,24.0,"low_los, prop_high", Lost slots
-48,25.0,1.1593650793650794, Baseline,60,25.0,"high_los, prop_low", Lost slots
-49,25.0_new_schedule,3.964523809523809, Baseline + weekends,60,25.0,"high_los, prop_low", Lost slots
+47,24.0_new_schedule,0.001587301587301587, Baseline + weekends,55,24.0,"low_los, prop_high", Lost slots
+48,25.0,1.0714285714285714, Baseline,60,25.0,"high_los, prop_low", Lost slots
+49,25.0_new_schedule,3.906150793650794, Baseline + weekends,60,25.0,"high_los, prop_low", Lost slots
 50,26.0,0.0, Baseline,65,26.0,"low_los, prop_high", Lost slots
 51,26.0_new_schedule,0.0, Baseline + weekends,65,26.0,"low_los, prop_high", Lost slots
-52,27.0,0.22603174603174603, Baseline,70,27.0,"high_los, prop_low", Lost slots
-53,27.0_new_schedule,2.3267857142857147, Baseline + weekends,70,27.0,"high_los, prop_low", Lost slots
-54,28.0,0.6944047619047619, Baseline,30,28.0,"low_los, prop_high", Lost slots
-55,28.0_new_schedule,3.2609920634920635, Baseline + weekends,30,28.0,"low_los, prop_high", Lost slots
-56,29.0,4.668809523809523, Baseline,35,29.0,"high_los, prop_low", Lost slots
-57,29.0_new_schedule,8.552539682539683, Baseline + weekends,35,29.0,"high_los, prop_low", Lost slots
-58,30.0,0.02011904761904762, Baseline,40,30.0,"low_los, prop_high", Lost slots
-59,30.0_new_schedule,0.6248412698412699, Baseline + weekends,40,30.0,"low_los, prop_high", Lost slots
-60,31.0,3.1567857142857143, Baseline,45,31.0,"high_los, prop_low", Lost slots
-61,31.0_new_schedule,6.604642857142857, Baseline + weekends,45,31.0,"high_los, prop_low", Lost slots
+52,27.0,0.1834920634920635, Baseline,70,27.0,"high_los, prop_low", Lost slots
+53,27.0_new_schedule,2.293174603174603, Baseline + weekends,70,27.0,"high_los, prop_low", Lost slots
+54,28.0,0.8309126984126983, Baseline,30,28.0,"low_los, prop_high", Lost slots
+55,28.0_new_schedule,3.185238095238095, Baseline + weekends,30,28.0,"low_los, prop_high", Lost slots
+56,29.0,4.860555555555556, Baseline,35,29.0,"high_los, prop_low", Lost slots
+57,29.0_new_schedule,8.53059523809524, Baseline + weekends,35,29.0,"high_los, prop_low", Lost slots
+58,30.0,0.010158730158730159, Baseline,40,30.0,"low_los, prop_high", Lost slots
+59,30.0_new_schedule,0.5805555555555556, Baseline + weekends,40,30.0,"low_los, prop_high", Lost slots
+60,31.0,3.154722222222222, Baseline,45,31.0,"high_los, prop_low", Lost slots
+61,31.0_new_schedule,6.650992063492063, Baseline + weekends,45,31.0,"high_los, prop_low", Lost slots
 62,32.0,0.0, Baseline,50,32.0,"low_los, prop_high", Lost slots
-63,32.0_new_schedule,0.01265873015873016, Baseline + weekends,50,32.0,"low_los, prop_high", Lost slots
-64,33.0,1.7307936507936508, Baseline,55,33.0,"high_los, prop_low", Lost slots
-65,33.0_new_schedule,4.8307142857142855, Baseline + weekends,55,33.0,"high_los, prop_low", Lost slots
+63,32.0_new_schedule,0.020714285714285716, Baseline + weekends,50,32.0,"low_los, prop_high", Lost slots
+64,33.0,1.6955555555555557, Baseline,55,33.0,"high_los, prop_low", Lost slots
+65,33.0_new_schedule,4.803571428571429, Baseline + weekends,55,33.0,"high_los, prop_low", Lost slots
 66,34.0,0.0, Baseline,60,34.0,"low_los, prop_high", Lost slots
-67,34.0_new_schedule,0.00031746031746031746, Baseline + weekends,60,34.0,"low_los, prop_high", Lost slots
-68,35.0,0.58, Baseline,65,35.0,"high_los, prop_low", Lost slots
-69,35.0_new_schedule,3.0993253968253964, Baseline + weekends,65,35.0,"high_los, prop_low", Lost slots
+67,34.0_new_schedule,0.0, Baseline + weekends,60,34.0,"low_los, prop_high", Lost slots
+68,35.0,0.5279365079365079, Baseline,65,35.0,"high_los, prop_low", Lost slots
+69,35.0_new_schedule,3.1082539682539685, Baseline + weekends,65,35.0,"high_los, prop_low", Lost slots
 70,36.0,0.0, Baseline,70,36.0,"low_los, prop_high", Lost slots
 71,36.0_new_schedule,0.0, Baseline + weekends,70,36.0,"low_los, prop_high", Lost slots
