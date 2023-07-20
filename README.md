@@ -60,7 +60,17 @@ specialties.
 ## Citing the model:
 
 If you use or adapt the HEP model for research, reporting, education or any other reason, please cite it using details on Zenodo [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7951080.svg)](https://doi.org/10.5281/zenodo.7951080)
- 
+
+Harper, A., & Monks, T. Hospital Efficiency Project  Orthopaedic Planning Model Discrete-Event Simulation [Computer software]. https://doi.org/10.5281/zenodo.7951080
+
+```
+@software{Alison_Hospital_Efficiency_Project,
+author = {Harper, A and Monks, T},
+license = {MIT},
+title = {{Hospital Efficiency Project  Orthopaedic Planning Model Discrete-Event Simulation}},
+url = {https://doi.org/10.5281/zenodo.7951080}
+} 
+```
 
 ## Aim:
 
