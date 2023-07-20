@@ -1,0 +1,35 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Hospital Efficiency Project 
+  Orthopaedic Planning Model
+  Discrete-Event Simulation
+message: please cite the sofware as below
+type: software
+authors:
+  - given-names: Harper
+    family-names: Alison
+    affiliation: University of Exeter
+    orcid: 'https://orcid.org/0000-0001-5274-5037'
+  - given-names: Monks
+    family-names: Thomas
+    affiliation: University of Exeter
+    orcid: 'https://orcid.org/0000-0003-2631-4481'
+    
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.7951080
+  - type: url
+    value: 'https://zenodo.org/record/7951080'
+repository-code: >-
+  https://github.com/AliHarp/HEP
+url: >-
+  https://aliharp.github.io/HEP/HEP_notebooks/01_intro.html
+keywords:
+  - Discrete-event simulation
+  - Health services research
+  - Orthopaedic surgical operational planning
+  - web app
+license: MIT
