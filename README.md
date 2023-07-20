@@ -64,11 +64,11 @@ If you use or adapt the HEP model for research, reporting, education or any othe
 Harper, A., & Monks, T. Hospital Efficiency Project  Orthopaedic Planning Model Discrete-Event Simulation [Computer software]. https://doi.org/10.5281/zenodo.7951080
 
 ```
-@software{Alison_Hospital_Efficiency_Project,
-author = {Harper, A and Monks, T},
+@software{Harper_Hospital_Efficiency_Project,
+author = {Harper, Alison and Monks, Thomas},
 license = {MIT},
 title = {{Hospital Efficiency Project  Orthopaedic Planning Model Discrete-Event Simulation}},
-url = {https://doi.org/10.5281/zenodo.7951080}
+url = {https://github.com/AliHarp/HEP}
 } 
 ```
 

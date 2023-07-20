@@ -37,7 +37,7 @@ Alongside other information sources such as workforce availability and costs, th
 **2.1 Base model overview diagram**
 
 
-![Process Flow Map](../../images/HEP_FLOW.jpg)
+![Process Flow Map](../../images/flowmap.jpg)
 
 **2.2 Base model logic**
 
