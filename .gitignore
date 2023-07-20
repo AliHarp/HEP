@@ -3,6 +3,7 @@
 data/*
 data_summaries/*
 notebooks/HipKnee_with_los_delay.csv
+archive
 
 #Jupyter book build
 _build/
