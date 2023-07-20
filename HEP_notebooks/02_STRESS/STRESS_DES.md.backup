@@ -37,7 +37,7 @@ Alongside other information sources such as workforce availability and costs, th
 **2.1 Base model overview diagram**
 
 
-![Process Flow Map](../../images/HEP_FLOW.jpg)
+![Process Flow Map](../../images/HEP_flowmap.jpg)
 
 **2.2 Base model logic**
 
@@ -105,7 +105,7 @@ The model was run on Intel i7-12700H CPU with 32GB RAM running Pop!_OS 22.04 Lin
 
 Simulation model code, streamlit code, and Jupyter book is available at the main branch of GitHub repo: https://github.com/AliHarp/HEP
 
-It is archived on Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7951080.svg)](https://doi.org/10.5281/zenodo.7951080)
+It is permanently archived on Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7951080.svg)](https://doi.org/10.5281/zenodo.7951080)
 
 
 
