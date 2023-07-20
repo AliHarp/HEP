@@ -9,12 +9,12 @@ title: >-
 message: please cite the sofware as below
 type: software
 authors:
-  - given-names: Harper
-    family-names: Alison
+  - given-names: Alison
+    family-names: Harper
     affiliation: University of Exeter
     orcid: 'https://orcid.org/0000-0001-5274-5037'
-  - given-names: Monks
-    family-names: Thomas
+  - given-names: Thomas
+    family-names: Monks
     affiliation: University of Exeter
     orcid: 'https://orcid.org/0000-0003-2631-4481'
     

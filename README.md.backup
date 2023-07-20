@@ -25,7 +25,7 @@ The model is reported here [![Read the Docs](https://readthedocs.org/projects/pi
 [![ORCID: Monks](https://img.shields.io/badge/ORCID-0000--0003--2631--4481-brightgreen)](https://orcid.org/0000-0003-2631-4481)
 [![ORCID: Pitt](https://img.shields.io/badge/ORCID-0000--0003--4026--8346-brightgreen)](https://orcid.org/0000-0003-4026-8346)
 
-## Write up of study
+## Write up of study (pre-print):
 
 [**POST-COVID ORTHOPAEDIC ELECTIVE RESOURCE PLANNING USING SIMULATION
 MODELLING**](https://www.medrxiv.org/content/10.1101/2023.05.31.23290774v1.full.pdf)
@@ -57,8 +57,20 @@ by identifying a balance of capacity across theatres and beds and predicting the
 measures on capacity requirements. It is applicable beyond the study site and can be adapted for other
 specialties.
 
+## Citing the model:
+
 If you use or adapt the HEP model for research, reporting, education or any other reason, please cite it using details on Zenodo [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7951080.svg)](https://doi.org/10.5281/zenodo.7951080)
- 
+
+Harper, A., & Mon M. Hospital Efficiency Project  Orthopaedic Planning Model Discrete-Event Simulation [Computer software]. https://doi.org/10.5281/zenodo.7951080
+
+```
+@software{Alison_Hospital_Efficiency_Project,
+author = {Alison, Harper and Thomas, Monks},
+license = {MIT},
+title = {{Hospital Efficiency Project  Orthopaedic Planning Model Discrete-Event Simulation}},
+url = {https://doi.org/10.5281/zenodo.7951080}
+} 
+```
 
 ## Aim:
 
