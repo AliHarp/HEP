@@ -56,7 +56,7 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 * Visit our [jupyter book](https://aliharp.github.io/HEP/HEP_notebooks/01_intro.html) for interactive code and explanatory text
 * Run our Jupyter notebooks in binder 
 * [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AliHarp/HEP/HEAD)
-* [A fork of this model](https://github.com/TomMonks/hep-deploy) was used to create a deployable, containerised version in [Dockerhub](https://hub.docker.com/r/tommonks01/hep-sim)
+* [A fork of this model](https://github.com/TomMonks/hep-deploy) was used by Tom Monks to create a deployable, containerised version in [Dockerhub](https://hub.docker.com/r/tommonks01/hep-sim) 
 
 
 ## Repo overview 
