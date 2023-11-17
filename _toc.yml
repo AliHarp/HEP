@@ -13,5 +13,7 @@ parts:
 - caption: REPORTING GUIDELINES
   chapters:
   - file: HEP_notebooks/02_STRESS/STRESS_DES
-
+- caption: DOCKER CONTAINER
+  chapters:
+  - file: HEP_notebooks/03_docker/Docker_container
 
