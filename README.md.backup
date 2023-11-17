@@ -15,47 +15,11 @@ The materials and data in this repository support: Hospital Efficiency Project d
 The model is reported here [![Read the Docs](https://readthedocs.org/projects/pip/badge/?version=latest)](https://github.com/AliHarp/HEP/blob/main/HEP_notebooks/02_STRESS/STRESS_DES.md) using STRESS-DES guidelines:
 [Monks et al. 2019](https://doi.org/10.1080/17477778.2018.1442155) 
 
-
-
-
-
 ## Author ORCIDs
 
 [![ORCID: Harper](https://img.shields.io/badge/ORCID-0000--0001--5274--5037-brightgreen)](https://orcid.org/0000-0001-5274-5037)
 [![ORCID: Monks](https://img.shields.io/badge/ORCID-0000--0003--2631--4481-brightgreen)](https://orcid.org/0000-0003-2631-4481)
 [![ORCID: Pitt](https://img.shields.io/badge/ORCID-0000--0003--4026--8346-brightgreen)](https://orcid.org/0000-0003-4026-8346)
-
-## Write up of study (pre-print):
-
-[**POST-COVID ORTHOPAEDIC ELECTIVE RESOURCE PLANNING USING SIMULATION
-MODELLING**](https://www.medrxiv.org/content/10.1101/2023.05.31.23290774v1.full.pdf)
-
-Alison Harper
-, Thomas Monks
-, Rebecca Wilson
-, Maria Theresa Redaniel
-, Emily Eyles
-, Tim Jones
-,
-Chris Penfold
-, Andrew Elliott
-, Tim Keen
-, Martin Pitt
-, Ashley Blom
-, Michael Whitehouse
-,
-and Andrew Judge
-
-An open-source, generalisable discrete-event simulation was developed, including a web-based
-application. The model used anonymised patient records between 2016-2019 of elective orthopaedic
-procedures from an NHS Trust in England. In this paper, it is used to investigate scenarios including resourcing
-(beds and theatres) and productivity (lengths-of-stay, delayed discharges, theatre activity) to support planning
-for meeting new NHS targets aimed at reducing elective orthopaedic surgical backlogs in a proposed ring
-fenced orthopaedic surgical facility. The simulation is interactive and intended for use by health service
-planners and clinicians to support capacity planning of orthopaedic elective services
-by identifying a balance of capacity across theatres and beds and predicting the impact of productivity
-measures on capacity requirements. It is applicable beyond the study site and can be adapted for other
-specialties.
 
 ## Citing the model:
 
@@ -87,11 +51,13 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 
 > `conda env create -f binder/environment.yml`
 
-**Online Alternatives**:
+## Online Alternatives
 * Visit our [interactable web app](https://hospital-efficiency-project.streamlit.app/) to experiment with simulation parameters
 * Visit our [jupyter book](https://aliharp.github.io/HEP/HEP_notebooks/01_intro.html) for interactive code and explanatory text
 * Run our Jupyter notebooks in binder 
 * [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AliHarp/HEP/HEAD)
+* [A fork of this model](https://github.com/TomMonks/hep-deploy) was used to create a deployable, containerised version in [Dockerhub](https://hub.docker.com/r/tommonks01/hep-sim)
+
 
 ## Repo overview 
 
@@ -117,3 +83,40 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 * `README` - this document
 * `_toc.yml` - the table of contents for our Jupyter Book.
 
+## Write up of study:
+
+[**POST-COVID ORTHOPAEDIC ELECTIVE RESOURCE PLANNING USING SIMULATION
+MODELLING**](https://www.medrxiv.org/content/10.1101/2023.05.31.23290774v1.full.pdf) (pre-print)
+
+Alison Harper
+, Thomas Monks
+, Rebecca Wilson
+, Maria Theresa Redaniel
+, Emily Eyles
+, Tim Jones
+,
+Chris Penfold
+, Andrew Elliott
+, Tim Keen
+, Martin Pitt
+, Ashley Blom
+, Michael Whitehouse
+,
+and Andrew Judge
+
+An open-source, generalisable discrete-event simulation was developed, including a web-based
+application. The model used anonymised patient records between 2016-2019 of elective orthopaedic
+procedures from an NHS Trust in England. In this paper, it is used to investigate scenarios including resourcing
+(beds and theatres) and productivity (lengths-of-stay, delayed discharges, theatre activity) to support planning
+for meeting new NHS targets aimed at reducing elective orthopaedic surgical backlogs in a proposed ring
+fenced orthopaedic surgical facility. The simulation is interactive and intended for use by health service
+planners and clinicians to support capacity planning of orthopaedic elective services
+by identifying a balance of capacity across theatres and beds and predicting the impact of productivity
+measures on capacity requirements. It is applicable beyond the study site and can be adapted for other
+specialties.
+
+[**Deploying Healthcare Simulation Models Using Containerization and Continuous Integration**](https://osf.io/qez45 ) (pre-print)
+
+Alison Harper, Thomas Monks, Sean Manzi
+
+Methods or approaches from disciplines outside of OR Modeling and Simulation (M&S) can potentially increase the functionality of simulation models. In healthcare research, where simulation models are commonly used, we see few applications of models that can easily be deployed by other researchers or by healthcare stakeholders. Models are treated as disposable artifacts, developed to deliver a set of results for stakeholders or for publication. By utilising approaches from software engineering, M&S researchers can develop models that are intended to be deployed for re-use. We propose one potential solution to deploying free and open source simulations using containerisation with continuous integration. A container provides a self-contained environment that encapsulates the model and all its required dependencies including the operating system, software, and packages. This overcomes a significant barrier to sharing models developed in open source software, which is dependency management. Isolating the environment in a container ensures that the simulation model behaves the same way across different computing environments. It also means that other users can interact with the model without installing software and packages, supporting both use and re-use, and reproducibility of results. We illustrate the approach using a model developed for orthopaedic elective recovery planning, developed with a user-friendly interface in Python, including a clear set of steps to support M&S researchers to deploy their own models using our hybrid framework.
