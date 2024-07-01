@@ -85,8 +85,7 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 
 ## Write up of study:
 
-[**Development and application of simulation modelling for orthopaedic elective resource planning in England
-**](https://bmjopen.bmj.com/content/bmjopen/13/12/e076221.full.pdf)
+[**Development and application of simulation modelling for orthopaedic elective resource planning in England**](https://bmjopen.bmj.com/content/bmjopen/13/12/e076221.full.pdf)
 
 Alison Harper
 , Thomas Monks
