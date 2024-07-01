@@ -25,7 +25,7 @@ The model is reported here [![Read the Docs](https://readthedocs.org/projects/pi
 
 If you use or adapt the HEP model for research, reporting, education or any other reason, please cite it using details on Zenodo [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7951080.svg)](https://doi.org/10.5281/zenodo.7951080)
 
-Harper, A., & Monks, T. Hospital Efficiency Project  Orthopaedic Planning Model Discrete-Event Simulation [Computer software]. https://doi.org/10.5281/zenodo.7951080
+Harper, A., & Monks, T. Hospital Efficiency Project  Orthopaedic Planning Model Discrete-Event Simulation [Computer software](https://doi.org/10.5281/zenodo.7951080)
 
 ```
 @software{Harper_Hospital_Efficiency_Project,
@@ -85,8 +85,8 @@ All dependencies can be found in [`binder/environment.yml`]() and are pulled fro
 
 ## Write up of study:
 
-[**POST-COVID ORTHOPAEDIC ELECTIVE RESOURCE PLANNING USING SIMULATION
-MODELLING**](https://www.medrxiv.org/content/10.1101/2023.05.31.23290774v1.full.pdf) (pre-print)
+[**Development and application of simulation modelling for orthopaedic elective resource planning in England
+**](https://bmjopen.bmj.com/content/bmjopen/13/12/e076221.full.pdf)
 
 Alison Harper
 , Thomas Monks
@@ -104,19 +104,62 @@ Chris Penfold
 ,
 and Andrew Judge
 
-An open-source, generalisable discrete-event simulation was developed, including a web-based
-application. The model used anonymised patient records between 2016-2019 of elective orthopaedic
-procedures from an NHS Trust in England. In this paper, it is used to investigate scenarios including resourcing
-(beds and theatres) and productivity (lengths-of-stay, delayed discharges, theatre activity) to support planning
-for meeting new NHS targets aimed at reducing elective orthopaedic surgical backlogs in a proposed ring
-fenced orthopaedic surgical facility. The simulation is interactive and intended for use by health service
-planners and clinicians to support capacity planning of orthopaedic elective services
-by identifying a balance of capacity across theatres and beds and predicting the impact of productivity
-measures on capacity requirements. It is applicable beyond the study site and can be adapted for other
-specialties.
+<details>
+  <summary>Abstract</summary>
+
+This study aimed to develop a simulation
+model to support orthopaedic elective capacity planning.
+An open-source, generalisable discrete-
+event simulation was developed, including a web-
+based application. The model used anonymised patient
+records between 2016 and 2019 of elective orthopaedic
+procedures from a National Health Service (NHS) Trust in
+England. In this paper, it is used to investigate scenarios
+including resourcing (beds and theatres) and productivity
+(lengths of stay, delayed discharges and theatre activity)
+to support planning for meeting new NHS targets aimed
+at reducing elective orthopaedic surgical backlogs in a
+proposed ring-fenced orthopaedic surgical facility. The
+simulation is interactive and intended for use by health
+service planners and clinicians.
+A higher number of beds (65–70) than the
+proposed number (40 beds) will be required if lengths
+of stay and delayed discharge rates remain unchanged.
+Reducing lengths of stay in line with national benchmarks
+reduces bed utilisation to an estimated 60%, allowing
+for additional theatre activity such as weekend working.
+Further, reducing the proportion of patients with a delayed
+discharge by 75% reduces bed utilisation to below 40%,
+even with weekend working. A range of other scenarios
+can also be investigated directly by NHS planners using
+the interactive web app.
+The simulation model is intended to support
+capacity planning of orthopaedic elective services by
+identifying a balance of capacity across theatres and beds
+and predicting the impact of productivity measures on
+capacity requirements. It is applicable beyond the study
+site and can be adapted for other specialties.
+
+</details>
+
+[**Open-Source Modeling for Orthopedic Elective Capacity Planning using Discrete-Event Simulation**](https://ieeexplore.ieee.org/abstract/document/10408227)
+
+Alison Harper; Martin Pitt; Thomas Monks
+
+<details>
+  <summary>Abstract</summary>
+
+The increase in elective surgical waiting lists as a result of the COVID-19 pandemic is creating significant consequences for health services worldwide. In the UK, the allocation of capital funds to increase capacity for managing elective waits has created planning and operational challenges for health services. This paper reports on the development and deployment of an interactive web-based discrete-event simulation model for supporting capacity planning of surgical activity and ward stay in a proposed new ring-fenced orthopedic facility in a UK health service. The model is free and open-source and developed to be generic and applicable for new capacity planning of elective recovery in orthopedics in other regions. With minor adaptations it can also be readily modified for application to other specialties. Given the current relevance of managing record elective waiting lists, there is potential widespread applicability of the simulation model which is supported by our open approach to modeling.
+
+</details>
 
 [**Deploying Healthcare Simulation Models Using Containerization and Continuous Integration**](https://osf.io/qez45 ) (pre-print)
 
 Alison Harper, Thomas Monks, Sean Manzi
 
+<details>
+  <summary>Abstract</summary>
+  
 Methods or approaches from disciplines outside of OR Modeling and Simulation (M&S) can potentially increase the functionality of simulation models. In healthcare research, where simulation models are commonly used, we see few applications of models that can easily be deployed by other researchers or by healthcare stakeholders. Models are treated as disposable artifacts, developed to deliver a set of results for stakeholders or for publication. By utilising approaches from software engineering, M&S researchers can develop models that are intended to be deployed for re-use. We propose one potential solution to deploying free and open source simulations using containerisation with continuous integration. A container provides a self-contained environment that encapsulates the model and all its required dependencies including the operating system, software, and packages. This overcomes a significant barrier to sharing models developed in open source software, which is dependency management. Isolating the environment in a container ensures that the simulation model behaves the same way across different computing environments. It also means that other users can interact with the model without installing software and packages, supporting both use and re-use, and reproducibility of results. We illustrate the approach using a model developed for orthopaedic elective recovery planning, developed with a user-friendly interface in Python, including a clear set of steps to support M&S researchers to deploy their own models using our hybrid framework.
+
+</details>
